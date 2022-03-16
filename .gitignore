@@ -7,7 +7,7 @@
 /LinkedListProblem/.vs/
 /.vs/
 /facebook/FacenookProblem/.vs/
-/facebook/FacenookProblem/Spiral/bin/
-/facebook/FacenookProblem/Spiral/obj/
+/facebook/FacenookProblem/*/bin/
+/facebook/FacenookProblem/*/obj/
 /SinglyLinkedList/obj
 /SinglyLinkedList/bin
