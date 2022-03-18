@@ -5,9 +5,11 @@
 /LinkedListProblem/bin/
 /LinkedListProblem/obj/
 /LinkedListProblem/.vs/
-/.vs/
+*/.vs/*
+.vs/*
 /facebook/FacenookProblem/.vs/
-/facebook/FacenookProblem/*/bin/
-/facebook/FacenookProblem/*/obj/
+/Problems/*/bin/
+/Problems/*/obj/
 /SinglyLinkedList/obj
 /SinglyLinkedList/bin
+/Problems/ActivitySelectionProblem/bin/Debug/net6.0
