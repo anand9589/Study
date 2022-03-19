@@ -72,6 +72,27 @@
             }
         }
 
+        internal void RemoveDuplicatesFromUnsortedList()
+        {
+            if (Head == null)
+            {
+                return;
+            }
+            List<T> list = new List<T>() { Head.Data };
+            Node<T> node = Head;
+            while (node != null)
+            {
+
+                while (node.Next != null && list.Contains(node.Next.Data))
+                {
+                    node.Next = node.Next.Next;
+                }
+                if (node.Next != null) list.Add(node.Next.Data);
+
+                node = node.Next;
+            }
+        }
+
         /// <summary>
         /// Get middle node
         /// </summary>
