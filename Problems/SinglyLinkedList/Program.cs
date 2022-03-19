@@ -25,3 +25,24 @@ linked.Push('b');
 
 bool isPalindromw = linked.IsPalindrome();
 Console.WriteLine(isPalindromw);
+
+Console.WriteLine();
+Console.WriteLine("==========Remove duplicate from sorted list=============");
+SinglyLinkedList.LinkedList<int> sortedList = new SinglyLinkedList.LinkedList<int>();
+sortedList.Push(11);
+sortedList.Push(11);
+sortedList.Push(11);
+sortedList.Push(11);
+sortedList.Push(13);
+sortedList.Push(14);
+sortedList.Push(14);
+sortedList.Push(15);
+sortedList.Push(15);
+sortedList.Push(15);
+sortedList.Print();
+sortedList.RemoveDuplicatesFromSortedList();
+Console.WriteLine();
+sortedList.Print();
+Console.WriteLine();
+Console.WriteLine("=======================");
+Console.WriteLine();

@@ -56,6 +56,22 @@
             return true;
         }
 
+        internal void RemoveDuplicatesFromSortedList()
+        {
+            if (Head == null) return;
+
+            Node<T> node = Head;
+
+            while (node != null && node.Next != null)
+            {
+                while (node.Next != null && node.Data.Equals(node.Next.Data))
+                {
+                    node.Next = node.Next.Next;
+                }
+                node = node.Next;
+            }
+        }
+
         /// <summary>
         /// Get middle node
         /// </summary>
