@@ -32,6 +32,30 @@
             }
         }
 
+        internal bool IsPalindromw()
+        {
+            if (Head == null) return false;
+            Node<T> temp = Head;
+            Stack<T> stack = new Stack<T>();
+
+            while (temp != null)
+            {
+                stack.Push(temp.Data);
+                temp = temp.Next;
+            }
+
+            temp = Head;
+
+            while (temp != null)
+            {
+                if (!temp.Data.Equals(stack.Pop())) return false;
+
+                temp = temp.Next;
+            }
+
+            return true;
+        }
+
         /// <summary>
         /// Get middle node
         /// </summary>
