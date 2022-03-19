@@ -1,10 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("enter the no inputs: ");
+﻿
+Console.WriteLine("Enter row length ");
+int row = int.Parse(Console.ReadLine());
 
-int n = int.Parse(Console.ReadLine());
+Console.WriteLine("Enter col length ");
+int col = int.Parse(Console.ReadLine());
 
-int[,] outputarray = spiralMethod(n);
 
+int[,] outputarray = spiralMethod(row, col);
 printarray(outputarray);
 
 
@@ -20,28 +22,30 @@ void printarray(int[,] outputarray)
     }
 }
 
-int[,] spiralMethod(int n)
+int[,] spiralMethod(int r, int c)
 {
-    int[,] a = new int[n,n];
-    int j = 1;  
-     int x1 = 0 ,  y1=0 ,   x2=n-1, y2=n-1 ;
-    while(j <= n * n)
+    int[,] a = new int[r, c];
+    int j = 1;
+
+    int x1 = 0, y1 = 0, x2 = c - 1, y2 = r - 1;
+    while (j <= r * c)
     {
-        for (int  i = x1; i <=x2; i++)
+        for (int i = x1; i <= x2; i++)
         {
             a[y1, i] = j;
             j++;
         }
         y1++;
 
-        for (int i =y1; i <= y2 ; i++)
+        for (int i = y1; i <= y2; i++)
         {
             a[i, x2] = j;
             j++;
         }
         x2--;
- 
-        for(int  i = x2; i>=x1; i--)
+
+
+        for (int i = x2; i >= x1; i--)
         {
             a[y2, i] = j;
             j++;
@@ -53,8 +57,8 @@ int[,] spiralMethod(int n)
             a[i, x1] = j;
             j++;
         }
- 
-            x1++;
+
+        x1++;
 
     }
 
