@@ -8,3 +8,10 @@ ts.Push(43);
 ts.Push(61);
 ts.Push(3);
 ts.Print();
+Console.WriteLine();
+Console.WriteLine(ts.GetMiddleNode());
+
+ts.Push(67);
+ts.Print();
+Console.WriteLine();
+Console.WriteLine(ts.GetMiddleNode());

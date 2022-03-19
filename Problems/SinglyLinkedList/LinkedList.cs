@@ -33,13 +33,33 @@
         }
 
         /// <summary>
+        /// Get middle node
+        /// </summary>
+        /// <returns></returns>
+        internal int GetMiddleNode()
+        {
+            if (Head == null) return -1;
+
+            Node slow = Head;
+            Node fast = Head;
+
+            while (fast != null && fast.Next != null)
+            {
+                slow = slow.Next;
+                fast = fast.Next.Next;
+            }
+
+            return slow.Data;
+
+        }
+        /// <summary>
         /// print linkedlist
         /// </summary>
         internal void Print()
         {
             Node temp = Head;
 
-            while (temp!=null)
+            while (temp != null)
             {
                 Console.Write($" {temp.Data} ");
                 temp = temp.Next;
