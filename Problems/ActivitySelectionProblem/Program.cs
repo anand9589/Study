@@ -5,11 +5,18 @@ int[] end = { 2, 4, 6, 7, 9, 9 };
 
 int[] result = activitySelection(start, end);
 
+Console.WriteLine(string.Join(' ', result));
+
 int[] activitySelection(int[] start, int[] end)
 {
-    for (int i = 0; i < start.Length; i++)
+    List<int> list = new List<int>();
+    list.Add(1);
+    for (int i = 1; i < start.Length; i++)
     {
-
+        if (start[i] > end[list.Last() - 1])
+        {
+            list.Add(i + 1);
+        }
     }
-    return new int[2];
+    return list.ToArray();
 }
