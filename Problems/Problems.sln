@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActivitySelectionProblem", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Battleship", "Battleship\Battleship.csproj", "{F398F806-7979-4651-860C-921C13D743E4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SinglyLinkedList", "SinglyLinkedList\SinglyLinkedList.csproj", "{3FECFBEE-9F79-436D-8A81-E5177AAF281D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F398F806-7979-4651-860C-921C13D743E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F398F806-7979-4651-860C-921C13D743E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F398F806-7979-4651-860C-921C13D743E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FECFBEE-9F79-436D-8A81-E5177AAF281D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FECFBEE-9F79-436D-8A81-E5177AAF281D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FECFBEE-9F79-436D-8A81-E5177AAF281D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FECFBEE-9F79-436D-8A81-E5177AAF281D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
