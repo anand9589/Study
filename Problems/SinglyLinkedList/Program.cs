@@ -23,5 +23,5 @@ linked.Push('c');
 linked.Push('b');
 linked.Push('b');
 
-bool isPalindromw = linked.IsPalindromw();
+bool isPalindromw = linked.IsPalindrome();
 Console.WriteLine(isPalindromw);

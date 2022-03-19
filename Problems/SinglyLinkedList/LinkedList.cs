@@ -32,7 +32,7 @@
             }
         }
 
-        internal bool IsPalindromw()
+        internal bool IsPalindrome()
         {
             if (Head == null) return false;
             Node<T> temp = Head;
