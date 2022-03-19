@@ -1,6 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 Console.WriteLine("Hello, World!");
-SinglyLinkedList.LinkedList ts = new SinglyLinkedList.LinkedList();
+SinglyLinkedList.LinkedList<int> ts = new SinglyLinkedList.LinkedList<int>();
 //ts.Print();
 ts.Push(55);
 ts.Push(68);

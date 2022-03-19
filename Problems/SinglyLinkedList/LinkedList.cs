@@ -1,8 +1,8 @@
 ﻿namespace SinglyLinkedList
 {
-    internal class LinkedList
+    internal class LinkedList<T>
     {
-        public Node Head { get; set; }
+        public Node<T> Head { get; set; }
 
         //public LinkedList(Node head)
         //{
@@ -13,16 +13,16 @@
         /// added node at the end of the linked list
         /// </summary>
         /// <param name="data"></param>
-        internal void Push(int data)
+        internal void Push(T data)
         {
-            Node newNode = new Node(data);
+            Node<T> newNode = new Node<T>(data);
             if (Head == null)
             {
                 Head = newNode;
             }
             else
             {
-                Node temp = Head;
+                Node<T> temp = Head;
                 while (temp.Next != null)
                 {
                     temp = temp.Next;
@@ -36,12 +36,12 @@
         /// Get middle node
         /// </summary>
         /// <returns></returns>
-        internal int GetMiddleNode()
+        internal T GetMiddleNode()
         {
-            if (Head == null) return -1;
+            if (Head == null) return default;
 
-            Node slow = Head;
-            Node fast = Head;
+            Node<T> slow = Head;
+            Node<T> fast = Head;
 
             while (fast != null && fast.Next != null)
             {
@@ -57,7 +57,7 @@
         /// </summary>
         internal void Print()
         {
-            Node temp = Head;
+            Node<T> temp = Head;
 
             while (temp != null)
             {

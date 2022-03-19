@@ -1,12 +1,12 @@
 ﻿namespace SinglyLinkedList
 {
-    internal class Node
+    internal class Node<T>
     {
-        public int Data { get; set; }
+        public T Data { get; set; }
 
-        public Node Next { get; set; }
+        public Node<T> Next { get; set; }
 
-        public Node(int data)
+        public Node(T data)
         {
             this.Data = data;
         }
