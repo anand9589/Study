@@ -16,6 +16,45 @@ ts.Print();
 Console.WriteLine();
 Console.WriteLine(ts.GetMiddleNode());
 
+Console.WriteLine();
+Console.WriteLine("==========Swap 68 and 3=============");
+
+ts.Print();
+Console.WriteLine();
+ts.SwapNodes(68, 3);
+ts.Print();
+Console.WriteLine();
+Console.WriteLine("====================================");
+
+Console.WriteLine();
+Console.WriteLine("==========Swap 55 and 68=============");
+
+ts.Print();
+Console.WriteLine();
+ts.SwapNodes(55, 68);
+ts.Print();
+Console.WriteLine();
+Console.WriteLine("====================================");
+
+Console.WriteLine();
+Console.WriteLine("==========Swap 55 and 67=============");
+
+ts.Print();
+Console.WriteLine();
+ts.SwapNodes(55, 67);
+ts.Print();
+Console.WriteLine();
+Console.WriteLine("====================================");
+Console.WriteLine();
+Console.WriteLine("==========Swap 55 and 68=============");
+
+ts.Print();
+Console.WriteLine();
+ts.SwapNodes(55, 68);
+ts.Print();
+Console.WriteLine();
+Console.WriteLine("====================================");
+
 SinglyLinkedList.LinkedList<char> linked = new SinglyLinkedList.LinkedList<char>();
 linked.Push('a');
 linked.Push('b');
