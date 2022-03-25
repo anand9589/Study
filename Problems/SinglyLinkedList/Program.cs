@@ -109,3 +109,10 @@ unsortedList.Print();
 Console.WriteLine();
 Console.WriteLine("=======================");
 Console.WriteLine();
+
+
+SinglyLinkedList.LinkedList<int> loopList = new SinglyLinkedList.LinkedList<int>();
+loopList.Push(1);
+loopList.Push(3);
+loopList.Push(4);
+loopList.AddNextNodeToTheTail(2);

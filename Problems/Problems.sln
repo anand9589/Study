@@ -13,6 +13,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Battleship", "Battleship\Ba
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SinglyLinkedList", "SinglyLinkedList\SinglyLinkedList.csproj", "{3FECFBEE-9F79-436D-8A81-E5177AAF281D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkedListProblems", "LinkedListProblems\LinkedListProblems.csproj", "{CC72B819-0953-4F20-9EB1-4FF13CF23D43}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{FAB0473D-4186-487E-A8D3-836334E18969}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4DCC090F-7DC2-460F-AC5A-D7712B76B895}"
+	ProjectSection(SolutionItems) = preProject
+		Problem1.txt = Problem1.txt
+		..\..\..\My\Problem1LL1.txt = ..\..\..\My\Problem1LL1.txt
+		Problem2.txt = Problem2.txt
+		Problem3.txt = Problem3.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +51,14 @@ Global
 		{3FECFBEE-9F79-436D-8A81-E5177AAF281D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FECFBEE-9F79-436D-8A81-E5177AAF281D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FECFBEE-9F79-436D-8A81-E5177AAF281D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC72B819-0953-4F20-9EB1-4FF13CF23D43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC72B819-0953-4F20-9EB1-4FF13CF23D43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC72B819-0953-4F20-9EB1-4FF13CF23D43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC72B819-0953-4F20-9EB1-4FF13CF23D43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAB0473D-4186-487E-A8D3-836334E18969}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAB0473D-4186-487E-A8D3-836334E18969}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAB0473D-4186-487E-A8D3-836334E18969}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAB0473D-4186-487E-A8D3-836334E18969}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

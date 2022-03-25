@@ -1,8 +1,10 @@
-﻿namespace SinglyLinkedList
+﻿using Common;
+
+namespace SinglyLinkedList
 {
     internal class LinkedList<T>
     {
-        public Node<T> Head { get; set; }
+        public NodeGeneric<T> Head { get; set; }
 
         //public LinkedList(Node head)
         //{
@@ -15,14 +17,14 @@
         /// <param name="data"></param>
         internal void Push(T data)
         {
-            Node<T> newNode = new Node<T>(data);
+            NodeGeneric<T> newNode = new NodeGeneric<T>(data);
             if (Head == null)
             {
                 Head = newNode;
             }
             else
             {
-                Node<T> temp = Head;
+                NodeGeneric<T> temp = Head;
                 while (temp.Next != null)
                 {
                     temp = temp.Next;
@@ -35,7 +37,7 @@
         internal bool IsPalindrome()
         {
             if (Head == null) return false;
-            Node<T> temp = Head;
+            NodeGeneric<T> temp = Head;
             Stack<T> stack = new Stack<T>();
 
             while (temp != null)
@@ -60,7 +62,7 @@
         {
             if (Head == null) return;
 
-            Node<T> node = Head;
+            NodeGeneric<T> node = Head;
 
             while (node != null && node.Next != null)
             {
@@ -79,7 +81,7 @@
                 return;
             }
             List<T> list = new List<T>() { Head.Data };
-            Node<T> node = Head;
+            NodeGeneric<T> node = Head;
             while (node != null)
             {
 
@@ -96,12 +98,12 @@
         internal void SwapNodes(T x, T y)
         {
             if (x.Equals(y) || Head == null) return;
-            Node<T> nodeA_Prev = null;
-            Node<T> nodeB_Prev = null;
-            Node<T> nodeA = null;
-            Node<T> nodeB = null;
+            NodeGeneric<T> nodeA_Prev = null;
+            NodeGeneric<T> nodeB_Prev = null;
+            NodeGeneric<T> nodeA = null;
+            NodeGeneric<T> nodeB = null;
 
-            Node<T> node = Head;
+            NodeGeneric<T> node = Head;
 
             //check head nodes
             if (node.Data.Equals(x))
@@ -170,7 +172,7 @@
                 }
                 else
                 {
-                    Node<T> temp = nodeB.Next;
+                    NodeGeneric<T> temp = nodeB.Next;
                     nodeB.Next = nodeA.Next;
                     nodeA.Next = temp;
 
@@ -181,7 +183,69 @@
             }
         }
 
-        private void swapNodeWhenNodeHeadTail(Node<T> tailNode_prev, Node<T> headNode, Node<T> tailNode)
+        internal void RemoveLoop(NodeGeneric<T> head)
+        {
+            if (head == null) return;
+            NodeGeneric<T> temp = head;
+            HashSet<NodeGeneric<T>> visited = new HashSet<NodeGeneric<T>>();
+            while (!visited.Contains(temp.Next))
+            {
+                temp = temp.Next;
+                visited.Add(temp);
+            }
+
+            temp.Next = null;
+        }
+
+        internal void AddNextNodeToTheTail(int nextNodePosition)
+        {
+            if (Head == null) return;
+            int index = 1;
+            NodeGeneric<T> nextNode = null;
+            NodeGeneric<T> tailNode = Head;
+
+            while (tailNode.Next!=null)
+            {
+                if(index == nextNodePosition)
+                {
+                    nextNode = tailNode;
+                }
+                index++;
+                tailNode = tailNode.Next;   
+            }
+
+            tailNode.Next = nextNode;
+        }
+
+        internal void AddNextNodeToTheNode(int v1, int v2)
+        {
+            if (Head == null) return;
+            NodeGeneric<T> sourceNode = null, nextNode = null;
+            NodeGeneric<T> temp = Head;
+            while (temp != null)
+            {
+                if (temp.Data.Equals(v1))
+                {
+                    sourceNode = temp;
+                }
+                else if (temp.Data.Equals(v2))
+                {
+                    nextNode = temp;
+                }
+
+                if (sourceNode != null && nextNode != null) break;
+
+                temp = temp.Next;
+
+            }
+
+            if(sourceNode == null || nextNode == null) { return; }
+
+            sourceNode.Next = nextNode;
+
+        }
+
+        private void swapNodeWhenNodeHeadTail(NodeGeneric<T> tailNode_prev, NodeGeneric<T> headNode, NodeGeneric<T> tailNode)
         {
             if (tailNode_prev.Equals(headNode))
             {
@@ -199,7 +263,7 @@
             }
         }
 
-        private static void swapNodeWhenDataIsOnTail(Node<T> node1_Prev, Node<T> node2_Prev, Node<T> node1, Node<T> node2)
+        private static void swapNodeWhenDataIsOnTail(NodeGeneric<T> node1_Prev, NodeGeneric<T> node2_Prev, NodeGeneric<T> node1, NodeGeneric<T> node2)
         {
             if (node2.Next.Equals(node1))
             {
@@ -216,17 +280,17 @@
             }
         }
 
-        private static void swapNodeWhenNodesAreBackToBack(Node<T> node_Prev, Node<T> node1, Node<T> node2)
+        private static void swapNodeWhenNodesAreBackToBack(NodeGeneric<T> node_Prev, NodeGeneric<T> node1, NodeGeneric<T> node2)
         {
-            Node<T> temp = node2.Next;
+            NodeGeneric<T> temp = node2.Next;
             node2.Next = node1;
             node1.Next = temp;
             node_Prev.Next = node2;
         }
 
-        private void swapNodeWhenDataIsOnHead(Node<T> nodeB_Prev, Node<T> nodeA, Node<T> nodeB)
+        private void swapNodeWhenDataIsOnHead(NodeGeneric<T> nodeB_Prev, NodeGeneric<T> nodeA, NodeGeneric<T> nodeB)
         {
-            Node<T> temp = nodeB.Next;
+            NodeGeneric<T> temp = nodeB.Next;
             //Head = nodeB;
             if (nodeA.Next == nodeB)
             {
@@ -252,8 +316,8 @@
         {
             if (Head == null) return default;
 
-            Node<T> slow = Head;
-            Node<T> fast = Head;
+            NodeGeneric<T> slow = Head;
+            NodeGeneric<T> fast = Head;
 
             while (fast != null && fast.Next != null)
             {
@@ -269,7 +333,7 @@
         /// </summary>
         internal void Print()
         {
-            Node<T> temp = Head;
+            NodeGeneric<T> temp = Head;
 
             while (temp != null)
             {
