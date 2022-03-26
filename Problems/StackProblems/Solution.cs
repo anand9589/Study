@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StackProblems
+﻿namespace StackProblems
 {
     internal class Solution
     {
@@ -77,6 +70,41 @@ namespace StackProblems
 
             return larger;
 
+        }
+
+        public int[] CalculateSpan(int[] price, int n)
+        {
+            //Your code here
+            int[] span = new int[n];
+            int lastSpanIndex = 0;
+            int topElement = price[lastSpanIndex];
+
+            Stack<int> stack = new Stack<int>();
+            stack.Push(0);
+            span[0] = 1;
+
+            for (int i = 1; i < n; i++)
+            {
+                while (topElement<=price[i])
+                {
+                    stack.Pop();
+
+                    if (stack.Count == 0)
+                    {
+                        lastSpanIndex = -1;
+                        break;
+                    }
+                    lastSpanIndex = stack.Peek();
+                    topElement = price[lastSpanIndex];
+                }
+                span[i] = i-lastSpanIndex;
+                stack.Push(i);
+                lastSpanIndex = stack.Peek();
+                topElement=price[lastSpanIndex];
+
+            }
+
+            return span;
         }
     }
 }
