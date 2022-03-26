@@ -21,12 +21,12 @@ for (int i = 0; i < arr.Length; i++)
             {
                 case 1:
                     i++;
-                    stacks.push1(arr[i], twoStack);
+                    stacks.Push1(arr[i], twoStack);
                     //stack1 push
                     break;
                 case 2:
                     //stack2 pop
-                    Console.WriteLine(stacks.pop1(twoStack));
+                    Console.WriteLine(stacks.Pop1(twoStack));
                     break;
                 default:
                     break;
@@ -40,11 +40,11 @@ for (int i = 0; i < arr.Length; i++)
                 case 1:
                     //stack2 push
                     i++;
-                    stacks.push2(arr[i], twoStack);
+                    stacks.Push2(arr[i], twoStack);
                     break;
                 case 2:
                     //stack2 pop
-                    Console.WriteLine(stacks.pop2(twoStack));
+                    Console.WriteLine(stacks.Pop2(twoStack));
                     break;
                 default:
                     break;

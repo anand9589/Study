@@ -3,15 +3,18 @@
     internal class TwoStack
     {
 
-		public int size;
-		public int top1, top2;
-		public int[] arr = new int[100];
+        public int Size { get; set; }
+        public int Top1 { get; set; }
+        public int Top2 { get; set; }
 
-		public TwoStack()
-		{
-			size = 100;
-			top1 = -1;
-			top2 = size;
-		}
-	}
+        public int[] Arr { get; set; }
+
+        public TwoStack()
+        {
+            Size = 100;
+            Top1 = -1;
+            Top2 = Size;
+            Arr = new int[Size];
+        }
+    }
 }
