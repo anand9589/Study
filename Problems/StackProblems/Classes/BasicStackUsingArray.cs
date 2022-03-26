@@ -1,11 +1,11 @@
 ﻿namespace StackProblems.Classes
 {
-    public class MyStack
+    public class BasicStackUsingArray
     {
         private int top = -1;
         private readonly int size = 100;
         private int[] arr;
-        public MyStack()
+        public BasicStackUsingArray()
         {
             arr = new int[size];
         }
