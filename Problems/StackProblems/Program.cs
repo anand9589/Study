@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using StackProblems;
+using StackProblems.Classes;
 using StackProblems.TwoStacksProblem;
 
 //Console.WriteLine("Hello, World!");
@@ -63,5 +64,19 @@ for (int i = 0; i < arr.Length; i++)
 //var res = o.NextLargerElement(arr, 8);
 #endregion
 
-#region StackProblem1
+#region SortedStack
+
+Stack<int> stacks2 = new Stack<int>();
+stacks2.Push(44);
+stacks2.Push(48);
+stacks2.Push(23);
+stacks2.Push(41);
+stacks2.Push(49);
+stacks2.Push(44);
+stacks2.Push(55);
+stacks2.Push(67);
+stacks2.Push(13);
+
+SortedStack sortedStack = new SortedStack(stacks2);
+var result = sortedStack.GetSortedStack();
 #endregion
