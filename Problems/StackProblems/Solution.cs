@@ -36,6 +36,7 @@
             }
             return stack.Count == 0;
         }
+
         internal long[] NextLargerElement(long[] arr, int n)
         {
             //Your code here
@@ -85,7 +86,7 @@
 
             for (int i = 1; i < n; i++)
             {
-                while (topElement<=price[i])
+                while (topElement <= price[i])
                 {
                     stack.Pop();
 
@@ -97,10 +98,10 @@
                     lastSpanIndex = stack.Peek();
                     topElement = price[lastSpanIndex];
                 }
-                span[i] = i-lastSpanIndex;
+                span[i] = i - lastSpanIndex;
                 stack.Push(i);
                 lastSpanIndex = stack.Peek();
-                topElement=price[lastSpanIndex];
+                topElement = price[lastSpanIndex];
 
             }
 
@@ -112,20 +113,20 @@
             if (n == null) return null;
 
             int[] result = new int[n.Length];
-            result[n.Length-1] = -1;
+            result[n.Length - 1] = -1;
             Stack<int> stack = new Stack<int>();
             stack.Push(n.Length - 1);
 
-            for (int i = n.Length-2; i >= 0; i--)
+            for (int i = n.Length - 2; i >= 0; i--)
             {
-                while(n[stack.Peek()] >= n[i])
+                while (n[stack.Peek()] >= n[i])
                 {
                     stack.Pop();
 
-                    if(stack.Count == 0) break;
+                    if (stack.Count == 0) break;
                 }
 
-                result[i] = stack.Count==0?-1:n[stack.Peek()];
+                result[i] = stack.Count == 0 ? -1 : n[stack.Peek()];
                 stack.Push(i);
             }
 
