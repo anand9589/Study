@@ -5,7 +5,7 @@ using StackProblems.TwoStacksProblem;
 
 //Console.WriteLine("Hello, World!");
 
-string[] lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\StackSpanProblem.txt");
+string[] lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\FindmaxHistogramArea.txt");
 
 #region Problem4
 //int[] arr = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
@@ -90,20 +90,31 @@ string[] lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\StackSpanProble
 #endregion
 
 #region NextSmallElement
-int[] input = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
-Console.WriteLine(String.Join(' ', input));
+//int[] input = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
+//Console.WriteLine(String.Join(' ', input));
 
+//Solution solution = new Solution();
+//int[] output = solution.NextSmallElement(input);
+//Console.WriteLine("-->Next Small Element : ");
+//Console.WriteLine(String.Join(' ', output));
+//output = solution.PreviousSmallElement(input);
+//Console.WriteLine("-->Previous Small Element : ");
+//Console.WriteLine(String.Join(' ', output));
+//output = solution.PreviousLargeElement(input);
+//Console.WriteLine("-->Previous Large Element : ");
+//Console.WriteLine(String.Join(' ', output));
+//output = solution.NextLargeElement(input);
+//Console.WriteLine("-->Next Large Element : ");
+//Console.WriteLine(String.Join(' ', output));
+#endregion
+
+#region GetMaxHistogramArea
+
+int n = int.Parse(lines[0]);
+
+long[] input = Array.ConvertAll(lines[1].Trim().Split(' '), long.Parse);// new long[] { 6, 2, 5, 4, 5, 1, 6 };
 Solution solution = new Solution();
-int[] output = solution.NextSmallElement(input);
-Console.WriteLine("-->Next Small Element : ");
-Console.WriteLine(String.Join(' ', output));
-output = solution.PreviousSmallElement(input);
-Console.WriteLine("-->Previous Small Element : ");
-Console.WriteLine(String.Join(' ', output));
-output = solution.PreviousLargeElement(input);
-Console.WriteLine("-->Previous Large Element : ");
-Console.WriteLine(String.Join(' ', output));
-output = solution.NextLargeElement(input);
-Console.WriteLine("-->Next Large Element : ");
-Console.WriteLine(String.Join(' ', output));
+//var result = solution.getMaxArea(input, n);
+var result = solution.GetMaxArea(new long[] {1}, 1);
+Console.WriteLine(result);
 #endregion

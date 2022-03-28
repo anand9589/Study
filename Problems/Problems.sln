@@ -19,6 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4DCC090F-7DC2-460F-AC5A-D7712B76B895}"
 	ProjectSection(SolutionItems) = preProject
+		FindmaxHistogramArea.txt = FindmaxHistogramArea.txt
 		Problem1.txt = Problem1.txt
 		..\..\..\My\Problem1LL1.txt = ..\..\..\My\Problem1LL1.txt
 		Problem2.txt = Problem2.txt
@@ -27,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4DCC090F-7
 		StackSpanProblem.txt = StackSpanProblem.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackProblems", "StackProblems\StackProblems.csproj", "{50712A57-7EEF-41EF-9BED-433D4EB3046C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackProblems", "StackProblems\StackProblems.csproj", "{50712A57-7EEF-41EF-9BED-433D4EB3046C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

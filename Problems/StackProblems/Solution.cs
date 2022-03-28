@@ -199,5 +199,66 @@
             }
             return result;
         }
+
+        public int[] PreviousSmallElement_long_index(long[] arr, int n)
+        {
+            int[] result = new int[n];
+            result[0] = -1;
+            Stack<int> stack = new Stack<int>();
+            stack.Push(0);
+
+            for (int i = 1; i < n; i++)
+            {
+                while (arr[stack.Peek()] >= arr[i])
+                {
+                    stack.Pop();
+                    if (stack.Count == 0) break;
+                }
+                result[i] = stack.Count == 0 ? -1 :stack.Peek();
+                stack.Push(i);
+            }
+            return result;
+        }
+
+        public int[] NextSmallElement_long_index(long[] arr,int n)
+        {
+            int[] result = new int[n];
+            result[n - 1] = n;
+            Stack<int> stack = new Stack<int>();
+            stack.Push(n - 1);
+
+            for (int i = n - 2; i >= 0; i--)
+            {
+                while (arr[stack.Peek()] >= arr[i])
+                {
+                    stack.Pop();
+
+                    if (stack.Count == 0) break;
+                }
+
+                result[i] = stack.Count == 0 ? n : stack.Peek();
+                stack.Push(i);
+            }
+
+            return result;
+        }
+        
+        //Complete this function
+        public long GetMaxArea(long[] arr, int n)
+        {
+            int[] psi = PreviousSmallElement_long_index(arr,n);
+            int[] nsi = NextSmallElement_long_index(arr, n);
+            //Your code here
+            long result = 0;
+            for (int i = 0; i < n; i++)
+            {
+                long area = (nsi[i]-psi[i]-1) * arr[i];
+                if (result < area)
+                {
+                    result = area;
+                }
+            }
+            return result;
+        }
     }
 }
