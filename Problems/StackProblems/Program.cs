@@ -160,9 +160,15 @@ Solution solution = new Solution();
 #endregion
 
 #region EvaluatePostfixExpression
-string s = "42/";
+//string s = "42/";
 
-long result = solution.EvaluatePostfixExpression(s);
+//long result = solution.EvaluatePostfixExpression(s);
+//Console.WriteLine(result);
+
+#endregion
+
+#region ReducedString
+string s = "geegsforgeeeks";
+string result = solution.ReducedString(s);
 Console.WriteLine(result);
-
 #endregion

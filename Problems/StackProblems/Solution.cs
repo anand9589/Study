@@ -175,6 +175,32 @@
             return stack;
         }
 
+        internal string ReducedString(string s)
+        {
+            Stack<char> stack = new Stack<char>();
+
+            for (int i = s.Length - 1; i >= 0; i--)
+            {
+                char c = s[i];
+                if (stack.Count == 0)
+                {
+                    stack.Push(c);
+                }
+                else
+                {
+                    if (stack.Peek() == c)
+                    {
+                        stack.Pop();
+                    }
+                    else
+                    {
+                        stack.Push(c);
+                    }
+                }
+            }
+            return new string(stack.ToArray());
+        }
+
         internal long EvaluatePostfixExpression(string s)
         {
             char[] chs = s.ToCharArray();
