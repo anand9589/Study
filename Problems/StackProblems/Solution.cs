@@ -289,5 +289,40 @@
             }
             return result;
         }
+
+        public long GetMaxAreaSquare(long[,] arr, int rowCount, int colCount)
+        {
+            long result = 0;
+            long[,] resultArray = new long[rowCount, colCount];
+
+            for (int i = 0; i < colCount; i++)
+            {
+                resultArray[0, i] = arr[0, i];
+            }
+
+            for (int i = 1; i < rowCount; i++)
+            {
+                resultArray[i, 0] = arr[i, 0];
+            }
+
+            for (int i = 1; i < rowCount; i++)
+            {
+                for (int j = 1; j < colCount; j++)
+                {
+                    if (arr[i, j] != 0)
+                    {
+                        long val = (new long[] { resultArray[i - 1, j - 1], resultArray[i - 1, j], resultArray[i, j - 1] }).Min() + 1;
+
+                        if (val > result)
+                        {
+                            result = val;
+                        }
+
+                        resultArray[i, j] = val;
+                    }
+                }
+            }
+            return result * result;
+        }
     }
 }

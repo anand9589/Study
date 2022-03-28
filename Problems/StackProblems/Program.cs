@@ -114,6 +114,24 @@ Solution solution = new Solution();
 
 #region GetMaxAreaRectangle
 
+//var rowColArray = Array.ConvertAll(lines[0].Trim().Split(' '), int.Parse);
+//int row = rowColArray[0];
+//int col = rowColArray[1];
+//long[,] arr = new long[row, col];
+//for (int i = 0; i < row; i++)
+//{
+//    var l = lines[i + 1].Trim().Split(' ');
+//    for (int j = 0; j < col; j++)
+//    {
+//        arr[i, j] = int.Parse(l[j]);
+//    }
+//}
+
+//var res = solution.GetMaxAreaRectangle(arr, row, col);
+//Console.WriteLine(res);
+#endregion
+
+#region GetMaxAreaSquare
 var rowColArray = Array.ConvertAll(lines[0].Trim().Split(' '), int.Parse);
 int row = rowColArray[0];
 int col = rowColArray[1];
@@ -127,6 +145,6 @@ for (int i = 0; i < row; i++)
     }
 }
 
-var res = solution.GetMaxAreaRectangle(arr, row, col);
-Console.WriteLine(res);
+long result = solution.GetMaxAreaSquare(arr, row, col);
+Console.WriteLine(result);
 #endregion
