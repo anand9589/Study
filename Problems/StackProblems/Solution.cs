@@ -156,6 +156,25 @@
             return result;
         }
 
+        internal Stack<int> DeleteMiddleElementOfStack(Stack<int> stack)
+        {
+            int mid = (stack.Count / 2);
+
+            int[] arr = new int[mid];
+
+            for (int i = 0; i < mid; i++)
+            {
+                arr[i] = stack.Pop();
+            }
+
+            stack.Pop();
+            for (int i = mid - 1; i >= 0; i--)
+            {
+                stack.Push(arr[i]);
+            }
+            return stack;
+        }
+
         public int[] NextSmallElement(int[] n)
         {
             int[] result = new int[n.Length];

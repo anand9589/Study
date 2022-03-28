@@ -132,19 +132,29 @@ Solution solution = new Solution();
 #endregion
 
 #region GetMaxAreaSquare
-var rowColArray = Array.ConvertAll(lines[0].Trim().Split(' '), int.Parse);
-int row = rowColArray[0];
-int col = rowColArray[1];
-long[,] arr = new long[row, col];
-for (int i = 0; i < row; i++)
-{
-    var l = lines[i + 1].Trim().Split(' ');
-    for (int j = 0; j < col; j++)
-    {
-        arr[i, j] = int.Parse(l[j]);
-    }
-}
+//var rowColArray = Array.ConvertAll(lines[0].Trim().Split(' '), int.Parse);
+//int row = rowColArray[0];
+//int col = rowColArray[1];
+//long[,] arr = new long[row, col];
+//for (int i = 0; i < row; i++)
+//{
+//    var l = lines[i + 1].Trim().Split(' ');
+//    for (int j = 0; j < col; j++)
+//    {
+//        arr[i, j] = int.Parse(l[j]);
+//    }
+//}
 
-long result = solution.GetMaxAreaSquare(arr, row, col);
-Console.WriteLine(result);
+//long result = solution.GetMaxAreaSquare(arr, row, col);
+//Console.WriteLine(result);
+#endregion
+
+#region DeleteMidOfStack
+//Stack<int> stack = new Stack<int>();
+//stack.Push(1);
+//stack.Push(2);
+//stack.Push(3);
+////stack.Push(4);
+////stack.Push(5);
+//stack = solution.DeleteMiddleElementOfStack(stack);
 #endregion
