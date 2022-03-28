@@ -20,6 +20,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4DCC090F-7DC2-460F-AC5A-D7712B76B895}"
 	ProjectSection(SolutionItems) = preProject
 		FindmaxHistogramArea.txt = FindmaxHistogramArea.txt
+		MaxRectangleMatrix.txt = MaxRectangleMatrix.txt
 		Problem1.txt = Problem1.txt
 		..\..\..\My\Problem1LL1.txt = ..\..\..\My\Problem1LL1.txt
 		Problem2.txt = Problem2.txt

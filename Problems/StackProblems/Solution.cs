@@ -214,13 +214,13 @@
                     stack.Pop();
                     if (stack.Count == 0) break;
                 }
-                result[i] = stack.Count == 0 ? -1 :stack.Peek();
+                result[i] = stack.Count == 0 ? -1 : stack.Peek();
                 stack.Push(i);
             }
             return result;
         }
 
-        public int[] NextSmallElement_long_index(long[] arr,int n)
+        public int[] NextSmallElement_long_index(long[] arr, int n)
         {
             int[] result = new int[n];
             result[n - 1] = n;
@@ -242,20 +242,49 @@
 
             return result;
         }
-        
+
         //Complete this function
         public long GetMaxArea(long[] arr, int n)
         {
-            int[] psi = PreviousSmallElement_long_index(arr,n);
+            int[] psi = PreviousSmallElement_long_index(arr, n);
             int[] nsi = NextSmallElement_long_index(arr, n);
             //Your code here
             long result = 0;
             for (int i = 0; i < n; i++)
             {
-                long area = (nsi[i]-psi[i]-1) * arr[i];
+                long area = (nsi[i] - psi[i] - 1) * arr[i];
                 if (result < area)
                 {
                     result = area;
+                }
+            }
+            return result;
+        }
+
+        public long GetMaxAreaRectangle(long[,] arr, int rowCount, int colCount)
+        {
+            long result = 0;
+            long[] rowArray = new long[colCount];
+            for (int i = 0; i < colCount; i++)
+            {
+                rowArray[i] = arr[0, i];
+            }
+
+            result = GetMaxArea(rowArray, colCount);
+
+            for (int i = 1; i < rowCount; i++)
+            {
+                for (int j = 0; j < colCount; j++)
+                {
+                    long cellVal = arr[i, j];
+                    rowArray[j] = cellVal == 0 ? cellVal : rowArray[j] + cellVal;
+                }
+
+                var res = GetMaxArea(rowArray, colCount);
+
+                if (res > result)
+                {
+                    result = res;
                 }
             }
             return result;

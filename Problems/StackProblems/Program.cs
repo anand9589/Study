@@ -5,8 +5,8 @@ using StackProblems.TwoStacksProblem;
 
 //Console.WriteLine("Hello, World!");
 
-string[] lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\FindmaxHistogramArea.txt");
-
+string[] lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\MaxRectangleMatrix.txt");
+Solution solution = new Solution();
 #region Problem4
 //int[] arr = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
 //Stacks stacks = new Stacks();
@@ -56,12 +56,11 @@ string[] lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\FindmaxHistogra
 //    }
 //}
 
-//Solution o = new Solution();
 //long[] arr = new long[]
 //{
 //    55, 67, 34, 5, 25, 10,29, 33
 //};
-//var res = o.NextLargerElement(arr, 8);
+//var res = solution.NextLargerElement(arr, 8);
 #endregion
 
 #region SortedStack
@@ -85,7 +84,6 @@ string[] lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\FindmaxHistogra
 #region SpanStack
 //int n = int.Parse(lines[0]);
 //int[] price = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
-//Solution solution = new Solution();
 //var res = solution.CalculateSpan(price, n);
 #endregion
 
@@ -93,7 +91,6 @@ string[] lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\FindmaxHistogra
 //int[] input = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
 //Console.WriteLine(String.Join(' ', input));
 
-//Solution solution = new Solution();
 //int[] output = solution.NextSmallElement(input);
 //Console.WriteLine("-->Next Small Element : ");
 //Console.WriteLine(String.Join(' ', output));
@@ -109,12 +106,27 @@ string[] lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\FindmaxHistogra
 #endregion
 
 #region GetMaxHistogramArea
+//long[] input = Array.ConvertAll(lines[1].Trim().Split(' '), long.Parse);// new long[] { 6, 2, 5, 4, 5, 1, 6 };
+////var result = solution.getMaxArea(input, n);
+//var result = solution.GetMaxArea(new long[] {1}, 1);
+//Console.WriteLine(result);
+#endregion
 
-int n = int.Parse(lines[0]);
+#region GetMaxAreaRectangle
 
-long[] input = Array.ConvertAll(lines[1].Trim().Split(' '), long.Parse);// new long[] { 6, 2, 5, 4, 5, 1, 6 };
-Solution solution = new Solution();
-//var result = solution.getMaxArea(input, n);
-var result = solution.GetMaxArea(new long[] {1}, 1);
-Console.WriteLine(result);
+var rowColArray = Array.ConvertAll(lines[0].Trim().Split(' '), int.Parse);
+int row = rowColArray[0];
+int col = rowColArray[1];
+long[,] arr = new long[row, col];
+for (int i = 0; i < row; i++)
+{
+    var l = lines[i + 1].Trim().Split(' ');
+    for (int j = 0; j < col; j++)
+    {
+        arr[i, j] = int.Parse(l[j]);
+    }
+}
+
+var res = solution.GetMaxAreaRectangle(arr, row, col);
+Console.WriteLine(res);
 #endregion
