@@ -103,4 +103,7 @@ Console.WriteLine(String.Join(' ', output));
 output = solution.PreviousLargeElement(input);
 Console.WriteLine("-->Previous Large Element : ");
 Console.WriteLine(String.Join(' ', output));
+output = solution.NextLargeElement(input);
+Console.WriteLine("-->Next Large Element : ");
+Console.WriteLine(String.Join(' ', output));
 #endregion
