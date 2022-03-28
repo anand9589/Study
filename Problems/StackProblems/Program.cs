@@ -95,7 +95,12 @@ Console.WriteLine(String.Join(' ', input));
 
 Solution solution = new Solution();
 int[] output = solution.NextSmallElement(input);
+Console.WriteLine("-->Next Small Element : ");
 Console.WriteLine(String.Join(' ', output));
 output = solution.PreviousSmallElement(input);
+Console.WriteLine("-->Previous Small Element : ");
+Console.WriteLine(String.Join(' ', output));
+output = solution.PreviousLargeElement(input);
+Console.WriteLine("-->Previous Large Element : ");
 Console.WriteLine(String.Join(' ', output));
 #endregion

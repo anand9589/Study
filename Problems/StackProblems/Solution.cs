@@ -108,6 +108,30 @@
             return span;
         }
 
+        internal int[] PreviousLargeElement(int[] input)
+        {
+            int[] result = new int[input.Length];
+
+            Stack<int> stack = new Stack<int>();
+            result[0] = -1;
+            stack.Push(0);
+
+            for (int i = 1; i < input.Length; i++)
+            {
+                while (input[stack.Peek()] <= input[i])
+                {
+                    stack.Pop();
+
+                    if (stack.Count == 0) break;
+                }
+
+                result[i] = stack.Count==0? -1 : input[stack.Peek()];
+                stack.Push(i);
+            }
+
+            return result;
+        }
+
         public int[] NextSmallElement(int[] n)
         {
             int[] result = new int[n.Length];
