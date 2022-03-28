@@ -175,6 +175,63 @@
             return stack;
         }
 
+        internal long EvaluatePostfixExpression(string s)
+        {
+            char[] chs = s.ToCharArray();
+            Stack<int> stack = new Stack<int>();
+            int parseVal = 0;
+            int num1, num2 = 0;
+            try
+            {
+
+                for (int i = 0; i < chs.Length; i++)
+                {
+                    if (int.TryParse(chs[i].ToString(), out parseVal))
+                    {
+                        stack.Push(parseVal);
+                    }
+                    else
+                    {
+                        switch (chs[i])
+                        {
+                            case '-':
+                                num1 = stack.Pop();
+                                num2 = stack.Pop();
+
+                                stack.Push(num2 - num1);
+                                break;
+                            case '+':
+                                num1 = stack.Pop();
+                                num2 = stack.Pop();
+
+                                stack.Push(num1 + num2);
+                                break;
+                            case '*':
+                                num1 = stack.Pop();
+                                num2 = stack.Pop();
+
+                                stack.Push(num1 * num2);
+                                break;
+                            case '/':
+                                num1 = stack.Pop();
+                                num2 = stack.Pop();
+
+                                stack.Push(num2 / num1);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+
+                return stack.Pop();
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
         public int[] NextSmallElement(int[] n)
         {
             int[] result = new int[n.Length];

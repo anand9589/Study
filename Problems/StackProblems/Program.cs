@@ -158,3 +158,11 @@ Solution solution = new Solution();
 ////stack.Push(5);
 //stack = solution.DeleteMiddleElementOfStack(stack);
 #endregion
+
+#region
+string s = "42/";
+
+long result = solution.EvaluatePostfixExpression(s);
+Console.WriteLine(result);
+
+#endregion
