@@ -94,6 +94,8 @@ int[] input = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
 Console.WriteLine(String.Join(' ', input));
 
 Solution solution = new Solution();
-var output = solution.NextSmallElement(input);
+int[] output = solution.NextSmallElement(input);
+Console.WriteLine(String.Join(' ', output));
+output = solution.PreviousSmallElement(input);
 Console.WriteLine(String.Join(' ', output));
 #endregion

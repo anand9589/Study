@@ -110,8 +110,6 @@
 
         public int[] NextSmallElement(int[] n)
         {
-            if (n == null) return null;
-
             int[] result = new int[n.Length];
             result[n.Length - 1] = -1;
             Stack<int> stack = new Stack<int>();
@@ -130,6 +128,27 @@
                 stack.Push(i);
             }
 
+            return result;
+        }
+
+        public int[] PreviousSmallElement(int[] n)
+        {
+
+            int[] result = new int[n.Length];
+            result[0] = -1;
+            Stack<int> stack = new Stack<int>();
+            stack.Push(0);
+
+            for (int i = 1; i < n.Length; i++)
+            {
+                while (n[stack.Peek()] >= n[i])
+                {
+                    stack.Pop();
+                    if (stack.Count == 0) break;
+                }
+                result[i] = stack.Count == 0 ? -1 : n[stack.Peek()];
+                stack.Push(i);
+            }
             return result;
         }
     }
