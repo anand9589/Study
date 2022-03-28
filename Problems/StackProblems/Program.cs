@@ -8,53 +8,53 @@ using StackProblems.TwoStacksProblem;
 string[] lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\StackSpanProblem.txt");
 
 #region Problem4
-int[] arr = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
-Stacks stacks = new Stacks();
-TwoStack twoStack = new TwoStack();
-for (int i = 0; i < arr.Length; i++)
-{
-    switch (arr[i])
-    {
-        case 1:
-            //Stack1 operation
-            i++;
-            switch (arr[i])
-            {
-                case 1:
-                    i++;
-                    stacks.Push1(arr[i], twoStack);
-                    //stack1 push
-                    break;
-                case 2:
-                    //stack2 pop
-                    Console.WriteLine(stacks.Pop1(twoStack));
-                    break;
-                default:
-                    break;
-            }
-            break;
-        case 2:
-            //Stack2 operation
-            i++;
-            switch (arr[i])
-            {
-                case 1:
-                    //stack2 push
-                    i++;
-                    stacks.Push2(arr[i], twoStack);
-                    break;
-                case 2:
-                    //stack2 pop
-                    Console.WriteLine(stacks.Pop2(twoStack));
-                    break;
-                default:
-                    break;
-            }
-            break;
-        default:
-            break;
-    }
-}
+//int[] arr = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
+//Stacks stacks = new Stacks();
+//TwoStack twoStack = new TwoStack();
+//for (int i = 0; i < arr.Length; i++)
+//{
+//    switch (arr[i])
+//    {
+//        case 1:
+//            //Stack1 operation
+//            i++;
+//            switch (arr[i])
+//            {
+//                case 1:
+//                    i++;
+//                    stacks.Push1(arr[i], twoStack);
+//                    //stack1 push
+//                    break;
+//                case 2:
+//                    //stack2 pop
+//                    Console.WriteLine(stacks.Pop1(twoStack));
+//                    break;
+//                default:
+//                    break;
+//            }
+//            break;
+//        case 2:
+//            //Stack2 operation
+//            i++;
+//            switch (arr[i])
+//            {
+//                case 1:
+//                    //stack2 push
+//                    i++;
+//                    stacks.Push2(arr[i], twoStack);
+//                    break;
+//                case 2:
+//                    //stack2 pop
+//                    Console.WriteLine(stacks.Pop2(twoStack));
+//                    break;
+//                default:
+//                    break;
+//            }
+//            break;
+//        default:
+//            break;
+//    }
+//}
 
 //Solution o = new Solution();
 //long[] arr = new long[]
@@ -83,8 +83,17 @@ for (int i = 0; i < arr.Length; i++)
 
 
 #region SpanStack
-int n = int.Parse(lines[0]);
-int[] price = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
+//int n = int.Parse(lines[0]);
+//int[] price = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
+//Solution solution = new Solution();
+//var res = solution.CalculateSpan(price, n);
+#endregion
+
+#region NextSmallElement
+int[] input = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
+Console.WriteLine(String.Join(' ', input));
+
 Solution solution = new Solution();
-var res = solution.CalculateSpan(price, n);
+var output = solution.NextSmallElement(input);
+Console.WriteLine(String.Join(' ', output));
 #endregion

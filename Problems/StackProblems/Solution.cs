@@ -106,5 +106,30 @@
 
             return span;
         }
+
+        public int[] NextSmallElement(int[] n)
+        {
+            if (n == null) return null;
+
+            int[] result = new int[n.Length];
+            result[n.Length-1] = -1;
+            Stack<int> stack = new Stack<int>();
+            stack.Push(n.Length - 1);
+
+            for (int i = n.Length-2; i >= 0; i--)
+            {
+                while(n[stack.Peek()] >= n[i])
+                {
+                    stack.Pop();
+
+                    if(stack.Count == 0) break;
+                }
+
+                result[i] = stack.Count==0?-1:n[stack.Peek()];
+                stack.Push(i);
+            }
+
+            return result;
+        }
     }
 }
