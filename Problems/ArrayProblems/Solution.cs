@@ -19,5 +19,26 @@
             }
             return false;
         }
+
+        public bool Find132Pattern_V1(int[] arr)
+        {
+            int min = arr[0];
+            for (int j = 1; j < arr.Length - 1; j++)
+            {
+                if (min > arr[j])
+                {
+                    min = arr[j];
+                    continue;
+                }
+                for (int k = j + 1; k < arr.Length; k++)
+                {
+                    if (min < arr[j] && min < arr[k] && arr[j] > arr[k])
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }
