@@ -201,6 +201,60 @@
             return new string(stack.ToArray());
         }
 
+        internal string InfixToPostfix(string s)
+        {
+            List<char> result = new List<char>();
+            Stack<char> stack = new Stack<char>();
+            Dictionary<char, int> operatorPriority = new Dictionary<char, int>()
+            {
+                {'+',1},
+                {'-',1},
+                {'*',2},
+                {'/',2},
+                {'^',3}
+            };
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                char c = s[i];
+
+                switch (c)
+                {
+                    case '+':
+                    case '-':
+                    case '*':
+                    case '/':
+                    case '^':
+                        while (stack.Count > 0 && stack.Peek() != '(' &&  operatorPriority[stack.Peek()] >= operatorPriority[c])
+                        {
+                            result.Add(stack.Pop());
+                            if (stack.Count == 0) break;
+                        }
+                        stack.Push(c);
+                        break;
+                    case '(':
+                        stack.Push(c);
+                        break;
+                    case ')':
+                        while (stack.Peek() != '(')
+                        {
+                            result.Add(stack.Pop());
+                        }
+                        stack.Pop();
+                        break;
+                    default:
+                        result.Add(c);
+                        break;
+                }
+            }
+            while (stack.Count > 0)
+            {
+                result.Add(stack.Pop());
+            }
+            return new string(result.ToArray());
+
+        }
+
         internal long EvaluatePostfixExpression(string s)
         {
             char[] chs = s.ToCharArray();

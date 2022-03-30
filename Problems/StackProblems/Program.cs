@@ -168,7 +168,13 @@ Solution solution = new Solution();
 #endregion
 
 #region ReducedString
-string s = "geegsforgeeeks";
-string result = solution.ReducedString(s);
+//string s = "geegsforgeeeks";
+//string result = solution.ReducedString(s);
+//Console.WriteLine(result);
+#endregion
+
+#region InfixToPostfix
+string s = "a+b*(c^d-e)^(f+g*h)-i";
+string result = solution.InfixToPostfix(s);
 Console.WriteLine(result);
 #endregion
