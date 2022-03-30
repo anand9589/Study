@@ -225,7 +225,7 @@
                     case '*':
                     case '/':
                     case '^':
-                        while (stack.Count > 0 && stack.Peek() != '(' &&  operatorPriority[stack.Peek()] >= operatorPriority[c])
+                        while (stack.Count > 0 && stack.Peek() != '(' && operatorPriority[stack.Peek()] >= operatorPriority[c])
                         {
                             result.Add(stack.Pop());
                             if (stack.Count == 0) break;
@@ -479,6 +479,38 @@
                 }
             }
             return result * result;
+        }
+
+        public bool Find132Pattern(int[] arr)
+        {
+            int[] minVal = new int[arr.Length - 2];
+            minVal[0] = arr[0];
+            for (int i = 1; i < arr.Length - 2; i++)
+            {
+                minVal[i] = Math.Min(minVal[i-1],arr[i]);
+            }
+
+            Stack<int> stack = new Stack<int>();
+            stack.Push(arr[arr.Length - 1]);
+
+            for (int i = arr.Length - 2; i >= 1; i--)
+            {
+                int min = minVal[i-1];
+                int curr = arr[i];
+
+                while (stack.Count!=0 && stack.Peek() <= min)
+                {
+                    stack.Pop();
+                }
+
+                while (stack.Count!=0 && stack.Peek()<curr)
+                {
+                    return true;
+                }
+
+                stack.Push(curr);
+            }
+            return false;
         }
     }
 }
