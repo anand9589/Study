@@ -2,8 +2,8 @@
 {
     internal class StackQueue
     {
-        readonly Stack<int> st1 = new Stack<int>();
-        readonly Stack<int> st2 = new Stack<int>();
+        readonly Stack<int> st1 = new();
+        readonly Stack<int> st2 = new();
 
         //Complete the functions
         public void Push(int x)
