@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4DCC090F-7
 		..\..\..\My\Problem1LL1.txt = ..\..\..\My\Problem1LL1.txt
 		Problem2.txt = Problem2.txt
 		Problem3.txt = Problem3.txt
+		QueueByArray.txt = QueueByArray.txt
 		StackProblem1.txt = StackProblem1.txt
 		StackQueue.txt = StackQueue.txt
 		StackSpanProblem.txt = StackSpanProblem.txt

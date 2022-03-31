@@ -3,7 +3,7 @@ using QueueProblems;
 using QueueProblems.LRU;
 
 Console.WriteLine("Hello, World!");
-var lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\MaxOfSubArray.txt");
+var lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\QueueByArray.txt");
 
 #region LRUCache
 //int cap = int.Parse(lines[0]);
@@ -75,9 +75,31 @@ Solution solution = new Solution();
 #endregion
 
 #region MaxSubArray
-int[] ips = Array.ConvertAll(lines[0].Trim().Split(' '), int.Parse);
-int[] arr = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
+//int[] ips = Array.ConvertAll(lines[0].Trim().Split(' '), int.Parse);
+//int[] arr = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
 
-solution.MaxOfSubArrays(arr, ips[1]);
+//solution.MaxOfSubArrays(arr, ips[1]);
 
+#endregion
+
+#region QueueByArray
+
+int n = int.Parse(lines[0].Trim());
+int[] data = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
+QueueByArray QueueByArray = new QueueByArray();
+for (int i = 0; i < data.Length; i++)
+{
+    switch (data[i])
+    {
+        case 1:
+            i++;
+            QueueByArray.push(data[i]);
+            break;
+        case 2:
+            Console.WriteLine(QueueByArray.pop());
+            break;
+        default:
+            break;
+    }
+}
 #endregion
