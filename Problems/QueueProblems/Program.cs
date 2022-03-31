@@ -3,7 +3,7 @@ using QueueProblems;
 using QueueProblems.LRU;
 
 Console.WriteLine("Hello, World!");
-var lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\CircularTour.txt");
+var lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\StackQueue.txt");
 
 #region LRUCache
 //int cap = int.Parse(lines[0]);
@@ -36,19 +36,40 @@ var lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\CircularTour.txt");
 
 Solution solution = new Solution();
 #region CircularTour
+//int n = int.Parse(lines[0]);
+//int[] data = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
+
+//int[] p = new int[n];
+//int[] d = new int[n];
+
+//for (int i = 0; i < n; i++)
+//{
+//    p[i] = data[i*2];
+//    d[i] = data[i*2 +1];
+//}
+//Console.WriteLine(String.Join(',', p));
+//Console.WriteLine(String.Join(',', d));
+//var res = global::QueueProblems.Solution.Tour(p, d, n);
+//Console.WriteLine(res);
+#endregion
+
+#region StackQueue
 int n = int.Parse(lines[0]);
 int[] data = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
-
-int[] p = new int[n];
-int[] d = new int[n];
-
-for (int i = 0; i < n; i++)
+StackQueue StackQueue = new StackQueue();
+for (int i = 0; i < data.Length; i++)
 {
-    p[i] = data[i*2];
-    d[i] = data[i*2 +1];
+    switch (data[i])
+    {
+        case 1:
+            i++;
+            StackQueue.Push(data[i]);
+            break;
+        case 2:
+            Console.WriteLine(StackQueue.Pop());
+            break;
+        default:
+            break;
+    }
 }
-Console.WriteLine(String.Join(',', p));
-Console.WriteLine(String.Join(',', d));
-var res = global::QueueProblems.Solution.Tour(p, d, n);
-Console.WriteLine(res);
 #endregion

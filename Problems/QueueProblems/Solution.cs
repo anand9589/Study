@@ -50,5 +50,6 @@
 
             return q.Count == n ? q.First() : -1;
         }
+
     }
 }
