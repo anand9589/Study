@@ -2,13 +2,12 @@
 {
     internal class QueueNode
     {
-        public int data;
-        public QueueNode next;
+        public int Data { get; set; }
+        public QueueNode Next { get; set; }
 
-        public QueueNode(int a)
+        public QueueNode(int data)
         {
-            this.data = a;
-            this.next = null;
+            this.Data = data;
         }
     }
 }

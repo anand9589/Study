@@ -2,8 +2,8 @@
 {
     internal class QueueByLinkedList
     {
-        QueueNode Head = null;
-        public void push(int x)
+        private QueueNode Head;
+        public void Push(int x)
         {
             if(Head == null)
             {
@@ -13,20 +13,20 @@
             {
                 var temp = Head;
 
-                while (temp.next != null)
+                while (temp.Next != null)
                 {
-                    temp = temp.next;
+                    temp = temp.Next;
                 }
 
-                temp.next = new QueueNode(x);
+                temp.Next = new QueueNode(x);
             }
         }
 
-        public int pop()
+        public int Pop()
         {
             if(Head == null) return -1;
-            var res = Head.data;
-            Head = Head.next;
+            var res = Head.Data;
+            Head = Head.Next;
             return res;
         }
     }
