@@ -20,6 +20,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4DCC090F-7DC2-460F-AC5A-D7712B76B895}"
 	ProjectSection(SolutionItems) = preProject
 		FindmaxHistogramArea.txt = FindmaxHistogramArea.txt
+		LRUCache.txt = LRUCache.txt
 		MaxRectangleMatrix.txt = MaxRectangleMatrix.txt
 		Practice.txt = Practice.txt
 		Problem1.txt = Problem1.txt
@@ -32,7 +33,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4DCC090F-7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackProblems", "StackProblems\StackProblems.csproj", "{50712A57-7EEF-41EF-9BED-433D4EB3046C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArrayProblems", "ArrayProblems\ArrayProblems.csproj", "{D6EC8F01-558F-436E-9B5C-17C2325175BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArrayProblems", "ArrayProblems\ArrayProblems.csproj", "{D6EC8F01-558F-436E-9B5C-17C2325175BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueProblems", "QueueProblems\QueueProblems.csproj", "{30A0F47F-186E-4BB9-8F1D-014F338CDC83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,6 +79,10 @@ Global
 		{D6EC8F01-558F-436E-9B5C-17C2325175BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6EC8F01-558F-436E-9B5C-17C2325175BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6EC8F01-558F-436E-9B5C-17C2325175BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30A0F47F-186E-4BB9-8F1D-014F338CDC83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30A0F47F-186E-4BB9-8F1D-014F338CDC83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30A0F47F-186E-4BB9-8F1D-014F338CDC83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30A0F47F-186E-4BB9-8F1D-014F338CDC83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
