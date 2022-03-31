@@ -41,6 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArrayProblems", "ArrayProbl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueueProblems", "QueueProblems\QueueProblems.csproj", "{30A0F47F-186E-4BB9-8F1D-014F338CDC83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeProblem", "TreeProblem\TreeProblem.csproj", "{9B38D872-ED49-4B5A-8D81-F1B2F2EFB065}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{30A0F47F-186E-4BB9-8F1D-014F338CDC83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30A0F47F-186E-4BB9-8F1D-014F338CDC83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30A0F47F-186E-4BB9-8F1D-014F338CDC83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B38D872-ED49-4B5A-8D81-F1B2F2EFB065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B38D872-ED49-4B5A-8D81-F1B2F2EFB065}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B38D872-ED49-4B5A-8D81-F1B2F2EFB065}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B38D872-ED49-4B5A-8D81-F1B2F2EFB065}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
