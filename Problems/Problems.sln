@@ -19,6 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4DCC090F-7DC2-460F-AC5A-D7712B76B895}"
 	ProjectSection(SolutionItems) = preProject
+		CircularTour.txt = CircularTour.txt
 		FindmaxHistogramArea.txt = FindmaxHistogramArea.txt
 		LRUCache.txt = LRUCache.txt
 		MaxRectangleMatrix.txt = MaxRectangleMatrix.txt
@@ -35,7 +36,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackProblems", "StackProbl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArrayProblems", "ArrayProblems\ArrayProblems.csproj", "{D6EC8F01-558F-436E-9B5C-17C2325175BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueProblems", "QueueProblems\QueueProblems.csproj", "{30A0F47F-186E-4BB9-8F1D-014F338CDC83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueueProblems", "QueueProblems\QueueProblems.csproj", "{30A0F47F-186E-4BB9-8F1D-014F338CDC83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
