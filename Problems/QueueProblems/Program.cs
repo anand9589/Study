@@ -84,22 +84,36 @@ Solution solution = new Solution();
 
 #region QueueByArray
 
-int n = int.Parse(lines[0].Trim());
-int[] data = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
-QueueByArray QueueByArray = new QueueByArray();
-for (int i = 0; i < data.Length; i++)
-{
-    switch (data[i])
-    {
-        case 1:
-            i++;
-            QueueByArray.push(data[i]);
-            break;
-        case 2:
-            Console.WriteLine(QueueByArray.pop());
-            break;
-        default:
-            break;
-    }
-}
+//int n = int.Parse(lines[0].Trim());
+//int[] data = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
+//QueueByArray QueueByArray = new QueueByArray();
+//for (int i = 0; i < data.Length; i++)
+//{
+//    switch (data[i])
+//    {
+//        case 1:
+//            i++;
+//            QueueByArray.push(data[i]);
+//            break;
+//        case 2:
+//            Console.WriteLine(QueueByArray.pop());
+//            break;
+//        default:
+//            break;
+//    }
+//}
+#endregion
+
+#region ReverseQueue
+//Queue<int> q = new Queue<int>();
+//q.Enqueue(1);
+//q.Enqueue(2);
+//q.Enqueue(3);
+//q.Enqueue(4);
+//q.Enqueue(5);
+//solution.ReverseKElementsInQueue(q, 3);
+#endregion
+
+#region GenerateBinaryNumbers
+solution.GenerateBinaryNumbers(5);
 #endregion
