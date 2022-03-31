@@ -7,7 +7,7 @@ var lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\LRUCache.txt");
 #region LRUCache
 int cap = int.Parse(lines[0]);
 int queries = int.Parse(lines[1]);
-LRUCache lRUCache = new LRUCache(cap);
+LRUCache_V1 lRUCache = new LRUCache_V1(cap);
 
 string[] strings = lines[2].Trim().Split(' ');
 
@@ -17,14 +17,14 @@ for (int i = 0; i < strings.Length; i++)
     {
         case "GET":
             i++;
-            lRUCache.Get(int.Parse(strings[i]));
+            lRUCache.get(int.Parse(strings[i]));
             break;
         case "SET":
             i++;
             int key = int.Parse(strings[i]);
             i++;
             int value = int.Parse(strings[i]);
-            lRUCache.Set(key, value);
+            lRUCache.set(key, value);
             break;
         default:
             break;
