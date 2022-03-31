@@ -3,7 +3,7 @@ using QueueProblems;
 using QueueProblems.LRU;
 
 Console.WriteLine("Hello, World!");
-var lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\StackQueue.txt");
+var lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\MaxOfSubArray.txt");
 
 #region LRUCache
 //int cap = int.Parse(lines[0]);
@@ -54,22 +54,30 @@ Solution solution = new Solution();
 #endregion
 
 #region StackQueue
-int n = int.Parse(lines[0]);
-int[] data = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
-StackQueue StackQueue = new StackQueue();
-for (int i = 0; i < data.Length; i++)
-{
-    switch (data[i])
-    {
-        case 1:
-            i++;
-            StackQueue.Push(data[i]);
-            break;
-        case 2:
-            Console.WriteLine(StackQueue.Pop());
-            break;
-        default:
-            break;
-    }
-}
+//int n = int.Parse(lines[0]);
+//int[] data = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
+//StackQueue StackQueue = new StackQueue();
+//for (int i = 0; i < data.Length; i++)
+//{
+//    switch (data[i])
+//    {
+//        case 1:
+//            i++;
+//            StackQueue.Push(data[i]);
+//            break;
+//        case 2:
+//            Console.WriteLine(StackQueue.Pop());
+//            break;
+//        default:
+//            break;
+//    }
+//}
+#endregion
+
+#region MaxSubArray
+int[] ips = Array.ConvertAll(lines[0].Trim().Split(' '), int.Parse);
+int[] arr = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
+
+solution.MaxOfSubArrays(arr, ips[1]);
+
 #endregion

@@ -51,5 +51,24 @@
             return q.Count == n ? q.First() : -1;
         }
 
+        public int[] MaxOfSubArrays(int[] arr, int k)
+        {
+            List<int> result = new();
+            Queue<int> q = new();
+            for (int i = 0; i < k; i++)
+            {
+                q.Enqueue(arr[i]);
+            }
+            result.Add(q.Max());
+
+            for (int i = k; i < arr.Length; i++)
+            {
+                q.Dequeue();
+                q.Enqueue(arr[i]);
+                result.Add(q.Max());
+            }
+            return result.ToArray();
+        }
+
     }
 }
