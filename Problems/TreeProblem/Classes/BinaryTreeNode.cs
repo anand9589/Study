@@ -14,5 +14,22 @@
             Left = null;
             Right = null;
         }
+
+        public void Insert(BinaryTreeNode binaryTreeNode)
+        {
+            if (Left == null)
+            {
+
+            }
+            else if (Right == null)
+            {
+
+            }
+            else
+            {
+
+            }
+
+        }
     }
 }
