@@ -4,4 +4,5 @@ using HeapProblems;
 Console.WriteLine("Hello, World!");
 Solution sol = new Solution();
 
-sol.BubbleSort(new int[] { 5, 1, 4, 2, 8 });
+//sol.BubbleSort(new int[] { 5, 1, 4, 2, 8 });
+sol.InsertionSort(new int[] { 5, 1, 4, 2, 8 });
