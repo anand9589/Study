@@ -27,11 +27,11 @@
 
                 while (j > 0 && arr[j] < arr[j - 1])
                 {
-                    
-                        int temp = arr[j];
-                        arr[j] = arr[j - 1];
-                        arr[j - 1] = temp;
-                        j--;
+
+                    int temp = arr[j];
+                    arr[j] = arr[j - 1];
+                    arr[j - 1] = temp;
+                    j--;
                 }
 
             }
@@ -40,13 +40,13 @@
 
         public int[] SelectionSort(int[] arr)
         {
-            for (int i = 0; i < arr.Length-1; i++)
+            for (int i = 0; i < arr.Length - 1; i++)
             {
                 int minIndex = i;
-                int j = i+1;
-                while (j<arr.Length)
+                int j = i + 1;
+                while (j < arr.Length)
                 {
-                    if(arr[minIndex] > arr[j])
+                    if (arr[minIndex] > arr[j])
                     {
                         minIndex = j;
                     }
@@ -59,6 +59,56 @@
                     arr[i] = temp;
                 }
             }
+            return arr;
+        }
+
+        public int[] MergeSort(int[] arr)
+        {
+            int len = arr.Length;
+            if (len == 1) return arr;
+
+            int mid = len / 2;
+
+            int[] leftArr = new int[mid];
+            int[] rightArr = new int[len - mid];
+
+            for (int i = 0; i < mid; i++)
+            {
+                leftArr[i] = arr[i];
+            }
+
+            for (int i = mid; i < len; i++)
+            {
+                rightArr[i - mid] = arr[i];
+            }
+
+            leftArr = MergeSort(leftArr);
+            rightArr = MergeSort(rightArr);
+
+            return merge(leftArr, rightArr);
+        }
+
+        private int[] merge(int[] leftArr, int[] rightArr)
+        {
+            int mIndex = 0, nIndex = 0, index = 0;
+            int[] arr = new int[leftArr.Length + rightArr.Length];
+
+            while (index < leftArr.Length + rightArr.Length)
+            {
+                if (mIndex < leftArr.Length && nIndex < rightArr.Length)
+                {
+                    arr[index++] = leftArr[mIndex] < rightArr[nIndex] ? leftArr[mIndex++] : rightArr[nIndex++];
+                }
+                else if(mIndex < leftArr.Length)
+                {
+                    arr[index++] = leftArr[mIndex++];
+                }
+                else
+                {
+                    arr[index++] = rightArr[nIndex++];
+                }
+            }
+
             return arr;
         }
     }
