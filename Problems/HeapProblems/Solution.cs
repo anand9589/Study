@@ -99,7 +99,7 @@
                 {
                     arr[index++] = leftArr[mIndex] < rightArr[nIndex] ? leftArr[mIndex++] : rightArr[nIndex++];
                 }
-                else if(mIndex < leftArr.Length)
+                else if (mIndex < leftArr.Length)
                 {
                     arr[index++] = leftArr[mIndex++];
                 }
@@ -110,6 +110,52 @@
             }
 
             return arr;
+        }
+
+        public void QuickSort(int[] arr, int start, int end)
+        {
+            if (start < end)
+            {
+                int j=partition(arr, start, end);
+                QuickSort(arr, start, j);
+                QuickSort(arr,j+1, end);
+            }
+        }
+
+        private int partition(int[] arr, int start, int end)
+        {
+            int pivot = arr[start];
+
+            int i = start, j = end;
+
+
+            while (i < j)
+            {
+                while (arr[i]<=pivot)
+                {
+                    i++;
+                }
+
+                while (arr[j] > pivot)
+                {
+                    j--;
+                }
+
+                if (i < j)
+                {
+                    swap(arr, i, j);
+                }
+            }
+            swap(arr, start, j);
+
+            return j;
+        }
+
+        private static void swap(int[] arr, int i, int j)
+        {
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
         }
     }
 }
