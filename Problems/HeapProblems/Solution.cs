@@ -37,5 +37,29 @@
             }
             return arr;
         }
+
+        public int[] SelectionSort(int[] arr)
+        {
+            for (int i = 0; i < arr.Length-1; i++)
+            {
+                int minIndex = i;
+                int j = i+1;
+                while (j<arr.Length)
+                {
+                    if(arr[minIndex] > arr[j])
+                    {
+                        minIndex = j;
+                    }
+                    j++;
+                }
+                if (minIndex != i)
+                {
+                    int temp = arr[minIndex];
+                    arr[minIndex] = arr[i];
+                    arr[i] = temp;
+                }
+            }
+            return arr;
+        }
     }
 }
