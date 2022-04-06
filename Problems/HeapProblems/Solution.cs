@@ -116,9 +116,9 @@
         {
             if (start < end)
             {
-                int j=partition(arr, start, end);
+                int j = partition(arr, start, end);
                 QuickSort(arr, start, j);
-                QuickSort(arr,j+1, end);
+                QuickSort(arr, j + 1, end);
             }
         }
 
@@ -131,7 +131,7 @@
 
             while (i < j)
             {
-                while (arr[i]<=pivot)
+                while (arr[i] <= pivot)
                 {
                     i++;
                 }
@@ -156,6 +156,37 @@
             int temp = arr[i];
             arr[i] = arr[j];
             arr[j] = temp;
+        }
+
+        public void createMaxHeap(int[] arr, int len, int k=0)
+        {
+            if (k == arr.Length) return;
+            for (int i = len - 1; i >= k; i--)
+            {
+                int parentNodeIndex = (i- 1) / 2;
+
+                if (arr[parentNodeIndex] < arr[i])
+                {
+                    swap((int[])arr, i, parentNodeIndex);
+                    //Console.WriteLine(String.Join(' ', arr));
+                }
+
+            }
+            createMaxHeap(arr, len, k+1);
+        }
+
+        public void HeapSort(int[] arr)
+        {
+            //createMaxHeap((int[])arr, arr.Length,0);
+
+            //swap(arr, arr.Length - 1, 0);
+
+            for (int i = arr.Length; i > 0; i--)
+            {
+                createMaxHeap(arr, i, 0);
+                swap(arr, i-1, 0);
+                Console.WriteLine(String.Join(' ', arr));
+            }
         }
     }
 }
