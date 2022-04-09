@@ -21,10 +21,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4DCC090F-7
 	ProjectSection(SolutionItems) = preProject
 		BST.txt = BST.txt
 		CircularTour.txt = CircularTour.txt
+		costofrope.txt = costofrope.txt
 		FindmaxHistogramArea.txt = FindmaxHistogramArea.txt
+		heapifyOperation.txt = heapifyOperation.txt
 		LRUCache.txt = LRUCache.txt
 		MaxOfSubArray.txt = MaxOfSubArray.txt
 		MaxRectangleMatrix.txt = MaxRectangleMatrix.txt
+		mergedksorted.txt = mergedksorted.txt
 		Practice.txt = Practice.txt
 		Problem1.txt = Problem1.txt
 		..\..\..\My\Problem1LL1.txt = ..\..\..\My\Problem1LL1.txt
@@ -44,7 +47,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueueProblems", "QueueProbl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreeProblem", "TreeProblem\TreeProblem.csproj", "{9B38D872-ED49-4B5A-8D81-F1B2F2EFB065}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeapProblems", "HeapProblems\HeapProblems.csproj", "{08AFAC43-5BEB-41A2-B474-653A81B4FFC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeapProblems", "HeapProblems\HeapProblems.csproj", "{08AFAC43-5BEB-41A2-B474-653A81B4FFC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
