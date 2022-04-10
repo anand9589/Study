@@ -14,22 +14,47 @@ Solution sol = new Solution();
 //Console.WriteLine(String.Join(' ', arr));
 
 
-var lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\mergedksorted.txt");
-int n = int.Parse(lines[0]);
-int[] n1 = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);
+var lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\mergeklinkedlist.txt");
+int[] m = Array.ConvertAll(lines[0].Split(' ', StringSplitOptions.RemoveEmptyEntries), int.Parse);
+int[] arr = Array.ConvertAll(lines[1].Split(' ', StringSplitOptions.RemoveEmptyEntries), int.Parse);
+//Node[] arr = new Node[n];
+//string[] ip = lines[1].Trim().Split(' ');
+//int i = 0;
+//for (int j = 0; j < n; j++)
+//{
+//    int N = int.Parse(ip[i]);
+//    i++;
+//    int x = int.Parse(ip[i]);
+//    i++;
+//    arr[j] = new Node(x);
+//    Node curr = arr[j];
+//    N--;
+//    for (int k = 0; k < N; k++, i++)
+//    {
+//        x = int.Parse(ip[i]);
+//        Node temp = new Node(x);
+//        curr.next = temp;
+//        curr = temp;
+//    }
+//}
+
+var res = sol.kLargest(arr, m[0], m[1]);
+
+//var res = sol.MaximumProduct(new int[] {24, 5, 64, 53, 26, 38},54);
+//var res = sol.CostOfRopes(n1,n);
 
 
-List<List<int>> list = new List<List<int>>();
+//List<List<int>> list = new List<List<int>>();
 
-for (int i = 0; i < n; i++)
-{
-    list.Add(new List<int>());
-    for (int j = 0; j < n; j++)
-    {
-        list[i].Add(n1[i*n + j]);
-    }
-}
-sol.mergeKArrays(ref list, n);
+//for (int i = 0; i < n; i++)
+//{
+//    list.Add(new List<int>());
+//    for (int j = 0; j < n; j++)
+//    {
+//        list[i].Add(n1[i*n + j]);
+//    }
+//}
+//sol.mergeKArrays(ref list, n);
 
 //MinHeap minHeap = new MinHeap(n);
 //int[] tc = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse);

@@ -199,6 +199,25 @@
             }
         }
 
+
+        //Complete this function
+        public int[] kLargest(int[] arr, int n, int k)
+        {
+            //Your code here
+            int[] result = new int[k];
+            Queue_V5 queue_V5 = new Queue_V5(n);
+            for (int i = 0; i < n; i++)
+            {
+                queue_V5.Enqueue(arr[i]);
+            }
+
+            for (int i = 0; i < k; i++)
+            {
+                result[i] = queue_V5.Dequeue();
+            }
+            return result;
+        }
+
         private void buildHeap(int[] arr, int n)
         {
             for (int i = n / 2 - 1; i >= 0; i--)
@@ -242,7 +261,7 @@
             //    pq.Enqueue(arr[i]);
             //}
 
-            while (pq.Count!=2)
+            while (pq.Count != 2)
             {
                 var min1 = pq.Dequeue();
                 var min2 = pq.Dequeue();
@@ -258,9 +277,9 @@
                 result += cost;
             }
 
-            if(pq.Count == 1)
+            if (pq.Count == 1)
             {
-                result+=pq.Dequeue();
+                result += pq.Dequeue();
             }
 
             return result;
@@ -272,12 +291,12 @@
             int right = 2 * parentIndex + 2;
             int result = 0;
 
-            if(left < len && arr[left] < arr[right])
+            if (left < len && arr[left] < arr[right])
             {
                 result = arr[left];
-                swap(arr, left, arr.Length-1);
+                swap(arr, left, arr.Length - 1);
             }
-            else if(right < len && arr[right] < arr[left])
+            else if (right < len && arr[right] < arr[left])
             {
                 result = arr[right];
                 swap(arr, right, arr.Length - 1);
@@ -331,7 +350,7 @@
                 arr[i].RemoveAt(0);
             }
 
-            for (int i = 0; i < K*K; i++)
+            for (int i = 0; i < K * K; i++)
             {
                 KeyValuePair<int, int> pair = queue_V2.Dequeue();
                 result.Add(pair.Value);
@@ -346,6 +365,119 @@
             }
 
             return result;
+        }
+
+        public long CostOfRopes(int[] arr, int n)
+        {
+            if (n < 2) return 0;
+            long result = 0;
+            Queue_V3 queue_V3 = new Queue_V3(n);
+
+            foreach (var item in arr)
+            {
+                queue_V3.Enqueue(item);
+            }
+
+            while (queue_V3.Count > 0)
+            {
+
+                long cost = queue_V3.Dequeue();
+
+                result += cost;
+
+
+            }
+
+            return (long)result;
+        }
+
+        public Node mergeKLists(Node[] arr, int K)
+        {
+            //code here
+            Node node = null;
+            Queue_V4 queue_V4 = new Queue_V4(K);
+            foreach (Node n in arr)
+            {
+                queue_V4.Enqueue(n);
+            }
+            node = queue_V4.Dequeue();
+            queue_V4.Enqueue(node.next);
+
+            Node temp = node;
+            while (queue_V4.Count>0)
+            {
+                temp.next = queue_V4.Dequeue();
+                temp = temp.next;
+                queue_V4.Enqueue(temp.next);
+            }
+
+            return node;
+        }
+        public int LargestInteger(int num)
+        {
+
+            //Console.WriteLine(Math.Pow(10,2));
+
+            int len = num.ToString().Length;
+            int[] arr = new int[len];
+
+            for (int i = len - 1; i >= 0; i--)
+            {
+                int rem = num % 10;
+                arr[i] = rem;
+                num = num / 10;
+            }
+
+            int max = getNumber(arr, len);
+
+            for (int i = 0; i < len; i++)
+            {
+                for (int j = 0; j < len; j++)
+                {
+                    if (j == i) continue;
+                    if (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1)
+                    {
+                        swap(arr, i, j);
+                        max = Math.Max(max, getNumber(arr, len));
+                    }
+                }
+            }
+
+            return max;
+        }
+        private void swap1(int[] arr, int i, int j)
+        {
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+
+        }
+
+        private int getNumber(int[] arr, int len)
+        {
+            int res = 0;
+            for (int i = 0; i < len; i++)
+            {
+                res = res + (arr[i] * (int)(Math.Pow(10, (len - i - 1))));
+            }
+            return res;
+        }
+        public int MaximumProduct(int[] nums, int k)
+        {
+            for (int i = 0; i < k; i++)
+            {
+                Array.Sort(nums);
+                nums[0]++;
+            }
+
+            int result = 1;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                result = result * nums[i];
+            }
+            return result;
+
         }
 
     }
