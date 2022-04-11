@@ -53,6 +53,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeapProblems", "HeapProblem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashProblems", "HashProblems\HashProblems.csproj", "{8571841D-C2CF-45E1-BA0E-6C7F53469F37}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphProject", "GraphProject\GraphProject.csproj", "{BD746D26-BFD3-45E2-8D06-BEEAFB75B492}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{8571841D-C2CF-45E1-BA0E-6C7F53469F37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8571841D-C2CF-45E1-BA0E-6C7F53469F37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8571841D-C2CF-45E1-BA0E-6C7F53469F37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD746D26-BFD3-45E2-8D06-BEEAFB75B492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD746D26-BFD3-45E2-8D06-BEEAFB75B492}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD746D26-BFD3-45E2-8D06-BEEAFB75B492}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD746D26-BFD3-45E2-8D06-BEEAFB75B492}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
