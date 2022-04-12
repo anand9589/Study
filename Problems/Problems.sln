@@ -24,6 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4DCC090F-7
 		costofrope.txt = costofrope.txt
 		FindmaxHistogramArea.txt = FindmaxHistogramArea.txt
 		heapifyOperation.txt = heapifyOperation.txt
+		isCyclic.txt = isCyclic.txt
 		longestSubsequence.txt = longestSubsequence.txt
 		LRUCache.txt = LRUCache.txt
 		MaxOfSubArray.txt = MaxOfSubArray.txt
