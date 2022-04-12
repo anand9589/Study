@@ -105,6 +105,33 @@
             return bfs;
         }
 
+        public List<int> DFS_Graph(int V, List<List<int>> adj)
+        {
+            List<int> bfs = new List<int>();
+            bool[] visited = new bool[V];
+            Stack<int> stack = new Stack<int>();
+            stack.Push(0);
+
+            while (stack.Count > 0)
+            {
+                int k = stack.Pop();
+
+                if (!visited[k]) bfs.Add(k);
+
+                visited[k] = true;
+
+                foreach (var item in adj[k])
+                {
+                    if (!visited[item])
+                    {
+                        stack.Push(item);
+                    }
+                }
+            }
+
+            return bfs;
+        }
+
         //// Function to detect cycle in a directed graph.
         //isCyclic(V, adj)
         //{
