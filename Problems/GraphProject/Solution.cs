@@ -80,6 +80,31 @@
             return bfs;
         }
 
+        public List<int> BFS_Graph(int V, List<List<int>> adj)
+        {
+            List<int> bfs = new List<int>();
+            bool[] visited = new bool[V];
+            Queue<int> queue = new Queue<int>();
+            queue.Enqueue(0);
+            while (queue.Count > 0)
+            {
+                int k = queue.Dequeue();
+
+                if (!visited[k]) bfs.Add(k);
+
+                visited[k] = true;
+
+                foreach (var e in adj[k])
+                {
+                    if (!visited[e])
+                    {
+                        queue.Enqueue(e);
+                    }
+                }
+            }
+            return bfs;
+        }
+
         //// Function to detect cycle in a directed graph.
         //isCyclic(V, adj)
         //{
