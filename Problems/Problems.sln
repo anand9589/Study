@@ -32,6 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4DCC090F-7
 		MaxRectangleMatrix.txt = MaxRectangleMatrix.txt
 		mergedksorted.txt = mergedksorted.txt
 		mergeklinkedlist.txt = mergeklinkedlist.txt
+		minspanning.txt = minspanning.txt
 		numIsLands.txt = numIsLands.txt
 		Practice.txt = Practice.txt
 		Problem1.txt = Problem1.txt

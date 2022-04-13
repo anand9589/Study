@@ -220,6 +220,39 @@
             }
         }
 
+        //Function to find sum of weights of edges of the Minimum Spanning Tree.
+        public int spanningTree(int V, ref List<List<List<int>>> adj)
+        {
+            // code here
+            Dictionary<int, int> dict = new Dictionary<int, int>();
+            Dictionary<int, int> dict2 = new Dictionary<int, int>();
+
+            for (int i = 0; i < V; i++)
+            {
+                dict2.Add(i, int.MaxValue);
+            }
+
+            dict2[0] = 0;
+
+            while (dict2.Count > 0)
+            {
+                var minkv = dict2.OrderBy(x => x.Value).FirstOrDefault();
+                dict2.Remove(minkv.Key);
+
+                dict.Add(minkv.Key, minkv.Value);
+
+                foreach (var k in adj[minkv.Key])
+                {
+                    if (dict2.ContainsKey(k[0]))
+                    {
+                        dict2[k[0]] = Math.Min(dict2[k[0]], k[1]);
+                    }
+                }
+            }
+            return dict.Values.Sum();
+        }
+
+
         //from the source vertex S.
         public List<int> dijkstra(int V, ref List<List<List<int>>> adj, int S)
         {
