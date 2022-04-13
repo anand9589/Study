@@ -41,6 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4DCC090F-7
 		StackProblem1.txt = StackProblem1.txt
 		StackQueue.txt = StackQueue.txt
 		StackSpanProblem.txt = StackSpanProblem.txt
+		toposort.txt = toposort.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackProblems", "StackProblems\StackProblems.csproj", "{50712A57-7EEF-41EF-9BED-433D4EB3046C}"

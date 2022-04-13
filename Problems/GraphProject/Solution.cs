@@ -193,6 +193,33 @@
             pairs[key] = temp;
         }
 
+        //Function to return list containing vertices in Topological order. 
+        public List<int> topoSort(int V, List<List<int>> adj)
+        {
+            //code here
+            List<int> list = new List<int>();
+            Stack<int> stack = new Stack<int>();
+            bool[] visited = new bool[V];
+            for (int i = 0; i < V; i++)
+            {
+                topo(adj,ref stack, visited, i);
+            }
+            return stack.ToList();
+        }
+
+        private static void topo(List<List<int>> adj,ref Stack<int> stack, bool[] visited, int i)
+        {
+            if (!visited[i])
+            {
+                visited[i] = true;
+                foreach (var item in adj[i])
+                {
+                    topo(adj,ref stack,visited, item);
+                }
+                stack.Push(i);
+            }
+        }
+
         //// Function to detect cycle in a directed graph.
         //isCyclic(V, adj)
         //{
