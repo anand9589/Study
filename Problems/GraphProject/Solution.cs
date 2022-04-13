@@ -132,6 +132,43 @@
             return bfs;
         }
 
+        public int numIslands(ref List<List<int>> grid)
+        {
+            // Code here
+            int result = 0;
+            for (int i = 0; i < grid.Count; i++)
+            {
+                for (int j = 0; j < grid[i].Count; j++)
+                {
+                    if(process(ref grid, i, j))
+                    {
+                        result++;
+                    }
+                }
+            }
+
+            return result;
+        }
+        private bool process(ref List<List<int>> grid, int i, int j)
+        {
+            if (i < 0 || j < 0 || i >= grid.Count || j >= grid[i].Count || grid[i][j] != 1) return false;
+
+            grid[i][j] = 2;
+            process(ref grid, i - 1, j);
+            process(ref grid, i + 1, j);
+            process(ref grid, i, j - 1);
+            process(ref grid, i, j + 1);
+
+            return true;
+
+        }
+
+        public int minSwaps(int[] nums)
+        {
+            // Code here
+            return 0;
+        }
+
         //// Function to detect cycle in a directed graph.
         //isCyclic(V, adj)
         //{

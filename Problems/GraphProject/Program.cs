@@ -14,7 +14,7 @@ using GraphProject;
 //graph_V1.AddEdge(1, 3);
 
 //graph_V1.Print();
-var lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\bsf.txt");
+var lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\numislands.txt");
 int v = int.Parse(lines[0].Trim().Split(' ')[0]);
 int e = int.Parse(lines[0].Trim().Split(' ')[1]);
 
@@ -33,6 +33,6 @@ for (int i = 0; i < e; i++)
     list[v1].Add(v2);
 }
 Solution solution = new Solution();
-var res = solution.bfsOfGraph(v, list);
+var res = solution.numIslands(ref list);
 Console.WriteLine(res);
 
