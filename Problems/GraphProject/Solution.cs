@@ -252,7 +252,6 @@
             return dict.Values.Sum();
         }
 
-
         //from the source vertex S.
         public List<int> dijkstra(int V, ref List<List<List<int>>> adj, int S)
         {
@@ -309,6 +308,7 @@
         //    // In case true isn't returned thus no cycle found.
         //    return false;
         //}
+
         public bool isCyclic(int V, List<List<int>> adj)
         {
             bool[] visiting = new bool[V];
@@ -421,5 +421,57 @@
         //    arr[i] = false;
         //    return false;
         //}
+
+
+        //Function to find out minimum steps Knight needs to reach target position.
+        public int minStepToReachTarget(ref List<int> KnightPos, ref List<int> TargetPos, int N)
+        {
+            // Code here
+            int[][] visited = new int[N][];
+            for (int i = 0; i < N; i++)
+            {
+                visited[i] = new int[N];
+                for (int j = 0; j < N; j++)
+                {
+                    visited[i][j] = -1;
+                }
+            }
+            Queue<int[]> queue = new Queue<int[]>();
+
+            queue.Enqueue(new int[] { KnightPos[0], KnightPos[1] });
+            visited[KnightPos[0] - 1][KnightPos[1] - 1] = 0;
+            bool reachToTarget = false;
+            while (queue.Count > 0 && !reachToTarget)
+            {
+                var kv = queue.Dequeue();
+
+                exploreNextPossibleMoves(queue, visited, kv[0], kv[1], N);
+
+                if (kv[0] == TargetPos[0] && kv[1] == TargetPos[1]) return visited[kv[0] - 1][kv[1] - 1];
+            }
+            return 0;
+        }
+
+        private void exploreNextPossibleMoves(Queue<int[]> queue, int[][] visited, int x, int y, int n)
+        {
+            //visited[x - 1][y - 1]++;
+            updateCoordinates(queue, visited, x - 2, y + 1, n, visited[x - 1][y - 1] + 1);
+            updateCoordinates(queue, visited, x - 2, y - 1, n, visited[x - 1][y - 1] + 1);
+            updateCoordinates(queue, visited, x - 1, y - 2, n, visited[x - 1][y - 1] + 1);
+            updateCoordinates(queue, visited, x + 1, y - 2, n, visited[x - 1][y - 1] + 1);
+            updateCoordinates(queue, visited, x + 2, y - 1, n, visited[x - 1][y - 1] + 1);
+            updateCoordinates(queue, visited, x + 2, y + 1, n, visited[x - 1][y - 1] + 1);
+            updateCoordinates(queue, visited, x + 1, y + 2, n, visited[x - 1][y - 1] + 1);
+            updateCoordinates(queue, visited, x - 1, y + 2, n, visited[x - 1][y - 1] + 1);
+        }
+
+        private static void updateCoordinates(Queue<int[]> queue, int[][] visited, int x, int y, int n, int cost)
+        {
+            if (x > 0 && x <= n && y > 0 && y <= n && visited[x - 1][y - 1] == -1)
+            {
+                visited[x - 1][y - 1] = cost;
+                queue.Enqueue(new int[] { x, y });
+            }
+        }
     }
 }

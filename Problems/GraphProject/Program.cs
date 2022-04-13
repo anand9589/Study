@@ -14,27 +14,29 @@ using GraphProject;
 //graph_V1.AddEdge(1, 3);
 
 //graph_V1.Print();
-var lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\minspanning.txt");
+var lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\stepsbynight.txt");
 int v = int.Parse(lines[0].Trim().Split(' ')[0]);
-int e = int.Parse(lines[0].Trim().Split(' ')[1]);
+List<int> start = Array.ConvertAll(lines[1].Trim().Split(' '), int.Parse).ToList();
+List<int> end = Array.ConvertAll(lines[2].Trim().Split(' '), int.Parse).ToList();
+//int e = int.Parse(lines[0].Trim().Split(' ')[1]);
 
-List<List<List<int>>> list = new List<List<List<int>>>();
+//List<List<List<int>>> list = new List<List<List<int>>>();
 
-for (int i = 0; i < v; i++)
-{
-    list.Add(new List<List<int>>());
-}
+//for (int i = 0; i < v; i++)
+//{
+//    list.Add(new List<List<int>>());
+//}
 
-for (int i = 0; i < e; i++)
-{
-    int v1 = int.Parse(lines[i + 1].Trim().Split(' ')[0]);
-    int v2 = int.Parse(lines[i + 1].Trim().Split(' ')[1]);
-    int w = int.Parse(lines[i + 1].Trim().Split(' ')[2]);
+//for (int i = 0; i < e; i++)
+//{
+//    int v1 = int.Parse(lines[i + 1].Trim().Split(' ')[0]);
+//    int v2 = int.Parse(lines[i + 1].Trim().Split(' ')[1]);
+//    int w = int.Parse(lines[i + 1].Trim().Split(' ')[2]);
 
-    list[v1].Add(new List<int> { v2, w });
-    list[v2].Add(new List<int> { v1, w });
-}
+//    list[v1].Add(new List<int> { v2, w });
+//    list[v2].Add(new List<int> { v1, w });
+//}
 Solution solution = new Solution();
-var res = solution.spanningTree(v, ref list);
-Console.WriteLine(string.Join(' ', res));
+var res = solution.minStepToReachTarget(ref start, ref end, v);
+Console.WriteLine(res);
 
