@@ -140,7 +140,7 @@
             {
                 for (int j = 0; j < grid[i].Count; j++)
                 {
-                    if(process(ref grid, i, j))
+                    if (process(ref grid, i, j))
                     {
                         result++;
                     }
@@ -165,8 +165,32 @@
 
         public int minSwaps(int[] nums)
         {
+            KeyValuePair<int, int>[] pairs = new KeyValuePair<int, int>[nums.Length];
             // Code here
-            return 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                pairs[i] = new KeyValuePair<int, int>(i, nums[i]);
+            }
+
+            pairs = pairs.OrderBy(x=>x.Value).ToArray();
+            int swapCount = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                while (pairs[i].Key != i)
+                {
+                    KeyValuePair<int, int> kv = pairs[i];
+                    swapCount++;
+                    swap(i, kv.Key, pairs);
+                }
+            }
+            return swapCount;
+        }
+
+        private void swap(int i, int key, KeyValuePair<int, int>[] pairs)
+        {
+            var temp = pairs[i];
+            pairs[i] = pairs[key];
+            pairs[key] = temp;
         }
 
         //// Function to detect cycle in a directed graph.
