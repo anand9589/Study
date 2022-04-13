@@ -172,7 +172,7 @@
                 pairs[i] = new KeyValuePair<int, int>(i, nums[i]);
             }
 
-            pairs = pairs.OrderBy(x=>x.Value).ToArray();
+            pairs = pairs.OrderBy(x => x.Value).ToArray();
             int swapCount = 0;
             for (int i = 0; i < nums.Length; i++)
             {
@@ -202,22 +202,56 @@
             bool[] visited = new bool[V];
             for (int i = 0; i < V; i++)
             {
-                topo(adj,ref stack, visited, i);
+                topo(adj, ref stack, visited, i);
             }
             return stack.ToList();
         }
 
-        private static void topo(List<List<int>> adj,ref Stack<int> stack, bool[] visited, int i)
+        private static void topo(List<List<int>> adj, ref Stack<int> stack, bool[] visited, int i)
         {
             if (!visited[i])
             {
                 visited[i] = true;
                 foreach (var item in adj[i])
                 {
-                    topo(adj,ref stack,visited, item);
+                    topo(adj, ref stack, visited, item);
                 }
                 stack.Push(i);
             }
+        }
+
+        //from the source vertex S.
+        public List<int> dijkstra(int V, ref List<List<List<int>>> adj, int S)
+        {
+            //code here
+            List<int> result = new List<int>();
+            Dictionary<int, int> dicTemp = new Dictionary<int, int>();
+            Dictionary<int, int> dicVisited = new Dictionary<int, int>();
+
+            for (int i = 0; i < V; i++)
+            {
+                dicTemp[i] = int.MaxValue;
+            }
+            dicTemp[S] = 0;
+            //dicVisited.Add(S, 0);
+
+            while (dicTemp.Count > 0)
+            {
+                var d = dicTemp.OrderBy(x => x.Value).FirstOrDefault();
+
+                dicTemp.Remove(d.Key);
+
+                dicVisited.Add(d.Key, d.Value);
+
+                int distance = d.Value;
+                foreach (var lst in adj[d.Key])
+                {
+                    if (dicTemp.ContainsKey(lst[0])) dicTemp[lst[0]] = Math.Min(dicTemp[lst[0]], distance + lst[1]);
+                }
+            }
+
+            return dicVisited.OrderBy(x => x.Key).ToDictionary(y => y.Key, y => y.Value).Values.ToList();
+
         }
 
         //// Function to detect cycle in a directed graph.

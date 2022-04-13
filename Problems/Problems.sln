@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4DCC090F-7
 		BST.txt = BST.txt
 		CircularTour.txt = CircularTour.txt
 		costofrope.txt = costofrope.txt
+		dijkstra.txt = dijkstra.txt
 		FindmaxHistogramArea.txt = FindmaxHistogramArea.txt
 		heapifyOperation.txt = heapifyOperation.txt
 		isCyclic.txt = isCyclic.txt
