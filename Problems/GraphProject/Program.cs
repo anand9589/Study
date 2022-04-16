@@ -48,6 +48,6 @@ using GraphProject;
 //l2.next.next.next.next.next.next.next.next = new ListNode(9);
 //l2.next.next.next.next.next.next.next.next.next = new ListNode(9);
 Solution solution = new Solution();
-var res = solution.Reverse(1534236469);
+var res = solution.MyAtoi("2147483646");
 Console.WriteLine(res);
 

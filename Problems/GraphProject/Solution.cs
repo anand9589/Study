@@ -510,6 +510,42 @@ namespace GraphProject
 
         }
 
+        public int MyAtoi(string s)
+        {
+            s = s.Trim();
+
+            List<char> list = s.ToList();
+            bool isNegative = false;
+            if (list[0] == '-')
+            {
+                list.RemoveAt(0);
+                isNegative = true;
+            }
+            else if (list[0] == '+')
+            {
+                list.RemoveAt(0);
+            }
+            int res = 0;
+
+            while (list.Count > 0)
+            {
+                if (list[0] >= 48 && list[0] <= 57)
+                {
+                    int lstDigit = list[0] - (int)'0';
+
+                    if (res > int.MaxValue / 10 || (res == int.MaxValue / 10) && lstDigit > 7) return isNegative ? int.MinValue : int.MaxValue;
+                    res = (res * 10) + lstDigit;
+                    list.RemoveAt(0);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return isNegative ? -1 * res : res;
+        }
+
         public int Reverse(int x)
         {
             int result = 0;
@@ -532,10 +568,10 @@ namespace GraphProject
 
         public TreeNode ConvertBST(TreeNode root)
         {
-            if(root==null) return null;
+            if (root == null) return null;
 
             ConvertBST(root.right);
-            sum+=root.val;
+            sum += root.val;
             root.val = sum;
             ConvertBST(root.left);
 
@@ -629,7 +665,7 @@ namespace GraphProject
             return root;
         }
 
-        public string Convert(string s, int numRows)
+        public string Convert1(string s, int numRows)
         {
             if (s.Length == 1 || numRows == 1) return s;
             //List<char[]> list = new List<char[]>();
