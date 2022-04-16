@@ -1,4 +1,6 @@
-﻿namespace GraphProject
+﻿using System.Text;
+
+namespace GraphProject
 {
     internal class Solution
     {
@@ -472,6 +474,338 @@
                 visited[x - 1][y - 1] = cost;
                 queue.Enqueue(new int[] { x, y });
             }
+        }
+
+        public int LengthOfLongestSubstring(string s)
+        {
+            //s=s.Trim();
+            if (s.Length == 0) return 0;
+            int len = 0;
+            int tempLen = 0;
+            int index = 0;
+            int startIndex = 0;
+            Dictionary<char, int> dct = new Dictionary<char, int>();
+            while (index < s.Length)
+            {
+                if (!dct.ContainsKey(s[index]))
+                {
+                    dct.Add(s[index], index);
+                    tempLen++;
+                    index++;
+                }
+                else
+                {
+                    len = Math.Max(len, tempLen);
+                    tempLen = 0;
+                    startIndex = dct[s[index]];
+
+                    index = startIndex + 1;
+                    startIndex = index;
+                    dct.Clear();
+                }
+            }
+            //Console.WriteLine(tempLen);
+            len = Math.Max(len, tempLen);
+            return len;
+
+        }
+
+        public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+        {
+
+            ListNode temp = l1;
+            ListNode temp2 = l2;
+
+            int cnt = 0;
+            long num1 = 0;
+            long num2 = 0;
+            while (temp != null || temp2 != null)
+            {
+                if (temp != null)
+                {
+                    int v1 = temp.val;
+                    temp = temp.next;
+                    num1 = num1 + (v1 * (long)Math.Pow(10, cnt));
+                }
+
+                if (temp2 != null)
+                {
+                    int v2 = temp2.val;
+                    temp2 = temp2.next;
+                    num2 = num2 + (v2 * (long)Math.Pow(10, cnt));
+                }
+                cnt++;
+            }
+
+            long result = num1 + num2;
+            if (result == 0)
+            {
+                return new ListNode(0);
+            }
+            Stack<ListNode> nodes = new Stack<ListNode>();
+            ListNode node = null;
+            while (result != 0)
+            {
+                node = new ListNode((int)(long)result % 10);
+                nodes.Push(node);
+                result = result / 10;
+            }
+
+            if (nodes.Count > 0)
+            {
+
+                var t = nodes.Pop();
+                //var t1 = null;
+                while (nodes.Count > 0)
+                {
+                    ListNode t1 = t;
+
+                    t = nodes.Pop();
+                    t.next = t1;
+                }
+
+                return t;
+            }
+            return null;
+        }
+
+        public bool ValidPalindrome(string s)
+        {
+            if (s.Length == 1) return true;
+
+            int startIndex = 0;
+            int endIndex = s.Length - 1;
+
+            while (startIndex < endIndex)
+            {
+                if (s[startIndex] != s[endIndex])
+                {
+                    return removeAndCheck(s, startIndex + 1, endIndex) || removeAndCheck(s, startIndex, endIndex - 1);
+                }
+                startIndex++;
+                endIndex--;
+            }
+            return true;
+        }
+
+        private bool removeAndCheck(string s, int startIndex, int endIndex)
+        {
+
+            while (startIndex < endIndex)
+            {
+                if (s[startIndex] != s[endIndex]) return false;
+
+                startIndex++;
+                endIndex--;
+            }
+
+            return true;
+        }
+
+        public TreeNode TrimBST(TreeNode root, int low, int high)
+        {
+            if (root == null) return null;
+
+            if (root.val < low)
+            {
+                return TrimBST(root.right, low, high);
+            }
+            else if (root.val > high)
+            {
+                return TrimBST(root.left, low, high);
+            }
+
+            root.left = TrimBST(root.left, low, high);
+            root.right = TrimBST(root.right, low, high);
+            return root;
+        }
+
+        public string Convert(string s, int numRows)
+        {
+            if (s.Length == 1 || numRows == 1) return s;
+            //List<char[]> list = new List<char[]>();
+
+            //for (int i = 0; i < numRows; i++)
+            //{
+            //    list.Add(new char[numRows]);
+            //}
+            //int index = 0;
+            //int tx = 0, ty = 0;
+            //while (index < s.Length)
+            //{
+            //    while (ty < numRows)
+            //    {
+            //        list[tx][ty] = s[index];
+            //        ty++;
+            //        index++;
+            //    }
+
+            //    while (tx>=0)
+            //    {
+
+            //    }
+            //}
+
+            List<List<char>> chars = new List<List<char>>();
+
+            for (int i = 0; i < numRows; i++)
+            {
+                List<char> slist = new List<char>();
+                int incrementor = 0;
+                for (int j = i; j < s.Length + numRows; )
+                {
+                    if (i == 0 || i==numRows-1)
+                    {
+                        if (!addToList(s,slist, j))
+                        {
+                            break;
+                        }
+                        j += ((numRows - 1) * 2);
+                    }
+                    else
+                    {
+                        if (j < numRows)
+                        {
+                            if (!addToList(s, slist, j))
+                            {
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (!addToList(s, slist, j - i))
+                            {
+                                break;
+                            }
+                            if (!addToList(s, slist, j + i))
+                            {
+                                break;
+                            }
+                        }
+                        incrementor = incrementor + ((numRows - 1) * 2);
+                        j = incrementor;
+                    }
+                }
+
+                chars.Add(slist);
+            }
+            StringBuilder sb = new StringBuilder();
+            foreach (var item in chars)
+            {
+                foreach (var k in item)
+                {
+                    sb.Append(k);
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        private static bool addToList(string s, List<char> chars, int j)
+        {
+            if (j >= s.Length) return false;
+
+            chars.Add(s[j]);
+            return true;
+        }
+
+        public string LongestPalindrome(string s)
+        {
+            int start = 0;
+            int end = 0;
+            int len1 = 0;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                int len = checkFromMiddle(s, i, i);
+                int len2 = checkFromMiddle(s, i, i + 1);
+                if (len > len2)
+                {
+                    if (len > len1)
+                    {
+                        len1 = len;
+                        start = i - (len / 2);
+                        end = i + (len / 2);
+                    }
+                }
+                else
+                {
+                    if (len2 > len1)
+                    {
+                        len1 = len2;
+                        start = i - (len2 / 2) + 1;
+                        end = i + (len2 / 2);
+                    }
+                }
+            }
+
+            return s.Substring(start, (end - start) + 1);
+        }
+
+        public int checkFromMiddle(string s, int left, int right)
+        {
+            if (s == null) return 0;
+            int len = 0;
+            while (left >= 0 && right < s.Length && s[left] == s[right])
+            {
+                if (left == right)
+                {
+                    len = 1;
+                }
+                else
+                {
+                    len += 2;
+                }
+                left--;
+                right++;
+            }
+
+            return len;
+        }
+
+        //Function to find number of strongly connected components in the graph.
+        public int kosaraju(int V, ref List<List<int>> adj)
+        {
+            //code here
+            bool[] visited = new bool[V];
+            Stack<int> stack = new Stack<int>();
+
+            for (int i = 0; i < V; i++)
+            {
+                if (!visited[i])
+                {
+                    //visited[i] = true;
+
+                    //foreach (var k in adj[i])
+                    //{
+                    //    visited[k] = true;
+                    //}
+                    visitChildNode(ref adj, i, stack);
+                }
+            }
+
+            List<List<int>> newList = new List<List<int>>();
+            for (int i = 0; i < V; i++)
+            {
+                newList.Add(new List<int>());
+            }
+
+            for (int i = 0; i < V; i++)
+            {
+                visited[i] = false;
+
+                foreach (var k in adj[i])
+                {
+                    newList[k].Add(i);
+                }
+            }
+
+            return 0;
+        }
+
+        private void visitChildNode(ref List<List<int>> adj, int k, Stack<int> stack)
+        {
+
         }
     }
 }
