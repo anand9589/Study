@@ -528,6 +528,20 @@ namespace GraphProject
             return result;
         }
 
+        int sum = 0;
+
+        public TreeNode ConvertBST(TreeNode root)
+        {
+            if(root==null) return null;
+
+            ConvertBST(root.right);
+            sum+=root.val;
+            root.val = sum;
+            ConvertBST(root.left);
+
+            return root;
+        }
+
         public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
         {
             ListNode temp = new ListNode(0);
