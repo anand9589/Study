@@ -512,61 +512,38 @@ namespace GraphProject
 
         public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
         {
+            ListNode temp = new ListNode(0);
+            ListNode l3 = temp;
 
-            ListNode temp = l1;
-            ListNode temp2 = l2;
+            int c = 0;
 
-            int cnt = 0;
-            long num1 = 0;
-            long num2 = 0;
-            while (temp != null || temp2 != null)
+            while (l1 != null || l2 != null)
             {
-                if (temp != null)
-                {
-                    int v1 = temp.val;
-                    temp = temp.next;
-                    num1 = num1 + (v1 * (long)Math.Pow(10, cnt));
-                }
+                int x = l1 != null ? l1.val : 0;
+                int y = l2 != null ? l2.val : 0;
 
-                if (temp2 != null)
-                {
-                    int v2 = temp2.val;
-                    temp2 = temp2.next;
-                    num2 = num2 + (v2 * (long)Math.Pow(10, cnt));
-                }
-                cnt++;
+                int sum = x + y + c;
+
+                c = sum / 10;
+                int z = sum % 10;
+
+                ListNode lastNode = new ListNode(z);
+                l3.next = lastNode;
+
+                if (l1 != null) l1 = l1.next;
+                if (l2 != null) l2 = l2.next;
+
+                l3 = l3.next;
             }
 
-            long result = num1 + num2;
-            if (result == 0)
+            if (c>0)
             {
-                return new ListNode(0);
-            }
-            Stack<ListNode> nodes = new Stack<ListNode>();
-            ListNode node = null;
-            while (result != 0)
-            {
-                node = new ListNode((int)(long)result % 10);
-                nodes.Push(node);
-                result = result / 10;
+                ListNode l = new ListNode(c);
+                l3.next = l;
+                l3 = l3.next;
             }
 
-            if (nodes.Count > 0)
-            {
-
-                var t = nodes.Pop();
-                //var t1 = null;
-                while (nodes.Count > 0)
-                {
-                    ListNode t1 = t;
-
-                    t = nodes.Pop();
-                    t.next = t1;
-                }
-
-                return t;
-            }
-            return null;
+            return temp.next;
         }
 
         public bool ValidPalindrome(string s)
@@ -652,11 +629,11 @@ namespace GraphProject
             {
                 List<char> slist = new List<char>();
                 int incrementor = 0;
-                for (int j = i; j < s.Length + numRows; )
+                for (int j = i; j < s.Length + numRows;)
                 {
-                    if (i == 0 || i==numRows-1)
+                    if (i == 0 || i == numRows - 1)
                     {
-                        if (!addToList(s,slist, j))
+                        if (!addToList(s, slist, j))
                         {
                             break;
                         }
