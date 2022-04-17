@@ -546,6 +546,33 @@ namespace GraphProject
             return isNegative ? -1 * res : res;
         }
 
+        public TreeNode IncreasingBST(TreeNode root)
+        {
+            List<int> lst = new List<int>();
+
+            inorder(root, lst);
+
+            TreeNode temp = new TreeNode(0);
+
+            TreeNode curr = temp;
+
+            foreach (var item in lst)
+            {
+                curr.right = new TreeNode(item);
+                curr = curr.right;
+            }
+            return temp.right;
+        }
+
+        private void inorder(TreeNode root, List<int> values)
+        {
+            if (root == null) return;
+
+            inorder(root.left, values);
+            values.Add(root.val);
+            inorder(root.right, values);
+        }
+
         public int Reverse(int x)
         {
             int result = 0;
