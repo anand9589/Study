@@ -417,6 +417,36 @@
             return result;
         }
 
+        public int maxArea(int[] height)
+        {
+            int left = 0;
+
+            int right = height.Length - 1;
+
+            int area = int.MinValue;
+
+            while (left<right)
+            {
+                int leftVal = height[left];
+                int rightVal = height[right];
+                int areaVal = int.MinValue;
+                if(leftVal < rightVal)
+                {
+                    areaVal = leftVal * (right - left);
+                    left++;
+                }
+                else
+                {
+                    areaVal = rightVal * (right - left);
+                    right--;
+                }
+                area = Math.Max(area, areaVal);
+
+            }
+
+            return area;
+        }
+
         public long GetMaxAreaRectangle(long[,] arr, int rowCount, int colCount)
         {
             long result = 0;

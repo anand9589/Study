@@ -106,10 +106,10 @@ Solution solution = new Solution();
 #endregion
 
 #region GetMaxHistogramArea
-//long[] input = Array.ConvertAll(lines[1].Trim().Split(' '), long.Parse);// new long[] { 6, 2, 5, 4, 5, 1, 6 };
-////var result = solution.getMaxArea(input, n);
-//var result = solution.GetMaxArea(new long[] {1}, 1);
-//Console.WriteLine(result);
+long[] input =  new long[] { 1, 8, 6, 2, 5, 4, 8, 3, 7 };
+//var result = solution.getMaxArea(input, n);
+var result = solution.GetMaxArea(new long[] { 1 }, 1);
+Console.WriteLine(result);
 #endregion
 
 #region GetMaxAreaRectangle
@@ -174,7 +174,7 @@ Solution solution = new Solution();
 #endregion
 
 #region InfixToPostfix
-string s = "a+b*(c^d-e)^(f+g*h)-i";
-string result = solution.InfixToPostfix(s);
-Console.WriteLine(result);
+//string s = "a+b*(c^d-e)^(f+g*h)-i";
+//string result = solution.InfixToPostfix(s);
+//Console.WriteLine(result);
 #endregion
