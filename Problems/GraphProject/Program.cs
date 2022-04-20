@@ -48,6 +48,6 @@ using GraphProject;
 //l2.next.next.next.next.next.next.next.next = new ListNode(9);
 //l2.next.next.next.next.next.next.next.next.next = new ListNode(9);
 Solution solution = new Solution();
-var res = solution.MyAtoi("2147483646");
+var res = solution.DigitSum("00000000", 3);
 Console.WriteLine(res);
 

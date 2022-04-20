@@ -573,6 +573,149 @@ namespace GraphProject
             inorder(root.right, values);
         }
 
+        public string DigitSum(string s, int k)
+        {
+            while (s.Length > k)
+            {
+                List<int> res = new List<int>();
+                int c = 0;
+
+                for (int i = 0; i < s.Length; i++)
+                {
+                    if (i != 0 && i % 3 == 0)
+                    {
+                        res.Add(c);
+                        c = 0;
+                    }
+                    c = c + (s[i] - (int)'0');
+                }
+
+                res.Add((int)c);
+
+                s = String.Join(string.Empty, res);
+
+                // int sum = res.Sum();
+
+                // s = sum.ToString();
+            }
+
+            return s;
+        }
+
+        public void RecoverTree(TreeNode root)
+        {
+            TreeNode first = null;
+            TreeNode second = null;
+            TreeNode prev = null;
+            //[3,1,4,null,null,2]
+            while (root != null) //root 3 rl 1 rr 4
+            {
+                if (root.left == null)
+                {
+                    if (prev != null && prev.val > root.val)
+                    {
+                        if (first == null)
+                        {
+                            first = prev;
+                        }
+                        second = root;
+
+                    }
+                    prev = root;
+                    root = root.right;
+                }
+                else
+                {
+                    TreeNode temp = root.left; //temp 1
+
+                    while (temp.right != null && temp.right != root)
+                    {
+                        temp = temp.right;
+                    }
+
+                    if (temp.right == null)
+                    {
+                        temp.right = root;
+                        root = root.left;
+                    }
+                    else
+                    {
+                        temp.right = null;
+
+                        if (prev != null && prev.val > root.val)
+                        {
+                            if (first == null)
+                            {
+                                first = prev;
+                            }
+                            second = root;
+
+                        }
+                        prev = root;
+
+                        root = root.right;
+                    }
+                }
+            }
+
+            int tem = first.val;
+            first.val = second.val;
+            second.val = tem;
+        }
+        public int MaxTrailingZeros(int[][] grid)
+        {
+            for (int i = 0; i < grid.Length; i++)
+            {
+                for (int j = 0; j < grid[i].Length; j++)
+                {
+                    int x = grid[i][j];
+                    int y = grid[i][j + 1];
+                    int z = grid[i + 1][j];
+
+                    if ((x * y) % 10 == 0)
+                    {
+
+                    }
+                }
+            }
+
+            return 0;
+        }
+
+        public int MinimumRounds(int[] tasks)
+        {
+            int result = 0;
+
+            Dictionary<int, int> map = new Dictionary<int, int>();
+            for (int i = 0; i < tasks.Length; i++)
+            {
+                if (map.ContainsKey(tasks[i]))
+                {
+                    map[tasks[i]]++;
+                }
+                else
+                {
+                    map.Add(tasks[i], 1);
+                }
+            }
+
+            foreach (var item in map.Keys)
+            {
+                if (map[item] == 1) return -1;
+
+                result = result + getMinimumRound(map[item]);
+            }
+
+            return result;
+        }
+
+        private int getMinimumRound(int v)
+        {
+            if (v <= 3) return 1;
+            if (v <= 5) return 2;
+            return 1 + getMinimumRound(v - 3);
+        }
+
         public int Reverse(int x)
         {
             int result = 0;
