@@ -48,6 +48,7 @@ using GraphProject;
 //l2.next.next.next.next.next.next.next.next = new ListNode(9);
 //l2.next.next.next.next.next.next.next.next.next = new ListNode(9);
 Solution solution = new Solution();
-var res = solution.DigitSum("00000000", 3);
+//var res = solution.IntToRoman(1784);
+var res = solution.RomanToInt("MCMXCIV");
 Console.WriteLine(res);
 

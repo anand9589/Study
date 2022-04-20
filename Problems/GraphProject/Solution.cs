@@ -29,7 +29,105 @@ namespace GraphProject
         //    dfsVis[node] = false;
         //    return false;
         //}
+        public int RomanToInt(String s)
+        {
+            Dictionary<string, int> dct = new Dictionary<string, int>();
+            dct.Add("M", 1000);
+            dct.Add("CM", 900);
+            dct.Add("D", 500);
+            dct.Add("CD", 400);
+            dct.Add("C", 100);
+            dct.Add("XC", 90);
+            dct.Add("L", 50);
+            dct.Add("XL", 40);
+            dct.Add("X", 10);
+            dct.Add("IX", 9);
+            dct.Add("V", 5);
+            dct.Add("IV", 4);
+            dct.Add("I", 1);
+            int startIndex = 0;
+            int result = 0;
+            //char[] prevCheck = new char[] {'I','X','C',}
+            //while (startIndex<s.Length)
+            //{
 
+            //    if (startIndex<s.Length-1 && dct.ContainsKey(s.Substring(startIndex, 2))){
+
+            //        int val = dct[s.Substring(startIndex,2)];
+            //        result += val;
+            //        startIndex += 2;
+            //    }
+            //    else
+            //    {
+            //        int val = dct[s.Substring(startIndex,1)];
+            //        result += val;
+            //        startIndex++;
+            //    }
+            //}
+
+            foreach (var k in dct.Keys)
+            {
+                while (s.StartsWith(k))
+                {
+                    result += dct[k];
+                    s = s.Remove(0, k.Length);
+                }
+            }
+            return result;
+        }
+
+        public string IntToRoman(int num)
+        {
+            if (num < 1) return "";
+            if (num > 3999) return "";
+
+            Dictionary<string, int> dct = new Dictionary<string, int>();
+            dct.Add("M", 1000);
+            dct.Add("CM", 900);
+            dct.Add("D", 500);
+            dct.Add("CD", 400);
+            dct.Add("C", 100);
+            dct.Add("XC", 90);
+            dct.Add("L", 50);
+            dct.Add("XL", 40);
+            dct.Add("X", 10);
+            dct.Add("IX", 9);
+            dct.Add("V", 5);
+            dct.Add("IV", 4);
+            dct.Add("I", 1);
+
+            StringBuilder stringBuilder = new StringBuilder();
+
+            foreach (var k in dct.Keys)
+            {
+                while (num >= dct[k])
+                {
+                    stringBuilder.Append(k);
+                    num -= dct[k];
+                }
+            }
+            //int lev = 0;
+            //while (num >0)
+            //{
+            //    int rem = num % 10;
+
+            //    int x = rem * (int)(Math.Pow(10, lev));
+            //    if (dct.ContainsValue(x))
+            //    {
+            //        stringBuilder.Insert(0, dct.Keys.FirstOrDefault(y=>dct[y]==x));
+            //    }
+            //    else
+            //    {
+            //        var kv = dct.Where(y => y.Value < x).LastOrDefault();
+            //        string ss = kv.Key;
+
+            //    }
+            //    lev++;
+            //    num = num / 10;
+            //}
+
+            return stringBuilder.ToString();
+        }
         private bool isCycle(int nodeIndex, bool[] visiting, bool[] visited, List<List<int>> adj)
         {
             visiting[nodeIndex] = true;
