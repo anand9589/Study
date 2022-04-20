@@ -12,4 +12,4 @@ Solution solution = new Solution();
 
 //var k = solution.ShiftGrid(new int[][] { new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, new int[] { 7, 8, 9 } },9);
 
-var k = solution.ThreeSum(new int[] { -1, 0, 1, 2, -1, -4});
+var k = solution.ThreeSumClosest(new int[] { -1, 2, 1, -4 }, 1);

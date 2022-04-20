@@ -47,7 +47,7 @@
                             low++;
                             high--;
                         }
-                        else if(nums[low] + nums[high] > sum)
+                        else if (nums[low] + nums[high] > sum)
                         {
                             high--;
                         }
@@ -60,17 +60,43 @@
 
             }
 
+
             return list;
         }
 
-        private bool CheckDataIsPresent(IList<IList<int>> list, IList<int> sublist)
+        public int ThreeSumClosest(int[] nums, int target)
         {
-            foreach (var item in list)
+
+            int result = nums[0] + nums[1] + nums[nums.Length - 1];
+
+            Array.Sort(nums);
+
+            for (int i = 0; i < nums.Length - 2; i++)
             {
-                var k = item.Intersect(sublist);
-                if (k.Count() == 3) return true;
+                int low = i + 1;
+                int high = nums.Length - 1;
+
+                while (low < high)
+                {
+                    int sum = nums[i] + nums[low] + nums[high];
+
+                    if (sum > target)
+                    {
+                        high--;
+                    }
+                    else
+                    {
+                        low++;
+                    }
+
+                    if (Math.Abs(sum - target) < Math.Abs(result - target))
+                    {
+                        result = sum;
+                    }
+                }
             }
-            return false;
+
+            return result;
         }
 
         public bool Find132Pattern_V1(int[] arr)
