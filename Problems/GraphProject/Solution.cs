@@ -76,6 +76,26 @@ namespace GraphProject
             return result;
         }
 
+        public string LongestCommonPrefix(string[] strs)
+        {
+            string res = !string.IsNullOrEmpty(strs[0][0].ToString()) ? strs[0][0].ToString() : string.Empty;
+
+            if (!string.IsNullOrEmpty(res))
+            {
+                for (int i = 0; i < strs[0].Length; i++)
+                {
+                    res = strs[0].Substring(0, i + 1);
+                    foreach (var s in strs)
+                    {
+                        if (!s.StartsWith(res)) return res.Substring(0, res.Length - 1);
+                    }
+                }
+            }
+
+
+            return res;
+        }
+
         public string IntToRoman(int num)
         {
             if (num < 1) return "";
