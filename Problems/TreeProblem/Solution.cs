@@ -1014,5 +1014,28 @@ namespace TreeProblem
                 }
             }
         }
+
+        public ListNode RemoveNthFromEnd(ListNode head, int n)
+        {
+            List<ListNode> lst = new List<ListNode>();
+
+            ListNode temp = head;
+
+            while (temp != null)
+            {
+                lst.Insert(0, (ListNode)temp);
+                temp = temp.next;
+            }
+            if (lst.Count == 1 && n == 1) return null;
+            if(lst.Count == n)
+            {
+                head = head.next;
+            }
+            else
+            {
+                lst[n].next = n - 2 >= 0 ? lst[n - 2] : null;
+            }
+            return head;
+        }
     }
 }
