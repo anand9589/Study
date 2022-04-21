@@ -1037,5 +1037,46 @@ namespace TreeProblem
             }
             return head;
         }
+
+        public ListNode MergeTwoLists(ListNode list1, ListNode list2)
+        {
+            ListNode temp1 = list1;
+            ListNode temp2 = list2;
+
+            ListNode temp = new ListNode(int.MaxValue);
+            ListNode temp3 = temp;
+
+            while (temp1 != null || temp2 != null)
+            {
+                int minVal = int.MaxValue;
+                if (temp1!=null && temp2 != null)
+                {
+                    if (temp1.val < temp2.val)
+                    {
+                        minVal = temp1.val;
+                        temp1 = temp1.next;
+                    }
+                    else
+                    {
+                        minVal = temp2.val;
+                        temp2 = temp2.next;
+                    }
+                }
+                else if(temp1 != null)
+                {
+                    minVal = temp1.val;
+                    temp1 = temp1.next;
+                }
+                else
+                {
+                    minVal = temp2.val;
+                    temp2 = temp2.next;
+                }
+                temp3.next = new ListNode(minVal);
+                temp3 = temp3.next;
+            }
+
+            return temp.next;
+        }
     }
 }
