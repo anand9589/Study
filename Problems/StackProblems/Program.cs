@@ -106,10 +106,10 @@ Solution solution = new Solution();
 #endregion
 
 #region GetMaxHistogramArea
-long[] input =  new long[] { 1, 8, 6, 2, 5, 4, 8, 3, 7 };
-//var result = solution.getMaxArea(input, n);
-var result = solution.GetMaxArea(new long[] { 1 }, 1);
-Console.WriteLine(result);
+//long[] input =  new long[] { 1, 8, 6, 2, 5, 4, 8, 3, 7 };
+////var result = solution.getMaxArea(input, n);
+//var result = solution.GetMaxArea(new long[] { 1 }, 1);
+//Console.WriteLine(result);
 #endregion
 
 #region GetMaxAreaRectangle
@@ -178,3 +178,5 @@ Console.WriteLine(result);
 //string result = solution.InfixToPostfix(s);
 //Console.WriteLine(result);
 #endregion
+
+var res = solution.GenerateParenthesis(3);

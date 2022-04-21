@@ -568,5 +568,26 @@
 
             return stack.Count == 0;
         }
+
+        public IList<string> GenerateParenthesis(int n)
+        {
+            IList<string> list = new List<string>();
+
+            generateString(list, "", 0, 0, n);
+
+            return list;
+        }
+
+        private void generateString(IList<string> list, string buildString, int openCount, int closeCount, int n)
+        {
+            if (buildString.Length == n * 2)
+            {
+                list.Add(buildString);
+                return;
+            }
+
+            if (openCount < n) generateString(list, buildString + "(", openCount + 1, closeCount, n);
+            if (closeCount < openCount) generateString(list, buildString + ")", openCount, closeCount + 1, n);
+        }
     }
 }

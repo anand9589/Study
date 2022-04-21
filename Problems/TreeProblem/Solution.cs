@@ -1027,7 +1027,7 @@ namespace TreeProblem
                 temp = temp.next;
             }
             if (lst.Count == 1 && n == 1) return null;
-            if(lst.Count == n)
+            if (lst.Count == n)
             {
                 head = head.next;
             }
@@ -1049,7 +1049,7 @@ namespace TreeProblem
             while (temp1 != null || temp2 != null)
             {
                 int minVal = int.MaxValue;
-                if (temp1!=null && temp2 != null)
+                if (temp1 != null && temp2 != null)
                 {
                     if (temp1.val < temp2.val)
                     {
@@ -1062,7 +1062,7 @@ namespace TreeProblem
                         temp2 = temp2.next;
                     }
                 }
-                else if(temp1 != null)
+                else if (temp1 != null)
                 {
                     minVal = temp1.val;
                     temp1 = temp1.next;
@@ -1077,6 +1077,86 @@ namespace TreeProblem
             }
 
             return temp.next;
+        }
+
+        public ListNode MergeKLists(ListNode[] lists)
+        {
+            if (lists.Length == 0) return null;
+            ListNode newNode = new ListNode(int.MaxValue);
+            ListNode temp = newNode;
+
+            int[] vals = new int[lists.Length];
+
+            for (int i = 0; i < lists.Length; i++)
+            {
+                if (lists[i] != null)
+                {
+                    vals[i] = lists[i].val;
+                    lists[i] = lists[i].next;
+                }
+                else
+                {
+                    vals[i] = int.MaxValue;
+                }
+            }
+
+            int k = -1;
+
+            while (k != int.MaxValue)
+            {
+                k = vals.Min();
+                if (k == int.MaxValue) break;
+                int indexK = Array.IndexOf(vals, k);
+                if (lists[indexK] != null)
+                {
+                    vals[indexK] = lists[indexK].val;
+                    lists[indexK] = lists[indexK].next;
+                }
+                else
+                {
+                    vals[indexK] = int.MaxValue;
+                }
+
+                temp.next = new ListNode(k);
+                temp = temp.next;
+            }
+
+            return newNode.next;
+        }
+
+        public ListNode SwapPairs(ListNode head)
+        {
+            if (head == null || head.next == null) return head;
+
+            ListNode newNode = new ListNode();
+            newNode.next = head;
+            ListNode temp = newNode;
+
+            while (temp != null)
+            {
+                ListNode temp1 = temp.next;
+                ListNode temp2 = null;
+
+                if (temp1 != null)
+                {
+                    temp2 = temp1.next;
+                }
+
+                if (temp2 != null)
+                {
+                    ListNode temp2Next = temp2.next;
+                    temp2.next = temp1;
+                    temp.next = temp2;
+                    temp1.next = temp2Next;
+                    temp = temp1;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return newNode.next;
         }
     }
 }
