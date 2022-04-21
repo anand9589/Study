@@ -1,4 +1,6 @@
-﻿namespace ArrayProblems
+﻿using System.Text;
+
+namespace ArrayProblems
 {
     internal class Solution
     {
@@ -97,6 +99,100 @@
             }
 
             return result;
+        }
+
+        public IList<IList<int>> FourSum(int[] nums, int target)
+        {
+            IList<IList<int>> list = new List<IList<int>>();
+            Array.Sort(nums);
+            for (int i = 0; i < nums.Length - 3; i++)
+            {
+                for (int j = i + 1; j < nums.Length - 2; j++)
+                {
+                    for (int k = j + 1; k < nums.Length - 1; k++)
+                    {
+                        for (int l = k + 1; l < nums.Length; l++)
+                        {
+                            if (nums[i] + nums[j] + nums[k] + nums[l] == target)
+                            {
+                                list.Add(new List<int>() { nums[i], nums[j], nums[k], nums[l] });
+                                break;
+                            }
+
+                            while(l < nums.Length-1 && nums[l] == nums[l + 1])
+                            {
+                                l++;
+                            }
+                        }
+                        while (k < nums.Length - 2 && nums[k] == nums[k + 1])
+                        {
+                            k++;
+                        }
+                    }
+                    while (j < nums.Length - 3 && nums[j] == nums[j + 1])
+                    {
+                        j++;
+                    }
+                }
+                while (i < nums.Length - 4 && nums[i] == nums[i + 1])
+                {
+                    i++;
+                }
+
+            }
+
+            return list;
+        }
+
+        public IList<string> LetterCombinations(string digits)
+        {
+            IList<string> list = new List<string>();
+            if (string.IsNullOrEmpty(digits)) return list;
+            Dictionary<int, char[]> dctKeys = new Dictionary<int, char[]>();
+
+            dctKeys.Add(2, new char[] { 'a', 'b', 'c' });
+            dctKeys.Add(3, new char[] { 'd', 'e', 'f' });
+            dctKeys.Add(4, new char[] { 'g', 'h', 'i' });
+            dctKeys.Add(5, new char[] { 'j', 'k', 'l' });
+            dctKeys.Add(6, new char[] { 'm', 'n', 'o' });
+            dctKeys.Add(7, new char[] { 'p', 'q', 'r', 's' });
+            dctKeys.Add(8, new char[] { 't', 'u', 'v' });
+            dctKeys.Add(9, new char[] { 'w', 'x', 'y', 'z' });
+
+            int num = int.Parse(digits);
+            List<char[]> chars = new List<char[]>();
+            while (num > 0)
+            {
+                int rem = num % 10;
+                chars.Insert(0, dctKeys[rem]);
+                num /= 10;
+            }
+
+            for (int i = 0; i < chars.Count; i++)
+            {
+                if (i == 0)
+                {
+                    foreach (var item in chars[i])
+                    {
+                        list.Add(item.ToString());
+                    }
+                }
+                else
+                {
+                    int cnt = list.Count;
+                    for (int k = 0; k < cnt; k++)
+                    {
+                        string s1 = list[0];
+                        foreach (var item in chars[i])
+                        {
+                            list.Add(s1 + item.ToString());
+                        }
+                        list.RemoveAt(0);
+                    }
+                }
+            }
+
+            return list;
         }
 
         public bool Find132Pattern_V1(int[] arr)
