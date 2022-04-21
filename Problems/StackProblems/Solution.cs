@@ -425,12 +425,12 @@
 
             int area = int.MinValue;
 
-            while (left<right)
+            while (left < right)
             {
                 int leftVal = height[left];
                 int rightVal = height[right];
                 int areaVal = int.MinValue;
-                if(leftVal < rightVal)
+                if (leftVal < rightVal)
                 {
                     areaVal = leftVal * (right - left);
                     left++;
@@ -517,7 +517,7 @@
             minVal[0] = arr[0];
             for (int i = 1; i < arr.Length - 2; i++)
             {
-                minVal[i] = Math.Min(minVal[i-1],arr[i]);
+                minVal[i] = Math.Min(minVal[i - 1], arr[i]);
             }
 
             Stack<int> stack = new Stack<int>();
@@ -525,15 +525,15 @@
 
             for (int i = arr.Length - 2; i >= 1; i--)
             {
-                int min = minVal[i-1];
+                int min = minVal[i - 1];
                 int curr = arr[i];
 
-                while (stack.Count!=0 && stack.Peek() <= min)
+                while (stack.Count != 0 && stack.Peek() <= min)
                 {
                     stack.Pop();
                 }
 
-                while (stack.Count!=0 && stack.Peek()<curr)
+                while (stack.Count != 0 && stack.Peek() < curr)
                 {
                     return true;
                 }
@@ -541,6 +541,32 @@
                 stack.Push(curr);
             }
             return false;
+        }
+
+        public bool IsValid(string s)
+        {
+            Stack<char> stack = new Stack<char>();
+
+            foreach (var item in s)
+            {
+                switch (item)
+                {
+                    case ')':
+                        if (stack.Count == 0 || stack.Pop() != '(') return false;
+                        break;
+                    case ']':
+                        if (stack.Count == 0 || stack.Pop() != '[') return false;
+                        break;
+                    case '}':
+                        if (stack.Count == 0 || stack.Pop() != '{') return false;
+                        break;
+                    default:
+                        stack.Push(item);
+                        break;
+                }
+            }
+
+            return stack.Count == 0;
         }
     }
 }
