@@ -1158,5 +1158,46 @@ namespace TreeProblem
 
             return newNode.next;
         }
+
+        public ListNode ReverseKGroup(ListNode head, int k)
+        {
+            ListNode dummy = new ListNode(0, head);
+
+            int cntr = 0;
+            ListNode temp = dummy;
+
+            while (temp.next != null)
+            {
+                temp = temp.next;
+                cntr++;
+            }
+
+            temp = dummy;
+
+            while (temp.next != null)
+            {
+                if (cntr < k) break;
+
+                int nodes = k - 1;
+
+                ListNode tempNext = temp.next;
+                ListNode first = temp.next;
+                ListNode second = first.next;
+
+                while (nodes-->0)
+                {
+                    ListNode next = second.next;
+                    second.next = first;
+                    first = second;
+                    second = next;
+                }
+                cntr -= k;
+                temp.next = first;
+                tempNext.next = second;
+                temp = tempNext;
+            }
+
+            return dummy.next;
+        }
     }
 }
