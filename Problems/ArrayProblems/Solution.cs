@@ -266,5 +266,44 @@ namespace ArrayProblems
 
             return new int[0];
         }
+
+        public int RemoveDuplicates(int[] nums)
+        {
+            int pointer = 0;
+
+            for (int i = 1; i < nums.Length; i++)
+            {
+                if (nums[i] > nums[pointer])
+                {
+                    pointer++;
+                    nums[pointer] = nums[i];
+                }
+            }
+            return pointer+1;
+        }
+
+        public int RemoveElement(int[] nums, int val)
+        {
+            int decreseIndex = 0;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if(nums[i] == val)
+                {
+                    decreseIndex++;
+                }
+                else
+                {
+                    nums[i-decreseIndex] = nums[i];
+                }
+            }
+            return nums.Length - decreseIndex;
+        }
+
+        public int StrStr(string haystack, string needle)
+        {
+
+            return haystack.IndexOf(needle);
+        }
     }
 }
