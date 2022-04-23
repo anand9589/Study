@@ -1,8 +1,11 @@
 ﻿using StringProblems;
 
-string str1 = "abcabcabcd";
-string str2 = "abcd";
+//"wordgoodgoodgoodbestword"
+//["word", "good", "best", "good"]
+
+string str1 = "wordgoodgoodgoodbestword";
+string[] words = new string[] { "word", "good", "best", "good" };
 
 Solution solution = new Solution();
-int result = solution.IsContains(str1, str2);
+var result = solution.FindSubstring(str1, words);
 Console.WriteLine(result);

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spiral", "Spiral\Spiral.csproj", "{1DEC8652-4385-46E4-B88C-EFF0A22641AF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringProblme", "StringProblme\StringProblme.csproj", "{D769596F-53F6-4CF1-8F81-801C402D1944}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringProblems", "StringProblme\StringProblems.csproj", "{D769596F-53F6-4CF1-8F81-801C402D1944}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActivitySelectionProblem", "ActivitySelectionProblem\ActivitySelectionProblem.csproj", "{7CF5BEA6-9493-449C-BC94-A43D548444E4}"
 EndProject
