@@ -5,20 +5,9 @@
 
 //string str1 = "wordgoodgoodgoodbestword";
 //string[] words = new string[] { "word", "good", "best", "good" };
-
-//Solution solution = new Solution();
-//var result = solution.FindSubstring(str1, words);
-//Codec Codec = new Codec();
-//var result = Codec.Encode("https://leetcode.com/problems/design-tinyurl");
-//Console.WriteLine(result);
-  
-PeekingIterator peekingIterator = new PeekingIterator(GetData());
-var p = peekingIterator.Next();
-
-IEnumerator<int> GetData()
-{
-    for (int i = 1; i < 4; i++)
-    {
-        yield return i;
-    }
-}
+//[5,1,2,3,4]
+//1
+int[] nums = new int[] { 1,3 };
+Solution solution = new Solution();
+var result = solution.SearchRange(nums, 1);
+Console.WriteLine(result);
