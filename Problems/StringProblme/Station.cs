@@ -28,7 +28,10 @@
         {
             if (DestinationStations.ContainsKey(stationName))
             {
-                return Math.Round((double)(DestinationStations[stationName].Sum() / DestinationStations[stationName].Count()), 5);
+                double averageTime = DestinationStations[stationName].Average();
+
+                return averageTime;
+                //return Math.Round((double)(DestinationStations[stationName].Sum() / DestinationStations[stationName].Count()), 5);
             }
             return 0;
         }

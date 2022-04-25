@@ -11,12 +11,14 @@
 //Codec Codec = new Codec();
 //var result = Codec.Encode("https://leetcode.com/problems/design-tinyurl");
 //Console.WriteLine(result);
+  
+PeekingIterator peekingIterator = new PeekingIterator(GetData());
+var p = peekingIterator.Next();
 
-UndergroundSystem undergroundSystem = new UndergroundSystem();
-undergroundSystem.CheckIn(45, "Leyton", 3);
-undergroundSystem.CheckIn(32, "Paradise", 8);
-undergroundSystem.CheckIn(27, "Leyton", 10);
-undergroundSystem.CheckOut(45, "Waterloo", 15);
-undergroundSystem.CheckOut(27, "Waterloo", 20);
-undergroundSystem.CheckOut(32, "Cambridge", 22);
-undergroundSystem.GetAverageTime("Paradise", "Cambridge");
+IEnumerator<int> GetData()
+{
+    for (int i = 1; i < 4; i++)
+    {
+        yield return i;
+    }
+}
