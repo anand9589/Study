@@ -119,7 +119,7 @@ namespace ArrayProblems
                                 break;
                             }
 
-                            while(l < nums.Length-1 && nums[l] == nums[l + 1])
+                            while (l < nums.Length - 1 && nums[l] == nums[l + 1])
                             {
                                 l++;
                             }
@@ -279,7 +279,7 @@ namespace ArrayProblems
                     nums[pointer] = nums[i];
                 }
             }
-            return pointer+1;
+            return pointer + 1;
         }
 
         public int RemoveElement(int[] nums, int val)
@@ -288,13 +288,13 @@ namespace ArrayProblems
 
             for (int i = 0; i < nums.Length; i++)
             {
-                if(nums[i] == val)
+                if (nums[i] == val)
                 {
                     decreseIndex++;
                 }
                 else
                 {
-                    nums[i-decreseIndex] = nums[i];
+                    nums[i - decreseIndex] = nums[i];
                 }
             }
             return nums.Length - decreseIndex;
@@ -308,9 +308,9 @@ namespace ArrayProblems
 
         public int Divide(int dividend, int divisor)
         {
-            if(dividend == 1 << 31 && divisor == -1) return int.MaxValue;
+            if (dividend == 1 << 31 && divisor == -1) return int.MaxValue;
 
-            bool signFlag = (dividend>=0) == (divisor>=0);
+            bool signFlag = (dividend >= 0) == (divisor >= 0);
 
             dividend = Math.Abs(dividend);
             divisor = Math.Abs(divisor);
@@ -331,5 +331,44 @@ namespace ArrayProblems
 
             return signFlag ? result : -1 * result;
         }
+
+        public void NextPermutation(int[] nums)
+        {
+            int i = nums.Length - 1;
+            int j = nums.Length - 1;
+            while (i > 0)
+            {
+                if (nums[i] > nums[i - 1])
+                {
+                    while (j >= i)
+                    {
+                        if (nums[j] > nums[i - 1])
+                        {
+                            swap(nums, i - 1, j);
+                            break;
+                        }
+                        j--;
+                    }
+                    break;
+                }
+                i--;
+            }
+            j = nums.Length - 1;
+            while (i < j)
+            {
+                swap(nums, i, j);
+                i++;
+                j--;
+            }
+
+        }
+            
+        private void swap(int[] nums, int i, int j)
+        {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+        }
+
     }
 }
