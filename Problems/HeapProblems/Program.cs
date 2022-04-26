@@ -14,9 +14,9 @@ Solution sol = new Solution();
 //Console.WriteLine(String.Join(' ', arr));
 
 
-var lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\mergeklinkedlist.txt");
-int[] m = Array.ConvertAll(lines[0].Split(' ', StringSplitOptions.RemoveEmptyEntries), int.Parse);
-int[] arr = Array.ConvertAll(lines[1].Split(' ', StringSplitOptions.RemoveEmptyEntries), int.Parse);
+//var lines = File.ReadAllLines(@"C:\Workspace\Study\Problems\mergeklinkedlist.txt");
+//int[] m = Array.ConvertAll(lines[0].Split(' ', StringSplitOptions.RemoveEmptyEntries), int.Parse);
+//int[] arr = Array.ConvertAll(lines[1].Split(' ', StringSplitOptions.RemoveEmptyEntries), int.Parse);
 //Node[] arr = new Node[n];
 //string[] ip = lines[1].Trim().Split(' ');
 //int i = 0;
@@ -38,7 +38,7 @@ int[] arr = Array.ConvertAll(lines[1].Split(' ', StringSplitOptions.RemoveEmptyE
 //    }
 //}
 
-var res = sol.kLargest(arr, m[0], m[1]);
+//var res = sol.kLargest(arr, m[0], m[1]);
 
 //var res = sol.MaximumProduct(new int[] {24, 5, 64, 53, 26, 38},54);
 //var res = sol.CostOfRopes(n1,n);
@@ -100,3 +100,16 @@ var res = sol.kLargest(arr, m[0], m[1]);
 //Console.WriteLine(result);
 //result = minHeap.extractMin();
 //Console.WriteLine(result);
+
+
+int[][] points = new int[][]
+{
+   new int[] {0, 0 },
+   new int[]{2, 2 },
+   new int[]{3, 10 },
+   new int[]{5, 2 },
+   new int[] {7, 0 }
+};
+
+var res = sol.MinCostConnectPoints(points);
+Console.WriteLine(res);

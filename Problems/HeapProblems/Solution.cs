@@ -404,7 +404,7 @@
             queue_V4.Enqueue(node.next);
 
             Node temp = node;
-            while (queue_V4.Count>0)
+            while (queue_V4.Count > 0)
             {
                 temp.next = queue_V4.Dequeue();
                 temp = temp.next;
@@ -480,6 +480,43 @@
 
         }
 
+        public int MinCostConnectPoints(int[][] points)
+        {
+            int cost = 0;
+            List<(int, int, int)> edges = new List<(int, int, int)>();
+            for (int i = 0; i < points.Length; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    var a = points[i];
+                    var b = points[j];
+
+                    int distance = Math.Abs(a[0] - b[0]) + Math.Abs(a[1] - b[1]);
+                    edges.Add((i, j, distance));
+                }
+            }
+
+            EdgeData edgeData = new EdgeData(points.Length);
+
+            foreach (var edge in edges.OrderBy(x => x.Item3))
+            {
+                if (edgeData.Union(edge.Item1, edge.Item2))
+                {
+                    cost += edge.Item3;
+                }
+            }
+
+            return cost;
+        }
+
+        private int calculateDistance(int[] startPoint, int[] endPoint)
+        {
+
+            int x1 = Math.Abs(endPoint[0] - startPoint[0]);
+            int x2 = Math.Abs(endPoint[1] - startPoint[1]);
+
+            return x1 + x2;
+        }
     }
 
 
