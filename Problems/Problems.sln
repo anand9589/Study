@@ -44,6 +44,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4DCC090F-7
 		StackQueue.txt = StackQueue.txt
 		StackSpanProblem.txt = StackSpanProblem.txt
 		stepsbynight.txt = stepsbynight.txt
+		sudokuboard.txt = sudokuboard.txt
 		toposort.txt = toposort.txt
 	EndProjectSection
 EndProject

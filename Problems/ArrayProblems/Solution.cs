@@ -4,6 +4,105 @@ namespace ArrayProblems
 {
     internal class Solution
     {
+        public bool IsValidSudoku(char[][] board)
+        {
+            for (int i = 0; i < board.Length; i++)
+            {
+                for (int j = 0; j < board[i].Length; j++)
+                {
+                    char c = board[i][j];
+
+                    if (c != '.')
+                    {
+                        bool l = isValidValue(board, i, j);
+                        if(!l) return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        private bool isValidValue(char[][] board, int x, int y)
+        {
+            //1st rule : Check within block
+
+
+            //2nd rule :  Check column
+
+            //3rd rule : Check row
+            return sudokuFirstRule(board, x, y) && sudokuSecondRule(board, x, y) && sudokuThirdRule(board, x, y);
+        }
+
+        private bool sudokuFirstRule(char[][] board, int x, int y)
+        {
+            //there will be 9 blocks
+            // {0,0} to {2,2}
+            // {0,3} to {2,5}
+            // {0,6} to {2,8}
+            // {3,0} to {5,2}
+            // {3,3} to {5,5}
+            // {3,6} to {5,8}
+            // {6,0} to {6,2}
+            // {6,3} to {6,5}
+            // {6,6} to {6,8}
+
+            int x1 = getX1(x);
+            int y1 = getX1(y);
+
+            for (int i = x1; i < x1 + 3; i++)
+            {
+                for (int j = y1; j < y1 + 3; j++)
+                {
+                    if (i == x && j == y) continue;
+
+                    if (board[i][j] == board[x][y]) return false;
+                }
+            }
+            return true;
+        }
+
+        private bool sudokuSecondRule(char[][] boards, int x, int y)
+        {
+
+            for (int j = 0; j < boards[x].Length; j++)
+            {
+                if (j == y) continue;
+
+                if (boards[x][j] == boards[x][y]) return false;
+            }
+
+            return true;
+        }
+
+        private bool sudokuThirdRule(char[][] boards, int x, int y)
+        {
+
+            for (int i = 0; i < boards.Length; i++)
+            {
+                if (i == x) continue;
+
+                if (boards[i][y] == boards[x][y]) return false;
+            }
+
+            return true;
+        }
+
+        private static int getX1(int x)
+        {
+            if (x < 3)
+            {
+                return 0;
+            }
+            else if (x < 6)
+            {
+                return 3;
+            }
+            else
+            {
+                return 6;
+            }
+        }
+
         public bool Find132Pattern(int[] arr)
         {
             for (int i = 0; i < arr.Length - 2; i++)
@@ -362,7 +461,7 @@ namespace ArrayProblems
             }
 
         }
-            
+
         private void swap(int[] nums, int i, int j)
         {
             int temp = nums[i];
