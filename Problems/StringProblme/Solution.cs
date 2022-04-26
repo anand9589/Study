@@ -2,6 +2,59 @@
 {
     public class Solution
     {
+        public int SearchInsert(int[] nums, int target)
+        {
+            int left = 0;
+            int right = nums.Length - 1;
+            return searchInsertHelp(nums, left, right, target);
+        }
+
+        private int searchInsertHelp(int[] nums, int left, int right, int target)
+        {
+            if (nums[right] < target) return right + 1;
+
+            if (nums[left] > target) return left;
+
+            if (right == left)
+            {
+                if (nums[left] >= target)
+                {
+                    return left;
+                }
+                else
+                {
+                    return left + 1;
+                }
+            }
+
+
+            if (right - left == 1)
+            {
+                if (nums[left] >= target) return left;
+                return right;
+            }
+
+            int mid = (left + right) / 2;
+
+            if (nums[mid] == target)
+            {
+                while (nums[mid] == target)
+                {
+                    mid--;
+                }
+                return mid + 1;
+            }
+
+            if (nums[mid] < target)
+            {
+                return searchInsertHelp(nums, mid, right, target);
+            }
+            else
+            {
+                return searchInsertHelp(nums, left, mid, target);
+            }
+        }
+
         public int[] SearchRange(int[] nums, int target)
         {
             List<int> result = new List<int>();

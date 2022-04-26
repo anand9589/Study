@@ -5,9 +5,9 @@
 
 //string str1 = "wordgoodgoodgoodbestword";
 //string[] words = new string[] { "word", "good", "best", "good" };
-//[5,1,2,3,4]
-//1
-int[] nums = new int[] { 1,3 };
+//[1,3,5,6]
+//5
+int[] nums = new int[] { 1,3,5,6 };
 Solution solution = new Solution();
-var result = solution.SearchRange(nums, 1);
+var result = solution.SearchInsert(nums, 7);
 Console.WriteLine(result);
