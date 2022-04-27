@@ -1,4 +1,6 @@
-﻿namespace StringProblems
+﻿using System.Text;
+
+namespace StringProblems
 {
     public class Solution
     {
@@ -304,6 +306,39 @@
                 }
             }
             return -1;
+        }
+
+        public string SmallestStringWithSwaps(string s, IList<IList<int>> pairs)
+        {
+            int n = s.Length;
+
+            StringUnion su = new StringUnion(n);
+
+            foreach (var p in pairs)
+            {
+                su.Union(p[0], p[1]);
+            }
+
+            var pq = new PriorityQueue<char, char>[n];
+
+            for (int i = 0; i < n; i++)
+            {
+                int j = su.Find(i);
+                pq[j] ??= new PriorityQueue<char, char>();
+
+                pq[j].Enqueue(s[i], s[i]);
+
+            }
+
+            var sb = new StringBuilder();
+
+            for (int i = 0; i < n; i++)
+            {
+                int j = su.Find(i);
+                sb.Append(pq[j].Dequeue());
+            }
+
+            return sb.ToString();
         }
     }
 }
