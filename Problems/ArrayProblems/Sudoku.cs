@@ -5,32 +5,110 @@
 
         public void SolveSudoku(char[][] board)
         {
-            bool needToCheckAgain = false;
+            if (!solve(board))
+            {
+                solve(board);
+            }
+        }
 
+        public bool solve(char[][] board)
+        {
             for (int i = 0; i < 9; i++)
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    char c = board[i][j];
-
-                    if (c == '.')
+                    if (board[i][j] == '.')
                     {
-                        needToCheckAgain = true;
+                        for (char c = '1'; c <= '9'; c++)
+                        {
+                            if (valid(board, i, j, c))
+                            {
+                                board[i][j] = c;
 
-                        fillValueForCell(board, i, j);
-                        fiilBox(board, i, j);
-                    }
-                    else
-                    {
-                        Console.WriteLine($"{i} {j} {c}");
+                                if (solve(board))
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    board[i][j] = '.';
+                                }
+                            }
+                        }
+                        return false;
                     }
                 }
             }
-            if (needToCheckAgain)
-            {
-                SolveSudoku(board);
-            }
+            return true;
         }
+
+        public bool valid(char[][] board, int i, int j, char c)
+        {
+            return !valuePresentInBox(board, i, j, c) && !valuePresentInCol(board, j, c) && !valuePresentInRow(board, i, c);
+        }
+
+        public bool valuePresentInRow(char[][] board, int i, char c)
+        {
+            for (int x = 0; x < 9; x++)
+            {
+                if (board[i][x] == c) return true;
+            }
+            return false;
+        }
+
+        public bool valuePresentInCol(char[][] board, int j, char c)
+        {
+            for (int x = 0; x < 9; x++)
+            {
+                if (board[x][j] == c) return true;
+            }
+            return false;
+        }
+
+        public bool valuePresentInBox(char[][] board, int i, int j, char c)
+        {
+            int x1 = getX1(i);
+            int y1 = getX1(j);
+
+            for (int x2 = x1; x2 < x1 + 3; x2++)
+            {
+                for (int y2 = y1; y2 < y1 + 3; y2++)
+                {
+                    if (board[x2][y2] == c) return true;
+                }
+            }
+
+            return false;
+        }
+
+        //public void SolveSudoku(char[][] board)
+        //{
+        //    bool needToCheckAgain = false;
+
+        //    for (int i = 0; i < 9; i++)
+        //    {
+        //        for (int j = 0; j < 9; j++)
+        //        {
+        //            char c = board[i][j];
+
+        //            if (c == '.')
+        //            {
+        //                needToCheckAgain = true;
+
+        //                fillValueForCell(board, i, j);
+        //                fiilBox(board, i, j);
+        //            }
+        //            else
+        //            {
+        //                Console.WriteLine($"{i} {j} {c}");
+        //            }
+        //        }
+        //    }
+        //    if (needToCheckAgain)
+        //    {
+        //        SolveSudoku(board);
+        //    }
+        //}
 
         private void fiilBox(char[][] board, int i, int j)
         {
