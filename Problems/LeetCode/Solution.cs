@@ -31,6 +31,7 @@ namespace LeetCode
     }
     public class Solution
     {
+        #region #38CountAndSay
         /// <summary>
         /// LeetCode #38
         /// </summary>
@@ -79,7 +80,9 @@ namespace LeetCode
 
             return stringBuilder.ToString();
         }
+        #endregion
 
+        #region #1423 MaxScore
         /// <summary>
         /// LeetCode #1423
         /// </summary>
@@ -112,7 +115,10 @@ namespace LeetCode
 
             return res;
         }
+        #endregion
 
+
+        #region Bipartite Graph
         /// <summary>
         /// Union find
         /// </summary>
@@ -204,5 +210,34 @@ namespace LeetCode
 
             return true;
         }
+
+        #endregion
+
+
+        #region #39 CombinationSum
+
+        public IList<IList<int>> CombinationSum(int[] candidates, int target)
+        {
+            IList<IList<int>> result = new List<IList<int>>();
+
+            backtrack(result, new List<int>(), candidates, 0, target);
+
+            return result;
+        }
+
+        private void backtrack(IList<IList<int>> result, List<int> list, int[] candidates, int start, int target)
+        {
+            if (target < 0) return;
+            if(target == 0) result.Add(new List<int>(list));
+
+            for (int i = start; i < candidates.Length; i++)
+            {
+                list.Add(candidates[i]);
+                backtrack(result, list, candidates, i, target - candidates[i]);
+                list.RemoveAt(list.Count - 1);
+            }
+        }
+
+        #endregion
     }
 }

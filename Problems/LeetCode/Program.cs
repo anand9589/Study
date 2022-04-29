@@ -3,4 +3,4 @@
 using LeetCode;
 
 Solution solution = new Solution();
-solution.CountAndSay(9);
+solution.CombinationSum(new int[] { 2, 3, 5 }, 8);
