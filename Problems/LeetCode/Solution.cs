@@ -228,7 +228,7 @@ namespace LeetCode
         private void backtrack(IList<IList<int>> result, List<int> list, int[] candidates, int start, int target)
         {
             if (target < 0) return;
-            if(target == 0) result.Add(new List<int>(list));
+            if (target == 0) result.Add(new List<int>(list));
 
             for (int i = start; i < candidates.Length; i++)
             {
@@ -238,6 +238,36 @@ namespace LeetCode
             }
         }
 
+        #endregion
+
+        #region #40 CombinationSum2
+        public IList<IList<int>> CombinationSum2(int[] candidates, int target)
+        {
+            IList<IList<int>> result = new List<IList<int>>();
+            Array.Sort(candidates);
+            backtrack2(result, new List<int>(), candidates, 0, target);
+
+            return result;
+        }
+
+        private void backtrack2(IList<IList<int>> result, List<int> list, int[] candidates, int start, int target)
+        {
+            if (target < 0) return;
+            if (target == 0)
+            {
+                result.Add(new List<int>(list));
+            }
+
+            for (int i = start; i < candidates.Length; i++)
+            {
+                if (i == start || candidates[i] != candidates[i - 1])
+                {
+                    list.Add(candidates[i]);
+                    backtrack2(result, list, candidates, i+1, target - candidates[i]);
+                    list.RemoveAt(list.Count - 1);
+                }
+            }
+        }
         #endregion
     }
 }
