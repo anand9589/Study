@@ -1,5 +1,8 @@
-﻿namespace LeetCode._785
+﻿using System.Text;
+
+namespace LeetCode
 {
+
     class UF
     {
         private int[] parent;
@@ -28,6 +31,88 @@
     }
     public class Solution
     {
+        /// <summary>
+        /// LeetCode #38
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public string CountAndSay(int n)
+        {
+            if (n == 1) return "1";
+
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("1");
+            for (int i = 2; i <= n; i++)
+            {
+                List<(char, int)> list = new List<(char, int)>();
+                string s = stringBuilder.ToString();
+                int k = 0;
+                while (k < s.Length)
+                {
+                    var lastItem = list.LastOrDefault();
+
+                    if (lastItem.Item1 == s[k])
+                    {
+                        int count = lastItem.Item2 + 1;
+                        char c = s[k];
+                        list[list.Count - 1] = (c, count);
+                    }
+                    else
+                    {
+                        list.Add((s[k], 1));
+                    }
+                    k++;
+                }
+
+
+                stringBuilder = new StringBuilder();
+                for (int j = 0; j < list.Count; j++)
+                {
+                    stringBuilder.Append(list[j].Item2.ToString());
+
+                    int n1 = (int)(list[j].Item1 - '0');
+
+                    stringBuilder.Append(n1.ToString());
+                }
+
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        /// <summary>
+        /// LeetCode #1423
+        /// </summary>
+        /// <param name="cardPoints"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public int MaxScore(int[] cardPoints, int k)
+        {
+            int sum = cardPoints.Sum();
+            int length = cardPoints.Length;
+
+            if (length == k) return sum;
+
+            int frame = 0;
+            int res = 0;
+
+            for (int i = 0; i < length - k - 1; i++)
+            {
+                frame += cardPoints[i];
+            }
+
+            for (int i = length - k - 1; i < length; i++)
+            {
+                frame += cardPoints[i];
+
+                res = Math.Max(res, sum - frame);
+
+                frame -= cardPoints[i - (length - k - 1)];
+            }
+
+            return res;
+        }
+
         /// <summary>
         /// Union find
         /// </summary>
