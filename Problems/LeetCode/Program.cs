@@ -4,4 +4,5 @@ using LeetCode;
 //[10,1,2,7,6,1,5]
 //8
 Solution solution = new Solution();
-solution.CombinationSum2(new int[] { 10, 1, 2, 7, 6, 1, 5 }, 8);
+var res = solution.FirstMissingPositive(new int[] { 1, 2, 0 });
+Console.WriteLine(res);

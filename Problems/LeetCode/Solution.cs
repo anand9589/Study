@@ -269,5 +269,41 @@ namespace LeetCode
             }
         }
         #endregion
+
+        #region #41 FirstMissingPositive
+        public int FirstMissingPositive(int[] nums)
+        {
+            //List<int> rank = Enumerable.Range(1, nums.Length).ToList();
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if(nums[i]<=0 || nums[i] > nums.Length)
+                {
+                    nums[i] = nums.Length + 1;
+                }
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                int id = Math.Abs(nums[i]);
+
+                if (id > nums.Length) continue;
+
+                id--;
+
+                if (nums[id] > 0) nums[id] = -nums[id];
+
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] > 0) return i + 1;
+            }
+
+            return nums.Length + 1;
+
+            //return rank.Count == 0 ? nums.Length +1 : rank[0];
+        }
+        #endregion
     }
 }
