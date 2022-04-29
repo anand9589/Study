@@ -15,7 +15,11 @@ for (int i = 0; i < lines.Length; i++)
         chars[i][j] = strs[j][0];  
     }
 }
-Solution solution = new Solution();
-var result = solution.IsValidSudoku(chars); 
+//Solution solution = new Solution();
+Sudoku sol = new Sudoku();
+sol.SolveSudoku(chars);
+Console.ReadLine();
+//var result = solution.IsValidSudoku(chars);
+//Console.WriteLine(result);
 //solution.IsValidSudoku();
 //Console.WriteLine(String.Join(",", nums));

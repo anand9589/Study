@@ -15,7 +15,7 @@ namespace ArrayProblems
                     if (c != '.')
                     {
                         bool l = isValidValue(board, i, j);
-                        if(!l) return false;
+                        if (!l) return false;
                     }
                 }
             }

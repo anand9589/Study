@@ -2,6 +2,51 @@
 {
     internal class Solution
     {
+        public int MinimumEffortPath(int[][] heights)
+        {
+            PriorityQueue<(int, int), int> q = new PriorityQueue<(int, int), int>();
+
+            HashSet<(int, int)> visited = new HashSet<(int, int)>();
+
+            int rowLength = heights.Length;
+            int colLength = heights[0].Length;
+
+            q.Enqueue((0, 0), 0);
+
+            while (q.TryDequeue(out var cord, out var w))
+            {
+                var row = cord.Item1;
+                var col = cord.Item2;
+
+                if (row == rowLength - 1 && col == colLength - 1)
+                {
+                    return w;
+                }
+
+                visited.Add((row, col));
+
+                AddToPriorityQueue(row + 1, col, w, row, col, heights, visited, q);
+
+                AddToPriorityQueue(row - 1, col, w, row, col, heights, visited, q);
+
+                AddToPriorityQueue(row, col + 1, w, row, col, heights, visited, q);
+
+                AddToPriorityQueue(row, col - 1, w, row, col, heights, visited, q);
+            }
+            return 0;
+        }
+
+        private void AddToPriorityQueue(int row1, int col1, int w, int row2, int col2, int[][] heights, HashSet<(int, int)> visited, PriorityQueue<(int, int), int> q)
+        {
+            if (row1 < 0 || row1 >= heights.Length) return;
+            if (col1 < 0 || col1 >= heights[0].Length) return;
+
+            if (visited.Contains((row1, col1))) return;
+
+            q.Enqueue((row1, col1), Math.Max(w, Math.Abs(heights[row1][col1] - heights[row2][col2])));
+            
+        }
+
         public int[] BubbleSort(int[] arr)
         {
             for (int i = 0; i < arr.Length - 1; i++)
