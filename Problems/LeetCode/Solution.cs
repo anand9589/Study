@@ -263,7 +263,7 @@ namespace LeetCode
                 if (i == start || candidates[i] != candidates[i - 1])
                 {
                     list.Add(candidates[i]);
-                    backtrack2(result, list, candidates, i+1, target - candidates[i]);
+                    backtrack2(result, list, candidates, i + 1, target - candidates[i]);
                     list.RemoveAt(list.Count - 1);
                 }
             }
@@ -277,7 +277,7 @@ namespace LeetCode
 
             for (int i = 0; i < nums.Length; i++)
             {
-                if(nums[i]<=0 || nums[i] > nums.Length)
+                if (nums[i] <= 0 || nums[i] > nums.Length)
                 {
                     nums[i] = nums.Length + 1;
                 }
@@ -303,6 +303,87 @@ namespace LeetCode
             return nums.Length + 1;
 
             //return rank.Count == 0 ? nums.Length +1 : rank[0];
+        }
+        #endregion
+
+        #region #42 Trapping Rain Water
+        public int Trap(int[] height)
+        {
+            int n = height.Length;
+
+            if (n <= 2) return 0;
+
+            int result = 0;
+
+            int start1 = 0;
+            int end2 = n-1;
+
+            for (int i = 1; i < end2; i++)
+            {
+                if(height[i] >= height[start1])
+                {
+                    start1++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            for (int i = end2-1; i > start1; i--)
+            {
+                if(height[i] >= height[end2])
+                {
+                    end2--;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            if(end2 -start1 <= 1 ) return 0;
+
+            while (start1 < end2)
+            {
+                int end1 = -1;
+                for (int i = start1+1; i < n; i++)
+                {
+                    if (height[i] >= height[start1])
+                    {
+                        end1 = i;
+
+                        int min = Math.Min(height[start1], height[end1]);
+
+                        for (int j = start1 + 1; j < end1; j++)
+                        {
+                            result += min - height[j];
+                        }
+                        start1 = i;
+                    }
+                }
+
+                int start2 = -1;    
+                for (int i = end2-1; i >= start1; i--)
+                {
+                    if(height[i] >= height[end2])
+                    {
+                        start2 = i;
+
+                        int min1 = Math.Min(height[start2], height[end2]);
+
+                        for (int j = start2 + 1; j < end2; j++)
+                        {
+                            result += min1 - height[j];
+                        }
+                        end2 = i;
+                    }
+
+                }
+
+            }
+
+
+            return result;
         }
         #endregion
     }
