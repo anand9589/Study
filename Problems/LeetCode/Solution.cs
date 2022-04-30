@@ -316,11 +316,11 @@ namespace LeetCode
             int result = 0;
 
             int start1 = 0;
-            int end2 = n-1;
+            int end2 = n - 1;
 
             for (int i = 1; i < end2; i++)
             {
-                if(height[i] >= height[start1])
+                if (height[i] >= height[start1])
                 {
                     start1++;
                 }
@@ -329,9 +329,9 @@ namespace LeetCode
                     break;
                 }
             }
-            for (int i = end2-1; i > start1; i--)
+            for (int i = end2 - 1; i > start1; i--)
             {
-                if(height[i] >= height[end2])
+                if (height[i] >= height[end2])
                 {
                     end2--;
                 }
@@ -341,12 +341,12 @@ namespace LeetCode
                 }
             }
 
-            if(end2 -start1 <= 1 ) return 0;
+            if (end2 - start1 <= 1) return 0;
 
             while (start1 < end2)
             {
                 int end1 = -1;
-                for (int i = start1+1; i < n; i++)
+                for (int i = start1 + 1; i < n; i++)
                 {
                     if (height[i] >= height[start1])
                     {
@@ -362,10 +362,10 @@ namespace LeetCode
                     }
                 }
 
-                int start2 = -1;    
-                for (int i = end2-1; i >= start1; i--)
+                int start2 = -1;
+                for (int i = end2 - 1; i >= start1; i--)
                 {
-                    if(height[i] >= height[end2])
+                    if (height[i] >= height[end2])
                     {
                         start2 = i;
 
@@ -385,6 +385,82 @@ namespace LeetCode
 
             return result;
         }
+        #endregion
+
+        #region #399  Evaluate Division
+
+        public double[] CalcEquation(IList<IList<string>> equations, double[] values, IList<IList<string>> queries)
+        {
+            Dictionary<string, List<Node>> nodes = buildGraph(equations, values);
+            double[] result = new double[queries.Count];
+
+            for (int i = 0; i < queries.Count; i++)
+            {
+                result[i] = dfs(nodes, queries[i][0], queries[i][1], new HashSet<string>());
+            }
+
+            return result;
+        }
+
+        private double dfs(Dictionary<string, List<Node>> nodes, string src, string dest, HashSet<string> visited)
+        {
+
+            if (!nodes.ContainsKey(src) || !nodes.ContainsKey(dest)) return -1.0;
+
+            if (src == dest) return 1.0;
+
+            visited.Add(src);
+
+            foreach (var node in nodes[src])
+            {
+                if (!visited.Contains(node.Key))
+                {
+
+                    double ans = dfs(nodes, node.Key, dest, visited);
+
+                    if (ans != -1.0)
+                    {
+                        return ans * node.Value;
+                    }
+                }
+            }
+
+            return -1.0;
+        }
+
+        private Dictionary<string, List<Node>> buildGraph(IList<IList<string>> equations, double[] values)
+        {
+            Dictionary<string, List<Node>> graph = new Dictionary<string, List<Node>>();
+
+            for (int i = 0; i < equations.Count; i++)
+            {
+                var equation = equations[i];
+                string node1 = equation[0];
+                string node2 = equation[1];
+
+                double val = values[i];
+
+                updateGraph(graph, node1, node2, val);
+                updateGraph(graph, node2, node1, 1 / val);
+            }
+
+            return graph;
+        }
+
+        private void updateGraph(Dictionary<string, List<Node>> graph, string key, string dest, double value)
+        {
+            Node node = new Node(dest, value);
+            if (graph.ContainsKey(key))
+            {
+                graph[key].Add(node);
+            }
+            else
+            {
+                graph.Add(key, new List<Node>() { node });
+            }
+        }
+
+
         #endregion
     }
 }
