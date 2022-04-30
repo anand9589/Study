@@ -3,16 +3,16 @@
 using LeetCode;
 //[10,1,2,7,6,1,5]
 //8
-IList<IList<string>> eq = new List<IList<string>>();
-eq.Add(new List<string>() { "a", "b" });
-eq.Add(new List<string>() { "b", "c" });
-double[] val = new double[] { 2.0, 3.0 };
-IList<IList<string>> queries = new List<IList<string>>();
-queries.Add(new List<string>() { "a", "c" });
-queries.Add(new List<string>() { "b", "a" });
-queries.Add(new List<string>() { "a", "e" });
-queries.Add(new List<string>() { "a", "a" });
-queries.Add(new List<string>() { "x", "x" });
+//IList<IList<string>> eq = new List<IList<string>>();
+//eq.Add(new List<string>() { "a", "b" });
+//eq.Add(new List<string>() { "b", "c" });
+//double[] val = new double[] { 2.0, 3.0 };
+//IList<IList<string>> queries = new List<IList<string>>();
+//queries.Add(new List<string>() { "a", "c" });
+//queries.Add(new List<string>() { "b", "a" });
+//queries.Add(new List<string>() { "a", "e" });
+//queries.Add(new List<string>() { "a", "a" });
+//queries.Add(new List<string>() { "x", "x" });
 Solution solution = new Solution();
-var res = solution.CalcEquation(eq, val, queries);
+var res = solution.Multiply("98", "9");
 Console.WriteLine(res);

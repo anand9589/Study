@@ -1,7 +1,7 @@
 ﻿using System.Text;
 
 namespace LeetCode
-{    
+{
     public class Solution
     {
         #region #38CountAndSay
@@ -226,6 +226,106 @@ namespace LeetCode
 
             return result;
         }
+        #endregion
+
+        #region #43 Multiply Strings
+
+        public string Multiply(string num1, string num2)
+        {
+            while (num1.StartsWith("0"))
+            {
+                num1 = num1.Remove(0, 1);
+                if (num1.Length == 0) return "0";
+            }
+            while (num2.StartsWith("0"))
+            {
+                num2 = num2.Remove(0, 1);
+                if (num2.Length == 0) return "0";
+            }
+            int zeroCount = 0;
+            List<StringBuilder> subresult = new List<StringBuilder>();
+            StringBuilder result = new StringBuilder();
+            for (int i = num1.Length - 1; i >= 0; i--)
+            {
+                int carryOn = 0;
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int j = num2.Length - 1; j >= 0; j--)
+                {
+                    int n1 = num1[i] - '0';
+                    int n2 = num2[j] - '0';
+
+                    int ans = (n1 * n2) + carryOn;
+                    StringBuilder res = new StringBuilder();
+                    res.Append(ans);
+                    if (res.Length > 1)
+                    {
+                        carryOn = res[0] - '0';
+                        stringBuilder.Insert(0, res[1]);
+                    }
+                    else
+                    {
+                        carryOn = 0;
+                        stringBuilder.Insert(0, res[0]);
+                    }
+                }
+                if (carryOn > 0)
+                {
+                    stringBuilder.Insert(0, carryOn);
+                }
+
+                for (int k = 0; k < zeroCount; k++)
+                {
+                    stringBuilder.Append("0");
+                }
+
+                if (result.Length == 0)
+                {
+                    result.Append(stringBuilder.ToString());
+                }
+                else
+                {
+                    int ccc = 0;
+                    StringBuilder ss = new StringBuilder();
+                    for (int l = 0; l < stringBuilder.Length; l++)
+                    {
+                        StringBuilder stringBuilder1 = new StringBuilder();
+
+                        int m1Index = stringBuilder.Length - 1 - l;
+                        int m2Index = result.Length - 1 - l;
+                        int m1 = m1Index >= 0 ? stringBuilder[m1Index] - '0' : 0;
+                        int m2 = m2Index >= 0 ? result[m2Index] - '0' : 0;
+
+                        int m3 = m1 + m2 + ccc;
+
+                        stringBuilder1.Append(m3);
+
+                        if (stringBuilder1.Length > 1)
+                        {
+                            ccc = stringBuilder1[0] - '0';
+                            ss.Insert(0, stringBuilder1[1]);
+                        }
+                        else
+                        {
+                            ss.Insert(0, stringBuilder1.ToString());
+                            ccc = 0;
+                        }
+
+                    }
+                    if (ccc > 0)
+                    {
+                        ss.Insert(0, ccc);
+                    }
+
+                    result = new StringBuilder();
+                    result.Append(ss);
+                }
+                subresult.Add(stringBuilder);
+                zeroCount++;
+            }
+
+            return result.ToString();
+        }
+
         #endregion
 
         #region #399  Evaluate Division
