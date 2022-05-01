@@ -401,7 +401,7 @@ namespace LeetCode
         {
             IList<IList<string>> result = new List<IList<string>>();
             Dictionary<string, IList<int>> dic = new Dictionary<string, IList<int>>();
-            
+
             for (int i = 0; i < strs.Length; i++)
             {
                 char[] ch = strs[i].ToCharArray();
@@ -413,16 +413,16 @@ namespace LeetCode
                 }
                 else
                 {
-                    dic.Add(new String(ch), new List<int>() { i});   
+                    dic.Add(new String(ch), new List<int>() { i });
                 }
             }
 
-            foreach (var item in dic.OrderBy(d=>d.Value.Count))
+            foreach (var item in dic.OrderBy(d => d.Value.Count))
             {
                 List<string> list = new List<string>();
                 foreach (var v in item.Value)
                 {
-                        list.Add(strs[v]);
+                    list.Add(strs[v]);
                 }
                 result.Add(list);
             }
@@ -443,6 +443,24 @@ namespace LeetCode
             //result = c.GroupBy(x => x.a, elem => strs[elem.b])
             //                               .Select(g => (IList<string>)g.ToList()).ToList();
 
+            return result;
+        }
+        #endregion
+
+        #region 50. Pow(x, n)
+        public double MyPow(double x, int n)
+        {
+            return powerHelper(x, n);
+        }
+
+        private double powerHelper(double x, int n)
+        {
+            if (n == 0) return 1.0;
+            if (n == 1) return x;
+            if(n==int.MinValue) return powerHelper(1/x,int.MaxValue) * 1/x;
+            if (n < 0) return powerHelper((1 / x), -n);
+            double result = powerHelper(x * x, n / 2);
+            if (n % 2 == 1) result *= x;
             return result;
         }
         #endregion

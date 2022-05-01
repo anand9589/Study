@@ -13,6 +13,8 @@ using LeetCode;
 //queries.Add(new List<string>() { "a", "e" });
 //queries.Add(new List<string>() { "a", "a" });
 //queries.Add(new List<string>() { "x", "x" });
+//2.00000
+//- 2147483648
 Solution solution = new Solution();
-var res = solution.GroupAnagrams(new string[] { "eat", "tea", "tan", "ate", "nat", "bat" });
+var res = solution.MyPow(2, -2147483648);
 Console.WriteLine(res);
