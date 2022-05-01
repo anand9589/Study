@@ -338,15 +338,15 @@ namespace LeetCode
 
             for (int i = lastIndex - 1; i >= 0; i--)
             {
-                if(nums[i] + i >= lastIndex)
+                if (nums[i] + i >= lastIndex)
                 {
                     dp[i] = 1;
                 }
                 else
                 {
-                    int min = i+1;
+                    int min = i + 1;
                     for (int j = 2; j <= nums[i]; j++)
-                    {                        
+                    {
                         if (dp[min] > dp[j + i])
                         {
                             min = j + i;
@@ -359,6 +359,31 @@ namespace LeetCode
 
 
             return dp[0];
+        }
+        #endregion
+
+        #region 46. Permutations
+        public IList<IList<int>> Permute(int[] nums)
+        {
+            IList<IList<int>> result = new List<IList<int>>();
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                IList<int> dp = new List<int>() { nums[i] };
+                for (int j = 0; j < nums.Length; j++)
+                {
+                    if (i == j) continue;
+                    dp.Add(nums[j]);
+                    for (int k = 0; k < nums.Length; k++)
+                    {
+                        if (j == k || i == k) continue;
+                        dp.Add(nums[k]);
+                    }
+                }
+                result.Add(dp);
+            }
+
+            return result;
         }
         #endregion
 
@@ -436,6 +461,35 @@ namespace LeetCode
         }
 
 
+        #endregion
+
+        #region 844. Backspace String Compare
+        public bool BackspaceCompare(string s, string t)
+        {
+            s = ProcessString(s);
+            t = ProcessString(t);
+            return false;
+        }
+
+        private string ProcessString(string s)
+        {
+            StringBuilder sb = new StringBuilder();
+            int backSpaceCount = 0;
+            for (int i = s.Length - 1; i >= 0; i--)
+            {
+                char c = s[i];
+                if (c == '#')
+                {
+                    backSpaceCount++;
+                }
+                else
+                {
+                    if (backSpaceCount > 0) { backSpaceCount--; continue; }
+                    sb.Insert(0, c);
+                }
+            }
+            return sb.ToString();
+        }
         #endregion
 
         #region #1423 MaxScore

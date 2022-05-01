@@ -14,5 +14,5 @@ using LeetCode;
 //queries.Add(new List<string>() { "a", "a" });
 //queries.Add(new List<string>() { "x", "x" });
 Solution solution = new Solution();
-var res = solution.Jump(new int[] { 5, 4, 3, 5, 6, 7, 2, 9, 8 });
+var res = solution.BackspaceCompare("ab#c", "ad#c");
 Console.WriteLine(res);
