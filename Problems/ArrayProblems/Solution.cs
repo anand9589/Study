@@ -4,6 +4,146 @@ namespace ArrayProblems
 {
     internal class Solution
     {
+        public int LongestCommonSubstring(string a, string b)
+        {
+            int result = 0;
+
+            int startIndex = 0;
+            int endIndex = 0;
+            int count = 0;
+            while(startIndex < a.Length)
+            {
+                StringBuilder sb = new StringBuilder();
+                while(endIndex < a.Length)
+                {
+                    sb.Append(a[endIndex]);
+                }
+            }
+
+            return result;
+        }
+        //Complete this function
+        public bool areIsomorphic(string a, string b)
+        {
+            if (a.Length != b.Length) return false;
+            //Your code here
+            Dictionary<char, List<int>> mapA = new Dictionary<char, List<int>>();
+
+            Dictionary<char, List<int>> mapB = new Dictionary<char, List<int>>();
+
+            int i = 0;
+
+            while (i < a.Length)
+            {
+                char c = a[i];
+                char d = b[i];
+
+                if ((mapA.ContainsKey(c) && !mapB.ContainsKey(d)) || (!mapA.ContainsKey(c) && mapB.ContainsKey(d))) return false;
+
+                if (mapA.ContainsKey(c) && mapB.ContainsKey(d))
+                {
+                    mapA[c].Add(i);
+                    mapB[d].Add(i);
+
+                    for (int j = 0; j < mapB[c].Count; j++)
+                    {
+                        if (mapA[c][j] != mapB[d][j]) return false;
+                    }
+                }
+                else
+                {
+                    mapA.Add(c, new List<int>() { i });
+                    mapB.Add(d, new List<int>() { i });
+                }
+                i++;
+            }
+
+            return true;
+        }
+
+        public string ReverseStringByStack(string s)
+        {
+            Stack<char> stack = new Stack<char>(s);
+            StringBuilder sb = new StringBuilder();
+
+            while (stack.Count > 0)
+            {
+                sb.Append(stack.Pop());
+            }
+
+            return sb.ToString();
+        }
+        //Complete this function
+        public bool isRotated(string str1, string str2)
+        {
+            //Your code here
+            StringBuilder stringBuilder = new StringBuilder();
+            int i = 2;
+            while (i < str1.Length)
+            {
+                stringBuilder.Append(str1[i]);
+                i++;
+            }
+            stringBuilder.Append(str1[0]);
+            stringBuilder.Append(str1[1]);
+
+            if (stringBuilder.ToString() == str2) return true;
+
+            stringBuilder.Clear();
+            i = 0;
+            while (i < str1.Length - 2)
+            {
+                stringBuilder.Append(str1[i]);
+                i++;
+            }
+            stringBuilder.Insert(0, str1[str1.Length - 2]);
+            stringBuilder.Insert(0, str1[str1.Length - 1]);
+            if (stringBuilder.ToString() == str2) return true;
+            return false;
+        }
+
+        //Complete this function
+        public bool isAnagram(string a, string b)
+        {
+            if (a.Length != b.Length) return false;
+            List<char> alist = new List<char>(a);
+
+            List<char> blist = new List<char>(b);
+
+            foreach (var al in alist)
+            {
+                if (!blist.Remove(al)) return false;
+            }
+
+            //Your code here
+            return blist.Count == 0;
+        }
+
+        //Complete this function
+        public string reverseWords(string s)
+        {
+            StringBuilder sb = new StringBuilder();
+            StringBuilder sb1 = new StringBuilder();
+            int i = 0;
+            while (i < s.Length)
+            {
+                char c = s[i];
+                if (c == '.')
+                {
+                    sb.Insert(0, sb1.ToString());
+                    sb.Insert(0, '.');
+                    sb1.Clear();
+                }
+                else
+                {
+                    sb1.Append(c);
+                }
+                i++;
+            }
+            sb.Insert(0, sb1.ToString());
+            return sb.ToString();
+        }
+
         public bool IsValidSudoku(char[][] board)
         {
             for (int i = 0; i < board.Length; i++)

@@ -366,24 +366,33 @@ namespace LeetCode
         public IList<IList<int>> Permute(int[] nums)
         {
             IList<IList<int>> result = new List<IList<int>>();
+            permulteHelper(result, nums, 0);
+            return result;
+        }
 
-            for (int i = 0; i < nums.Length; i++)
+        private void permulteHelper(IList<IList<int>> result, int[] nums, int start)
+        {
+            if (start == nums.Length)
             {
-                IList<int> dp = new List<int>() { nums[i] };
-                for (int j = 0; j < nums.Length; j++)
+                result.Add(nums);
+            }
+            else
+            {
+                for (int i = start; i < nums.Length; i++)
                 {
-                    if (i == j) continue;
-                    dp.Add(nums[j]);
-                    for (int k = 0; k < nums.Length; k++)
-                    {
-                        if (j == k || i == k) continue;
-                        dp.Add(nums[k]);
-                    }
+                    swap(nums, start, i);
+                    permulteHelper(result, nums, start + 1);
+                    swap(nums, start, i);
                 }
-                result.Add(dp);
             }
 
-            return result;
+        }
+
+        private static void swap(int[] nums, int start, int i)
+        {
+            int temp = nums[i];
+            nums[i] = nums[start];
+            nums[start] = temp;
         }
         #endregion
 
