@@ -14,5 +14,5 @@ using LeetCode;
 //queries.Add(new List<string>() { "a", "a" });
 //queries.Add(new List<string>() { "x", "x" });
 Solution solution = new Solution();
-var res = solution.Permute(new int[] { 1,2,3 });
+var res = solution.GroupAnagrams(new string[] { "eat", "tea", "tan", "ate", "nat", "bat" });
 Console.WriteLine(res);

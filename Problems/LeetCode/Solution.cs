@@ -396,6 +396,57 @@ namespace LeetCode
         }
         #endregion
 
+        #region 49. Group Anagrams
+        public IList<IList<string>> GroupAnagrams(string[] strs)
+        {
+            IList<IList<string>> result = new List<IList<string>>();
+            Dictionary<string, IList<int>> dic = new Dictionary<string, IList<int>>();
+            
+            for (int i = 0; i < strs.Length; i++)
+            {
+                char[] ch = strs[i].ToCharArray();
+                Array.Sort(ch);
+                string s = new String(ch);
+                if (dic.ContainsKey(s))
+                {
+                    dic[s].Add(i);
+                }
+                else
+                {
+                    dic.Add(new String(ch), new List<int>() { i});   
+                }
+            }
+
+            foreach (var item in dic.OrderBy(d=>d.Value.Count))
+            {
+                List<string> list = new List<string>();
+                foreach (var v in item.Value)
+                {
+                        list.Add(strs[v]);
+                }
+                result.Add(list);
+            }
+
+            //var c = strs.Select(
+            //    (s, i) => new
+            //    {
+            //        s,
+            //        i
+            //    })
+            //    .OrderBy(x => x.s.Length)
+            //    .Select(y => new
+            //    {
+            //        a = new string(y.s.OrderBy(z => z).ToArray()),
+            //        b = y.i
+            //    });
+
+            //result = c.GroupBy(x => x.a, elem => strs[elem.b])
+            //                               .Select(g => (IList<string>)g.ToList()).ToList();
+
+            return result;
+        }
+        #endregion
+
         #region #399  Evaluate Division
 
         public double[] CalcEquation(IList<IList<string>> equations, double[] values, IList<IList<string>> queries)
