@@ -16,5 +16,5 @@ using LeetCode;
 //2.00000
 //- 2147483648
 Solution solution = new Solution();
-var res = solution.MyPow(2, -2147483648);
+var res = solution.MaxSubArray(new int[] { -2, 1, -3, 4, -1, 2, 1, -5, 4 });
 Console.WriteLine(res);

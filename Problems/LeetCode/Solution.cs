@@ -465,6 +465,29 @@ namespace LeetCode
         }
         #endregion
 
+        #region 53. Maximum Subarray
+        public int MaxSubArray(int[] nums)
+        {
+            int max = nums.Max();
+            int cur = nums[0];
+
+            for (int i = 1; i < nums.Length; i++)
+            {
+                if (nums[i] > cur + nums[i])
+                {
+                    cur=nums[i];
+                }
+                else
+                {
+                    cur+=nums[i];
+                }
+                max = Math.Max(max, cur);
+            }
+
+            return max;
+        }
+        #endregion
+
         #region #399  Evaluate Division
 
         public double[] CalcEquation(IList<IList<string>> equations, double[] values, IList<IList<string>> queries)
