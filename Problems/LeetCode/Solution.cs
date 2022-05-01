@@ -328,6 +328,40 @@ namespace LeetCode
 
         #endregion
 
+        #region 45. Jump Game II
+        public int Jump(int[] nums)
+        {
+            int[] dp = Enumerable.Repeat(int.MaxValue, nums.Length).ToArray();
+            int lastIndex = nums.Length - 1;
+
+            dp[lastIndex] = 0;
+
+            for (int i = lastIndex - 1; i >= 0; i--)
+            {
+                if(nums[i] + i >= lastIndex)
+                {
+                    dp[i] = 1;
+                }
+                else
+                {
+                    int min = i+1;
+                    for (int j = 2; j <= nums[i]; j++)
+                    {                        
+                        if (dp[min] > dp[j + i])
+                        {
+                            min = j + i;
+                        }
+                    }
+
+                    dp[i] = 1 + dp[min];
+                }
+            }
+
+
+            return dp[0];
+        }
+        #endregion
+
         #region #399  Evaluate Division
 
         public double[] CalcEquation(IList<IList<string>> equations, double[] values, IList<IList<string>> queries)
