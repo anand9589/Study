@@ -4,7 +4,7 @@ namespace LeetCode
 {
     public class Solution
     {
-        #region #38CountAndSay
+        #region 38CountAndSay
         /// <summary>
         /// LeetCode #38
         /// </summary>
@@ -55,7 +55,7 @@ namespace LeetCode
         }
         #endregion
 
-        #region #39 CombinationSum
+        #region 39 CombinationSum
 
         public IList<IList<int>> CombinationSum(int[] candidates, int target)
         {
@@ -81,7 +81,7 @@ namespace LeetCode
 
         #endregion
 
-        #region #40 CombinationSum2
+        #region 40 CombinationSum2
         public IList<IList<int>> CombinationSum2(int[] candidates, int target)
         {
             IList<IList<int>> result = new List<IList<int>>();
@@ -111,7 +111,7 @@ namespace LeetCode
         }
         #endregion
 
-        #region #41 FirstMissingPositive
+        #region 41 FirstMissingPositive
         public int FirstMissingPositive(int[] nums)
         {
             //List<int> rank = Enumerable.Range(1, nums.Length).ToList();
@@ -147,7 +147,7 @@ namespace LeetCode
         }
         #endregion
 
-        #region #42 Trapping Rain Water
+        #region 42 Trapping Rain Water
         public int Trap(int[] height)
         {
             int n = height.Length;
@@ -228,7 +228,7 @@ namespace LeetCode
         }
         #endregion
 
-        #region #43 Multiply Strings
+        #region 43 Multiply Strings
 
         public string Multiply(string num1, string num2)
         {
@@ -457,7 +457,7 @@ namespace LeetCode
         {
             if (n == 0) return 1.0;
             if (n == 1) return x;
-            if(n==int.MinValue) return powerHelper(1/x,int.MaxValue) * 1/x;
+            if (n == int.MinValue) return powerHelper(1 / x, int.MaxValue) * 1 / x;
             if (n < 0) return powerHelper((1 / x), -n);
             double result = powerHelper(x * x, n / 2);
             if (n % 2 == 1) result *= x;
@@ -475,11 +475,11 @@ namespace LeetCode
             {
                 if (nums[i] > cur + nums[i])
                 {
-                    cur=nums[i];
+                    cur = nums[i];
                 }
                 else
                 {
-                    cur+=nums[i];
+                    cur += nums[i];
                 }
                 max = Math.Max(max, cur);
             }
@@ -487,6 +487,383 @@ namespace LeetCode
             return max;
         }
         #endregion
+
+        #region 54. Spiral Matrix
+        public IList<int> SpiralOrder(int[][] matrix)
+        {
+            int m = matrix.Length;
+            int n = matrix[0].Length;
+
+            bool[][] visited = new bool[m][];
+            for (int i = 0; i < m; i++)
+            {
+                visited[i] = new bool[n];
+            }
+
+            IList<int> list = new List<int>();
+            int x = 0;
+            int y = n - 1;
+
+            for (int i = x; i < n; i++)
+            {
+                list.Add(matrix[x][i]);
+                visited[x][i] = true;
+            }
+
+            for (int i = 1; i < m; i++)
+            {
+                list.Add(matrix[i][y]);
+                visited[i][y] = true;
+            }
+
+            return list;
+
+            //while (true)
+            //{
+            //    while (y < n && !visited[x][y])
+            //    {
+            //        list.Add(matrix[x][y]);
+            //        visited[x][y] = true;
+            //        y++;
+            //    }
+            //    y = n - 1;
+            //    x++;
+            //    while (x < m)
+            //    {
+            //        list.Add(matrix[x][y]);
+            //        visited[x][y] = true;
+            //        x++;
+            //    }
+            //    x = m - 1;
+            //    y--;
+
+            //    while (y >= 0 && !visited[x][y])
+            //    {
+            //        list.Add(matrix[x][y]);
+            //        visited[x][y] = true;
+            //        y--;
+            //    }
+            //    y = 0;
+            //    x--;
+            //    while (x >= 0 && !visited[x][y])
+            //    {
+            //        list.Add(matrix[x][y]);
+            //        visited[x][y] = true;
+            //        x--;
+            //    }
+            //    m--;
+            //    n--;
+            //}
+        }
+
+        #endregion
+
+        #region 55. Jump Game
+        public bool CanJump(int[] nums)
+        {
+            if (nums[0] == 0) return false;
+
+            int[] dp = new int[nums.Length];
+            dp[nums.Length - 1] = 0;
+
+            for (int i = nums.Length - 2; i >= 0; i--)
+            {
+                if (nums[i] + i >= nums.Length - 1)
+                {
+                    dp[i] = 1;
+                }
+                else
+                {
+                    for (int j = 1; j <= nums[i]; j++)
+                    {
+                        if (dp[i + j] > 0)
+                        {
+                            dp[i] = dp[i + j] + 1;
+                            break;
+                        }
+                    }
+                }
+            }
+            return dp[0] != 0;
+        }
+        #endregion
+
+        #region 62. Unique Paths
+        public int UniquePaths(int m, int n)
+        {
+            int[][] dp = new int[m][];
+            for (int i = 0; i < m; i++)
+            {
+                dp[i] = Enumerable.Repeat(-1, n).ToArray();
+            }
+            return solveUniquePaths(dp, m - 1, n - 1);
+        }
+
+        private int solveUniquePaths(int[][] dp, int i, int j)
+        {
+            if (i == 0 && j == 0) return 1;
+
+            if (i < 0 || j < 0) return 0;
+
+            if (dp[i][j] != -1) return dp[i][j];
+
+            dp[i][j] = solveUniquePaths(dp, i - 1, j) + solveUniquePaths(dp, i, j - 1);
+            return dp[i][j];
+        }
+        #endregion
+
+        #region 63. Unique Paths II
+        public int UniquePathsWithObstacles(int[][] obstacleGrid)
+        {
+            List<(int, int)> obstacles = new List<(int, int)>();
+            for (int i = 0; i < obstacleGrid.Length; i++)
+            {
+                for (int j = 0; j < obstacleGrid[i].Length; j++)
+                {
+                    if (obstacleGrid[i][j] == 1) obstacles.Add((i, j));
+                }
+            }
+
+            int[][] dp = new int[obstacleGrid.Length][];
+            for (int i = 0; i < dp.Length; i++)
+            {
+                dp[i] = new int[obstacleGrid[i].Length];
+            }
+            bool fillZero = obstacles.Contains((0, 0));
+            for (int j = 1; j < dp[0].Length; j++)
+            {
+                if (obstacles.Contains((0, j)) || fillZero)
+                {
+                    dp[0][j] = 0;
+                    fillZero = true;
+                }
+                else
+                {
+                    dp[0][j] = 1;
+                }
+            }
+            fillZero = obstacles.Contains((0, 0));
+            for (int j = 1; j < dp.Length; j++)
+            {
+                if (obstacles.Contains((j, 0)) || fillZero)
+                {
+                    dp[j][0] = 0;
+                    fillZero = true;
+                }
+                else
+                {
+                    dp[j][0] = 1;
+                }
+            }
+            for (int i = 1; i < dp.Length; i++)
+            {
+                for (int j = 1; j < dp[i].Length; j++)
+                {
+                    if (obstacles.Contains((i, j)))
+                    {
+                        dp[i][j] = 0;
+                    }
+                    else
+                    {
+                        int leftVal = dp[i - 1][j];
+                        int topVal = dp[i][j - 1];
+                        dp[i][j] = leftVal + topVal;
+                    }
+
+                }
+            }
+
+            return dp[obstacleGrid.Length - 1][obstacleGrid[0].Length - 1];
+        }
+        #endregion
+
+        #region 64. Minimum Path Sum
+        public int MinPathSum(int[][] grid)
+        {
+            for (int i = 0; i < grid.Length; i++)
+            {
+                for (int j = 0; j < grid[0].Length; j++)
+                {
+                    if (i == 0 && j == 0) continue;
+
+                    grid[i][j] = getVal(grid, i, j);
+                }
+            }
+            return grid[grid.Length - 1][grid[0].Length - 1];
+        }
+
+        private int getVal(int[][] grid, int i, int j)
+        {
+            int topval = j == 0 ? int.MaxValue : grid[i][j - 1];
+            int leftVal = i == 0 ? int.MaxValue : grid[i - 1][j];
+
+            return Math.Min(topval, leftVal) + grid[i][j];
+        }
+        #endregion
+
+        #region 70. Climbing Stairs
+        public int ClimbStairs(int n)
+        {
+            if (n <= 3) return n;
+
+            int one = 2;
+            int two = 3;
+
+            for (int i = 4; i <= n; i++)
+            {
+                int temp = one + two;
+
+                one = two;
+                two = temp;
+            }
+            return two;
+        }
+        #endregion
+
+        #region 72. Edit Distance
+        public int MinDistance(string word1, string word2)
+        {
+            int i;
+            int m = word1.Length;
+            int n = word2.Length;
+            int[][] dp = new int[m + 1][];
+
+            for (i = 0; i <= m; i++)
+            {
+                dp[i] = new int[n + 1];
+            }
+            int j;
+            int c;
+            for (i = 0; i < m + 1; i++)
+            {
+                for (j = 0; j < n + 1; j++)
+                {
+                    c = int.MaxValue;
+                    if (i == 0)
+                    {
+                        dp[i][j] = j;
+
+                    }
+                    else if (j == 0)
+                    {
+                        dp[i][j] = i;
+                    }
+                    if (i != 0 && j != 0)
+                    {
+
+                        if (word1[i - 1] == word2[j - 1])
+                        {
+                            dp[i][j] = dp[i - 1][j - 1];
+                        }
+                        if (word1[i - 1] != word2[j - 1])
+                        {
+                            c = Math.Min(c, dp[i - 1][j - 1]);
+                            c = Math.Min(c, dp[i][j - 1]);
+                            c = Math.Min(c, dp[i - 1][j]);
+                            dp[i][j] = 1 + c;
+                        }
+                    }
+
+                }
+            }
+            return dp[m][n];
+            //if (word1.Length == 0) return word2.Length;
+
+            //if (word2.Length == 0) return word1.Length;
+            //int m = word1.Length;
+            //int n = word2.Length;
+
+            //int[][] dp = new int[m][];
+            //for (int i = 0; i < m; i++)
+            //{
+            //    dp[i] = new int[n];
+            //}
+            //for (int i = 0; i < m; i++)
+            //{
+            //    for (int j = 0; j < n; j++)
+            //    {
+            //        dp[i][j] = word1[i] == word2[j] ? 0 : 1;
+            //    }
+            //}
+
+            //for (int i = 1; i < dp[0].Length; i++)
+            //{
+            //    dp[0][i] = dp[0][i - 1] + dp[0][i];
+            //}
+
+            //for (int i = 1; i < dp.Length; i++)
+            //{
+            //    dp[i][0] = dp[i - 1][0] + dp[i][0];
+            //}
+            //for (int i = 1; i < dp.Length; i++)
+            //{
+            //    for (int j = 1; j < dp[0].Length; j++)
+            //    {
+            //        dp[i][j] = getValue(dp, i, j);
+            //    }
+            //}
+
+            //return dp[m - 1][n - 1];
+        }
+
+        private int getValue(int[][] dp, int i, int j)
+        {
+
+            int leftVal = dp[i][j - 1];
+            int topVal = dp[i - 1][j];
+            int diagoalVal = dp[i - 1][j - 1];
+
+            int min = Math.Min(topVal, Math.Min(leftVal, diagoalVal));
+
+            return min + dp[i][j];
+        }
+
+        private void dynamicUpdate(int[][] dp, int i, int j, ref int result)
+        {
+            if (i >= dp.Length || j >= dp[0].Length) return;
+
+            if (dp[i][j] == 0)
+            {
+                dp[i][j] = result;
+
+                if (i + 1 == dp.Length && j + 1 == dp[0].Length) return;
+
+                if (i + 1 < dp.Length) i++;
+                if (j + 1 < dp[0].Length) j++;
+
+                dynamicUpdate(dp, i, j, ref result);
+            }
+            else
+            {
+                result = result + dp[i][j];
+
+                dp[i][j] = result;
+
+
+                if (i + 1 < dp.Length && dp[i + 1][j] == 0)
+                {
+                    dynamicUpdate(dp, i + 1, j, ref result);
+                }
+                else if (j + 1 < dp[0].Length && dp[i][j + 1] == 0)
+                {
+                    dynamicUpdate(dp, i, j + 1, ref result);
+                }
+                else if (i + 1 < dp.Length && j + 1 < dp[0].Length)
+                {
+                    dynamicUpdate(dp, i + 1, j + 1, ref result);
+                }
+                else if (i + 1 < dp.Length)
+                {
+                    dynamicUpdate(dp, i + 1, j, ref result);
+                }
+                else
+                {
+                    dynamicUpdate(dp, i, j + 1, ref result);
+                }
+            }
+        }
+        #endregion
+
 
         #region #399  Evaluate Division
 
@@ -564,6 +941,178 @@ namespace LeetCode
 
         #endregion
 
+        #region 496. Next Greater Element I
+        public int[] NextGreaterElement(int[] nums1, int[] nums2)
+        {
+            int[] dp = Enumerable.Repeat(-1, nums2.Length).ToArray();
+
+            Stack<int> stack = new Stack<int>();
+            stack.Push(nums2.Length - 1);
+            for (int i = nums2.Length - 2; i >= 0; i--)
+            {
+                while (stack.Count > 0 && nums2[stack.Peek()] <= nums2[i])
+                {
+                    stack.Pop();
+                }
+                if (stack.Count == 0)
+                {
+                    dp[i] = -1;
+                }
+                else
+                {
+                    dp[i] = stack.Peek();
+                }
+                stack.Push(i);
+            }
+
+            int[] result = new int[nums1.Length];
+
+            for (int i = 0; i < nums1.Length; i++)
+            {
+                int index = Array.IndexOf(nums2, nums1[i]);
+
+                result[i] = dp[index] == -1 ? -1 : nums2[dp[index]];
+            }
+
+            return result;
+        }
+        #endregion
+
+        #region 503. Next Greater Element II
+        public int[] NextGreaterElements(int[] nums)
+        {
+            int[] result = new int[(int)nums.Length];
+
+            int[] dp = new int[nums.Length];
+            Stack<int> stack = new Stack<int>();
+            for (int i = nums.Length - 1; i >= 0; i--)
+            {
+                while(stack.Count > 0 && nums[stack.Peek()] <= nums[i])
+                {
+                    stack.Pop();
+                }
+
+                if (stack.Count == 0)
+                {
+                    int k = nums[i];
+                    int j = 0;
+                    while (nums[j] <= k && j < i)
+                    {
+                        j++;
+                    }
+                    dp[i] =j==i ?-1:j;
+                }
+                else
+                {
+                    dp[i] = stack.Peek();
+                }
+                stack.Push(i);
+            }
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                if(dp[i] == -1)
+                {
+                    result[i] = -1;
+                }
+                else
+                {
+                    result[i] = nums[dp[i]];
+                }
+            }
+            return result;
+        }
+        #endregion
+
+        #region 556. Next Greater Element III
+        public int NextGreaterElement(int n)
+        {
+            if (n == int.MaxValue) return -1;
+            List<int> numlist = new List<int>();
+
+            while (n > 0)
+            {
+                int rem = n % 10;
+                numlist.Insert(0, rem);
+
+                n /= 10;
+            }
+            int swapIndex = -1;
+            for (int i = numlist.Count-1; i >0; i--)
+            {
+                if (numlist[i] > numlist[i - 1])
+                {
+                    if (numlist.Count == 10 && i == 1 && numlist[i] > 1) return -1;
+                    swapIndex=i-1;
+                    break;
+                }
+            }
+            if (swapIndex == -1) return -1;
+
+            var p = numlist.Skip(swapIndex+1).Take(numlist.Count-swapIndex).ToArray();
+            Array.Sort(p);
+
+            for (int i = 0; i < p.Length; i++)
+            {
+                if (numlist[swapIndex] < p[i])
+                {
+                    int temp = p[i];
+                    p[i] = numlist[swapIndex];
+                    numlist[swapIndex] = temp;
+                    break;
+                }
+            }
+            swapIndex++;
+            for (int i = swapIndex; i < numlist.Count; i++)
+            {
+                numlist[i] = p[i-swapIndex];
+            }
+            int result = 0;
+
+            foreach (var item in numlist)
+            {
+                result = (result * 10) + item;
+            }
+
+            return result < 0 ? -1 : result;
+        }
+        #endregion
+
+        #region 581. Shortest Unsorted Continuous Subarray
+        public int FindUnsortedSubarray(int[] nums)
+        {
+            if (nums.Length <= 1) return 0;
+
+            if (nums.Length == 2)
+            {
+                if (nums[0] <= nums[1]) return 0;
+                return 2;
+            }
+
+            int start = -1, end = -1, max = int.MinValue;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (max > nums[i])
+                {
+                    if (start == -1)
+                    {
+                        start = i - 1;
+                    }
+
+                    while (start - 1 >= 0 && nums[start - 1] > nums[i]) start--;
+                    end = i + 1;
+                }
+                else
+                {
+                    max = nums[i];
+                }
+            }
+            return end - start;
+        }
+
+        #endregion
+
         #region 844. Backspace String Compare
         public bool BackspaceCompare(string s, string t)
         {
@@ -593,7 +1142,7 @@ namespace LeetCode
         }
         #endregion
 
-        #region #1423 MaxScore
+        #region 1423 MaxScore
         /// <summary>
         /// LeetCode #1423
         /// </summary>
@@ -626,6 +1175,46 @@ namespace LeetCode
 
             return res;
         }
+        #endregion
+
+
+        #region 1679. Max Number of K-Sum Pairs
+
+        public int MaxOperations(int[] nums, int k)
+        {
+            Array.Sort(nums);
+            int result = 0;
+            List<int> list = new List<int>();
+
+            int startIndex = 0;
+            int endIndex = nums.Length - 1;
+
+            while (startIndex < endIndex && nums[startIndex] < k)
+            {
+                if (nums[startIndex] + nums[endIndex] == k)
+                {
+                    list.Add(startIndex);
+                    list.Add(endIndex);
+                    result++;
+                    startIndex++;
+                    endIndex--;
+                }
+                else
+                {
+                    if (nums[startIndex] + nums[endIndex] > k)
+                    {
+                        endIndex--;
+                    }
+                    else
+                    {
+                        startIndex++;
+                    }
+                }
+            }
+
+            return result;
+        }
+
         #endregion
 
         #region Bipartite Graph

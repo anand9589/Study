@@ -16,5 +16,9 @@ using LeetCode;
 //2.00000
 //- 2147483648
 Solution solution = new Solution();
-var res = solution.MaxSubArray(new int[] { -2, 1, -3, 4, -1, 2, 1, -5, 4 });
+//var res = solution.UniquePathsWithObstacles(new int[][] { new int[] { 0, 0 } }/*, 0 }, new int[] { 0, 1, 0 },new int[] { 0, 0, 0 }}*/);
+//var res = solution.MinPathSum(new int[][] { new int[] { 1, 3, 1 }, new int[] { 1, 5, 1 }, new int[] { 4, 2, 1 } });
+//var res = solution.MinDistance("mart", "karma");
+
+var res = solution.NextGreaterElement(1999999999);
 Console.WriteLine(res);
