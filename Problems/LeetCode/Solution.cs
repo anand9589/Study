@@ -864,12 +864,289 @@ namespace LeetCode
         }
         #endregion
 
+        #region 85. Maximal Rectangle
+        public int MaximalRectangle(char[][] matrix)
+        {
+            int[][] intArray = new int[matrix.Length][];
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                intArray[i] = new int[matrix[i].Length];
+                for (int j = 0; j < matrix[i].Length; j++)
+                {
+                    if (i == 0)
+                    {
+                        intArray[i][j] = matrix[i][j] - '0';
+                    }
+                    else
+                    {
+                        if (matrix[i][j] != '0')
+                        {
+                            intArray[i][j] = intArray[i - 1][j] + matrix[i][j] - '0';
+                        }
+                    }
+                }
+            }
+
+
+            return 0;
+        }
+
+        #endregion
+
+        #region 100. Same Tree
+        public bool IsSameTree(TreeNode p, TreeNode q)
+        {
+            if (p == null && q == null) return true;
+
+            if ((p == null && q != null) || (p != null && q == null)) return false;
+
+            return p.val == q.val && IsSameTree(p.left, q.left) && IsSameTree(p.right, q.right);
+        }
+
+        #endregion
+
+        #region 101. Symmetric Tree
+        public bool IsSymmetric(TreeNode root)
+        {
+            if (root == null) return true;
+
+            return IsSymmetricHelper(root.left, root.right);
+        }
+
+        private bool IsSymmetricHelper(TreeNode left, TreeNode right)
+        {
+            if (left == null || right == null)
+                return left == right;
+            if (left.val != right.val)
+                return false;
+            return IsSymmetricHelper(left.left, right.right) && IsSymmetricHelper(left.right, right.left);
+        }
+        #endregion
+
+        #region 102. Binary Tree Level Order Traversal
+
+        public IList<IList<int>> LevelOrder(TreeNode root)
+        {
+            IList<IList<int>> level = new List<IList<int>>();
+
+            if (root != null)
+            {
+                Queue<(int, TreeNode)> q = new Queue<(int, TreeNode)>();
+
+                q.Enqueue((0, root));
+
+                while (q.Count > 0)
+                {
+                    var d = q.Dequeue();
+                    int l = d.Item1;
+                    TreeNode treeNode = d.Item2;
+                    if (level.Count == l)
+                    {
+                        level.Add(new List<int>());
+                    }
+
+                    level[l].Add(treeNode.val);
+
+                    if (treeNode.left != null)
+                    {
+                        q.Enqueue((l + 1, treeNode.left));
+                    }
+                    if (treeNode.right != null)
+                    {
+                        q.Enqueue((l + 1, treeNode.right));
+                    }
+                }
+            }
+            return level;
+        }
+
+        #endregion
+
+        #region 103. Binary Tree Zigzag Level Order Traversal
+
+        public IList<IList<int>> ZigzagLevelOrder(TreeNode root)
+        {
+            IList<IList<int>> level = new List<IList<int>>();
+
+            if (root != null)
+            {
+                Stack<(int,TreeNode)> stack1 = new Stack<(int, TreeNode)>();
+                Stack<(int, TreeNode)> stack2 = new Stack<(int, TreeNode)>();
+
+                stack1.Push((0,root));
+
+                while (stack1.Count > 0 || stack2.Count > 0)
+                {
+                    while (stack1.Count > 0)
+                    {
+                        var t = stack1.Pop();
+                        TreeNode treeNode = t.Item2;
+                        int l = t.Item1;
+
+                        if(level.Count == l)
+                        {
+                            level.Add(new List<int>());
+                        }
+                        else
+                        {
+                            level[l].Add((int)treeNode.val);
+                        }
+
+                        if(treeNode.left != null)
+                        {
+                            stack2.Push((l + 1, treeNode.left));
+                        }
+
+                        if (treeNode.right != null)
+                        {
+                            stack2.Push((l + 1, treeNode.right));
+                        }
+
+                    }
+
+                    while (stack2.Count > 0)
+                    {
+                        var t = stack2.Pop();
+                        TreeNode treeNode = t.Item2;
+                        int l = t.Item1;
+
+                        if (level.Count == l)
+                        {
+                            level.Add(new List<int>());
+                        }
+                        else
+                        {
+                            level[l].Add((int)treeNode.val);
+                        }
+
+                        if (treeNode.right != null)
+                        {
+                            stack1.Push((l + 1, treeNode.right));
+                        }
+
+                        if (treeNode.left != null)
+                        {
+                            stack1.Push((l + 1, treeNode.left));
+                        }
+                    }
+                }
+            }
+            return level;
+        }
+
+        #endregion
+
+        #region 104. Maximum Depth of Binary Tree
+        public int MaxDepth(TreeNode root)
+        {
+            if(root == null) return 0;
+
+            if(root.left == null && root.right == null) return 1; 
+
+            return 1 + Math.Max(MaxDepth(root.left), MaxDepth(root.right)); 
+        }
+        #endregion
+
+        #region 107. Binary Tree Level Order Traversal II
+        public IList<IList<int>> LevelOrderBottom(TreeNode root)
+        {
+            IList<IList<int>> level = new List<IList<int>>();
+
+            if (root != null)
+            {
+                Queue<(int, TreeNode)> q = new Queue<(int, TreeNode)>();
+
+                q.Enqueue((0, root));
+
+                while (q.Count > 0)
+                {
+                    var d = q.Dequeue();
+                    int l = d.Item1;
+                    TreeNode treeNode = d.Item2;
+                    if (level.Count == l)
+                    {
+                        level.Insert(0,new List<int>());
+                    }
+
+                    level[0].Add(treeNode.val);
+
+                    if (treeNode.left != null)
+                    {
+                        q.Enqueue((l + 1, treeNode.left));
+                    }
+                    if (treeNode.right != null)
+                    {
+                        q.Enqueue((l + 1, treeNode.right));
+                    }
+                }
+            }
+            return level;
+        }
+        #endregion
+
+        #region 111. Minimum Depth of Binary Tree
+        public int MinDepth(TreeNode root)
+        {
+            if (root == null) return 0;
+
+            if (root.left == null && root.right == null) return 1;
+
+            if (root.left == null)
+            {
+                return 1 + MinDepth(root.right);
+            }
+            else if (root.right == null)
+            {
+                return 1 + MinDepth(root.left);
+            }
+            else
+            {
+
+                return 1 + Math.Min(MinDepth(root.left), MinDepth(root.right));
+            }
+        }
+        #endregion
+
+        #region 112. Path Sum
+
+        public bool HasPathSum(TreeNode root, int targetSum)
+        {
+            if(root == null) return false;
+
+            if (root.val == targetSum) return true;
+
+            int val = root.val;
+
+            if(root.left != null)
+            {
+                root.left.val += val;
+                bool leftResult = HasPathSum(root.left, targetSum);
+                if (leftResult)
+                {
+                    return true;
+                }
+            }
+            if (root.right != null)
+            {
+                root.right.val += val;
+                bool leftResult = HasPathSum(root.right, targetSum);
+                if (leftResult)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+        #endregion
 
         #region #399  Evaluate Division
 
         public double[] CalcEquation(IList<IList<string>> equations, double[] values, IList<IList<string>> queries)
         {
-            Dictionary<string, List<Node>> nodes = buildGraph(equations, values);
+            Dictionary<string, List<Node_V1>> nodes = buildGraph(equations, values);
             double[] result = new double[queries.Count];
 
             for (int i = 0; i < queries.Count; i++)
@@ -880,7 +1157,7 @@ namespace LeetCode
             return result;
         }
 
-        private double dfs(Dictionary<string, List<Node>> nodes, string src, string dest, HashSet<string> visited)
+        private double dfs(Dictionary<string, List<Node_V1>> nodes, string src, string dest, HashSet<string> visited)
         {
 
             if (!nodes.ContainsKey(src) || !nodes.ContainsKey(dest)) return -1.0;
@@ -906,9 +1183,9 @@ namespace LeetCode
             return -1.0;
         }
 
-        private Dictionary<string, List<Node>> buildGraph(IList<IList<string>> equations, double[] values)
+        private Dictionary<string, List<Node_V1>> buildGraph(IList<IList<string>> equations, double[] values)
         {
-            Dictionary<string, List<Node>> graph = new Dictionary<string, List<Node>>();
+            Dictionary<string, List<Node_V1>> graph = new Dictionary<string, List<Node_V1>>();
 
             for (int i = 0; i < equations.Count; i++)
             {
@@ -925,16 +1202,16 @@ namespace LeetCode
             return graph;
         }
 
-        private void updateGraph(Dictionary<string, List<Node>> graph, string key, string dest, double value)
+        private void updateGraph(Dictionary<string, List<Node_V1>> graph, string key, string dest, double value)
         {
-            Node node = new Node(dest, value);
+            Node_V1 node = new Node_V1(dest, value);
             if (graph.ContainsKey(key))
             {
                 graph[key].Add(node);
             }
             else
             {
-                graph.Add(key, new List<Node>() { node });
+                graph.Add(key, new List<Node_V1>() { node });
             }
         }
 
@@ -987,7 +1264,7 @@ namespace LeetCode
             Stack<int> stack = new Stack<int>();
             for (int i = nums.Length - 1; i >= 0; i--)
             {
-                while(stack.Count > 0 && nums[stack.Peek()] <= nums[i])
+                while (stack.Count > 0 && nums[stack.Peek()] <= nums[i])
                 {
                     stack.Pop();
                 }
@@ -1000,7 +1277,7 @@ namespace LeetCode
                     {
                         j++;
                     }
-                    dp[i] =j==i ?-1:j;
+                    dp[i] = j == i ? -1 : j;
                 }
                 else
                 {
@@ -1011,7 +1288,7 @@ namespace LeetCode
 
             for (int i = 0; i < result.Length; i++)
             {
-                if(dp[i] == -1)
+                if (dp[i] == -1)
                 {
                     result[i] = -1;
                 }
@@ -1038,18 +1315,18 @@ namespace LeetCode
                 n /= 10;
             }
             int swapIndex = -1;
-            for (int i = numlist.Count-1; i >0; i--)
+            for (int i = numlist.Count - 1; i > 0; i--)
             {
                 if (numlist[i] > numlist[i - 1])
                 {
                     if (numlist.Count == 10 && i == 1 && numlist[i] > 1) return -1;
-                    swapIndex=i-1;
+                    swapIndex = i - 1;
                     break;
                 }
             }
             if (swapIndex == -1) return -1;
 
-            var p = numlist.Skip(swapIndex+1).Take(numlist.Count-swapIndex).ToArray();
+            var p = numlist.Skip(swapIndex + 1).Take(numlist.Count - swapIndex).ToArray();
             Array.Sort(p);
 
             for (int i = 0; i < p.Length; i++)
@@ -1065,7 +1342,7 @@ namespace LeetCode
             swapIndex++;
             for (int i = swapIndex; i < numlist.Count; i++)
             {
-                numlist[i] = p[i-swapIndex];
+                numlist[i] = p[i - swapIndex];
             }
             int result = 0;
 
@@ -1139,6 +1416,45 @@ namespace LeetCode
                 }
             }
             return sb.ToString();
+        }
+        #endregion
+
+        #region 1209. Remove All Adjacent Duplicates in String II
+        public string RemoveDuplicates(string s, int k)
+        {
+            Stack<(char, int, int)> stack = new Stack<(char, int, int)>();
+            stack.Push((s[0], 1, 0));
+            while (stack.Count > 0)
+            {
+                var top = stack.Pop();
+                if (top.Item2 == k)
+                {
+                    s = s.Remove(top.Item3, k);
+
+                    if (stack.Count == 0 && s.Length > 0)
+                    {
+                        stack.Push((s[0], 1, 0));
+                    }
+                    continue;
+                }
+
+
+                int cIndex = top.Item3 + top.Item2;
+                if (cIndex == s.Length) break;
+                char c = s[cIndex];
+                if (c == top.Item1)
+                {
+                    stack.Push((top.Item1, ++top.Item2, top.Item3));
+                }
+                else
+                {
+                    stack.Push(top);
+
+                    stack.Push((c, 1, cIndex));
+                }
+
+            }
+            return s;
         }
         #endregion
 

@@ -1,10 +1,10 @@
 ﻿namespace LeetCode
 {
-    public class Node
+    public class Node_V1
     {
         public string Key { get; set; }
         public double Value { get; set; }
-        public Node(string key, double val)
+        public Node_V1(string key, double val)
         {
             Key = key;
             Value = val;
