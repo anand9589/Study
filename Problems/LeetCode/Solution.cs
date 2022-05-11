@@ -366,33 +366,147 @@ namespace LeetCode
         public IList<IList<int>> Permute(int[] nums)
         {
             IList<IList<int>> result = new List<IList<int>>();
-            permulteHelper(result, nums, 0);
+            Permute_backtrack(result, nums, 0);
             return result;
         }
 
-        private void permulteHelper(IList<IList<int>> result, int[] nums, int start)
+        private void Permute_backtrack(IList<IList<int>> result, int[] nums, int start)
         {
             if (start == nums.Length)
             {
-                result.Add(nums);
+                result.Add(new List<int>(nums));
+                return;
             }
             else
             {
                 for (int i = start; i < nums.Length; i++)
                 {
-                    swap(nums, start, i);
-                    permulteHelper(result, nums, start + 1);
-                    swap(nums, start, i);
+                    swap(i, start, nums);
+                    Permute_backtrack(result, nums, start + 1);
+                    swap(i, start, nums);
+                }
+            }
+        }
+
+        public IList<IList<int>> Permute_V2(int[] nums)
+        {
+            IList<IList<int>> result = new List<IList<int>>();
+
+            LinkedList<int> ll = new LinkedList<int>();
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                ll.AddLast(nums[i]);
+            }
+
+            Permute_DFS(result, new LinkedList<int>(), ll);
+
+            return result;
+        }
+
+        private void Permute_DFS(IList<IList<int>> result, LinkedList<int> linkedList, LinkedList<int> ll)
+        {
+            if (ll.Count == 0)
+            {
+                result.Add(new List<int>(linkedList.ToList()));
+                return;
+            }
+
+            foreach (int n in ll)
+            {
+                LinkedList<int> temp1 = new LinkedList<int>(linkedList);
+                LinkedList<int> temp2 = new LinkedList<int>(ll);
+
+                temp1.AddLast(n);
+                temp2.Remove(n);
+                Permute_DFS(result, temp1, temp2);
+            }
+        }
+
+        public IList<IList<int>> Permute_1(int[] nums)
+        {
+            IList<IList<int>> result = new List<IList<int>>();
+            Permute_Helper(result, new List<int>(), nums, 0, nums.Length);
+            return result;
+        }
+
+        private void Permute_Helper(IList<IList<int>> list, IList<int> sublist, int[] nums, int start, int end)
+        {
+            if (start == end)
+            {
+                list.Add(new List<int>(sublist));
+
+                return;
+            }
+
+            for (int i = start; i < end; i++)
+            {
+                sublist.Add(nums[i]);
+                swap(i, start, nums);
+                Permute_Helper(list, sublist, nums, start + 1, end);
+                swap(i, start, nums);
+                sublist.RemoveAt(sublist.Count - 1);
+            }
+        }
+        #endregion
+
+        #region 47. Permutations II
+        public IList<IList<int>> PermuteUnique(int[] nums)
+        {
+            IList<IList<int>> result = new List<IList<int>>();
+            PermuteUnique_BackTrack(result, nums, 0);
+            return result;
+        }
+
+        private void PermuteUnique_BackTrack(IList<IList<int>> result, int[] nums, int start)
+        {
+            if (start == nums.Length)
+            {
+                result.Add(new List<int>(nums));
+                return;
+            }
+            else
+            {
+                for (int i = start; i < nums.Length; i++)
+                {
+                    if (i != start && !canPermute(start, i, nums)) continue;
+                    swap(i, start, nums);
+                    PermuteUnique_BackTrack(result, nums, start + 1);
+                    swap(i, start, nums);
+                }
+            }
+        }
+
+        private bool canPermute(int start, int i, int[] nums)
+        {
+            for (int j = start; j < i; j++)
+            {
+                if (nums[j] == nums[i]) return false;
+            }
+            return true;
+        }
+        #endregion
+        #region 48. Rotate Image
+        public void Rotate(int[][] matrix)
+        {
+            int[][] cp = new int[matrix.Length][];
+
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                cp[i] = new int[matrix[i].Length];
+                for (int j = 0; j < matrix.Length; j++)
+                {
+                    cp[i][j] = matrix[i][j];
                 }
             }
 
-        }
-
-        private static void swap(int[] nums, int start, int i)
-        {
-            int temp = nums[i];
-            nums[i] = nums[start];
-            nums[start] = temp;
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                for (int j = 0; j < matrix[i].Length; j++)
+                {
+                    matrix[i][j] = cp[matrix.Length - j - 1][i];
+                }
+            }
         }
         #endregion
 
@@ -893,6 +1007,88 @@ namespace LeetCode
 
         #endregion
 
+        #region 94. Binary Tree Inorder Traversal
+        public IList<int> InorderTraversal_ByStack(TreeNode root)
+        {
+            IList<int> list = new List<int>();
+
+            if (root != null)
+            {
+                Stack<TreeNode> stack = new Stack<TreeNode>();
+                stack.Push(root);
+
+                while (stack.Count > 0)
+                {
+                    TreeNode treeNode = stack.Peek();
+
+                    if (treeNode.left != null)
+                    {
+                        stack.Push(treeNode.left);
+                        treeNode.left = null;
+                    }
+                    else
+                    {
+                        list.Add(treeNode.val);
+                        stack.Pop();
+                        if (treeNode.right != null)
+                        {
+                            stack.Push((TreeNode)treeNode.right);
+                            treeNode.right = null;
+                        }
+                    }
+                }
+            }
+
+            return list;
+        }
+
+
+        public IList<int> InorderTraversal(TreeNode root)
+        {
+            IList<int> list = new List<int>();
+
+            if (root != null)
+            {
+                InorderTraversalHelper(list, root);
+            }
+            return list;
+        }
+
+        private void InorderTraversalHelper(IList<int> list, TreeNode root)
+        {
+            if (root == null) return;
+            InorderTraversalHelper(list, root.left);
+            list.Add(root.val);
+            InorderTraversalHelper(list, root.right);
+        }
+
+        #endregion
+
+        #region 98. Validate Binary Search Tree
+
+        public bool IsValidBST(TreeNode root)
+        {
+            if (root == null || (root.left == null && root.right == null)) return true;
+            if (root.left != null && root.val <= root.left.val)
+            {
+                return false;
+            }
+            if (root.right != null && root.val >= root.right.val)
+            {
+                return false;
+            }
+            return IsValidBSTHelper(root.left, root.val - 1) && IsValidBSTHelper(root.right, root.val + 1);
+        }
+
+        private bool IsValidBSTHelper(TreeNode treeNode, int maxVal)
+        {
+            return false;
+            //if (treeNode == null) return true;
+            //if ((treeNode.val < maxVal) || (treeNode.val > right)) return false;
+            //return IsValidBSTHelper(treeNode.left, left, treeNode.val - 1) && IsValidBSTHelper(treeNode.right, treeNode.val + 1, right);
+        }
+        #endregion
+
         #region 100. Same Tree
         public bool IsSameTree(TreeNode p, TreeNode q)
         {
@@ -970,10 +1166,10 @@ namespace LeetCode
 
             if (root != null)
             {
-                Stack<(int,TreeNode)> stack1 = new Stack<(int, TreeNode)>();
+                Stack<(int, TreeNode)> stack1 = new Stack<(int, TreeNode)>();
                 Stack<(int, TreeNode)> stack2 = new Stack<(int, TreeNode)>();
 
-                stack1.Push((0,root));
+                stack1.Push((0, root));
 
                 while (stack1.Count > 0 || stack2.Count > 0)
                 {
@@ -983,7 +1179,7 @@ namespace LeetCode
                         TreeNode treeNode = t.Item2;
                         int l = t.Item1;
 
-                        if(level.Count == l)
+                        if (level.Count == l)
                         {
                             level.Add(new List<int>());
                         }
@@ -992,7 +1188,7 @@ namespace LeetCode
                             level[l].Add((int)treeNode.val);
                         }
 
-                        if(treeNode.left != null)
+                        if (treeNode.left != null)
                         {
                             stack2.Push((l + 1, treeNode.left));
                         }
@@ -1039,11 +1235,11 @@ namespace LeetCode
         #region 104. Maximum Depth of Binary Tree
         public int MaxDepth(TreeNode root)
         {
-            if(root == null) return 0;
+            if (root == null) return 0;
 
-            if(root.left == null && root.right == null) return 1; 
+            if (root.left == null && root.right == null) return 1;
 
-            return 1 + Math.Max(MaxDepth(root.left), MaxDepth(root.right)); 
+            return 1 + Math.Max(MaxDepth(root.left), MaxDepth(root.right));
         }
         #endregion
 
@@ -1065,7 +1261,7 @@ namespace LeetCode
                     TreeNode treeNode = d.Item2;
                     if (level.Count == l)
                     {
-                        level.Insert(0,new List<int>());
+                        level.Insert(0, new List<int>());
                     }
 
                     level[0].Add(treeNode.val);
@@ -1111,13 +1307,13 @@ namespace LeetCode
 
         public bool HasPathSum(TreeNode root, int targetSum)
         {
-            if(root == null) return false;
+            if (root == null) return false;
 
             if (root.val == targetSum) return true;
 
             int val = root.val;
 
-            if(root.left != null)
+            if (root.left != null)
             {
                 root.left.val += val;
                 bool leftResult = HasPathSum(root.left, targetSum);
@@ -1142,7 +1338,113 @@ namespace LeetCode
 
         #endregion
 
-        #region #399  Evaluate Division
+        #region 116. Populating Next Right Pointers in Each Node
+        public Node Connect(Node root)
+        {
+            if (root != null)
+            {
+                Queue<(int, Node)> q = new Queue<(int, Node)>();
+                q.Enqueue((0, root));
+
+                while (q.Count > 0)
+                {
+                    var q1 = q.Dequeue();
+
+                    int l = q1.Item1;
+                    Node n = q1.Item2;
+
+
+                    if (q.Count != 0 && q.Peek().Item1 == l)
+                    {
+                        n.Next = q.Peek().Item2;
+                    }
+
+                    if (n.Left != null) q.Enqueue((l + 1, n.Left));
+                    if (n.Right != null) q.Enqueue((l + 1, n.Right));
+                }
+            }
+            return root;
+        }
+        #endregion
+
+        #region 216. Combination Sum III
+        public IList<IList<int>> CombinationSum3(int k, int n)
+        {
+            IList<IList<int>> list = new List<IList<int>>();
+
+            CombinationSum3_Helper(list, new LinkedList<int>(), 1, k, n);
+
+            return list;
+        }
+
+        private void CombinationSum3_Helper(IList<IList<int>> list, LinkedList<int> ll, int start, int k, int target)
+        {
+            if (k < 0 || target < 0)
+            {
+                return;
+            }
+
+            if (k == 0 && target == 0)
+            {
+                list.Add(ll.ToList());
+                return;
+            }
+
+            for (int i = start; i <= 9; i++)
+            {
+                ll.AddLast(i);
+                CombinationSum3_Helper(list, ll, i + 1, k - 1, target - i);
+                ll.RemoveLast();
+            }
+        }
+        #endregion
+
+        #region 263. Ugly Number
+
+        public bool IsUgly(int n)
+        {
+            return false;
+        }
+
+        #endregion
+
+        #region 264. Ugly Number II
+        public int NthUglyNumber(int n)
+        {
+            if (n == 1) return 1;
+            List<int> list = new List<int>();
+            list.Add(1);
+            NthUglyNumber_helper(list, n, 2);
+            return list.Last();
+        }
+
+        private void NthUglyNumber_helper(List<int> list, int n, int curr)
+        {
+            if (curr % 2 == 0 || curr % 3 == 0 || curr % 5 == 0)
+            {
+                list.Add((int)curr);
+                if (list.Count == n) return;
+            }
+
+            NthUglyNumber_helper(list, n, curr + 1);
+
+        }
+
+        //private List<int> factors(int n)
+        //{
+        //    List<int> factors = new List<int>();
+
+        //    for (int i = 2; i < length; i++)
+        //    {
+
+        //    }
+
+        //    return factors;
+        //}
+
+        #endregion
+
+        #region 399  Evaluate Division
 
         public double[] CalcEquation(IList<IList<string>> equations, double[] values, IList<IList<string>> queries)
         {
@@ -1216,6 +1518,38 @@ namespace LeetCode
         }
 
 
+        #endregion
+
+        #region 456. 132 Pattern
+        public bool Find132pattern(int[] nums)
+        {
+            if (nums.Length < 3) return false;
+            int[] min = new int[nums.Length];
+            min[0] = nums[0];
+
+            for (int i = 1; i < nums.Length; i++)
+            {
+                min[i] = Math.Min(min[i - 1], nums[i]);
+            }
+
+            Stack<int> stack = new Stack<int>();
+
+            for (int i = nums.Length - 1; i >= 0; i++)
+            {
+                if (nums[i] > min[i])
+                {
+                    while (stack.Count > 0 && stack.Peek() <= min[i])
+                    {
+                        stack.Pop();
+                    }
+
+                    if (stack.Count > 0 && stack.Peek() < nums[i]) return true;
+
+                    stack.Push(nums[i]);
+                }
+            }
+            return false;
+        }
         #endregion
 
         #region 496. Next Greater Element I
@@ -1493,6 +1827,34 @@ namespace LeetCode
         }
         #endregion
 
+        #region 1641. Count Sorted Vowel Strings
+        public int CountVowelStrings(int n)
+        {
+            List<List<int>> vowelStrings = new List<List<int>>();
+
+            CountVowelStrings_helper(vowelStrings, new LinkedList<int>(), n, 1);
+
+            return vowelStrings.Count;
+        }
+
+        private void CountVowelStrings_helper(List<List<int>> vowelStrings, LinkedList<int> ll, int n, int curr)
+        {
+            if (curr > 5) return;
+
+            if (n == 0)
+            {
+                vowelStrings.Add(ll.ToList());
+                return;
+            }
+
+            ll.AddLast(curr);
+
+            CountVowelStrings_helper(vowelStrings, ll, n - 1, curr);
+            ll.RemoveLast();
+
+            CountVowelStrings_helper(vowelStrings, ll, n, curr + 1);
+        }
+        #endregion
 
         #region 1679. Max Number of K-Sum Pairs
 
@@ -1627,5 +1989,91 @@ namespace LeetCode
         }
 
         #endregion
+
+        #region 292week
+        //Largest 3-Same-Digit Number in String
+        public string LargestGoodInteger(string num)
+        {
+            List<char> list = new List<char>();
+            for (int i = 0; i < num.Length - 3; i++)
+            {
+
+                if (!list.Contains(num[i]) && num[i] == num[i + 1] && num[i] == num[i + 2])
+                {
+                    list.Add(num[i]);
+                    i = i + 2;
+                }
+            }
+            if (list.Count == 0) return "";
+            char c = list.Max();
+            return new string(new char[] { c, c, c });
+        }
+
+        public int CountTexts(string pressedKeys)
+        {
+            Dictionary<char, char[]> dct = new Dictionary<char, char[]>();
+
+            dct.Add('2', new char[] { 'a', 'b', 'c' });
+            dct.Add('3', new char[] { 'd', 'e', 'f' });
+            dct.Add('4', new char[] { 'g', 'h', 'i' });
+            dct.Add('5', new char[] { 'j', 'k', 'l' });
+            dct.Add('6', new char[] { 'm', 'n', 'o' });
+            dct.Add('7', new char[] { 'p', 'q', 'r' });
+            dct.Add('8', new char[] { 's', 't', 'u', 'v' });
+            dct.Add('9', new char[] { 'w', 'x', 'y', 'z' });
+
+            return 0;
+        }
+
+        public bool HasValidPath(char[][] grid)
+        {
+
+            int m = grid.Length;
+            int n = grid[0].Length;
+
+            if (m > 0 && n > 0)
+            {
+                if (grid[m - 1][n - 1] != ')') return false;
+            }
+
+            return false;
+        }
+
+        public int AverageOfSubtree(TreeNode root)
+        {
+            List<(TreeNode, int, int)> results = new List<(TreeNode, int, int)>();
+            Stack<(int, TreeNode)> stack = new Stack<(int, TreeNode)>();
+
+            stack.Push((0, root));
+
+            while (stack.Count > 0)
+            {
+                var s = stack.Peek();
+
+
+            }
+            return 0;
+        }
+
+        private int AverageOfSubtree_Tr(List<(TreeNode, int, int)> results, TreeNode root)
+        {
+            if (root == null) return 0;
+
+            int left = AverageOfSubtree_Tr(results, root.left);
+            int right = AverageOfSubtree_Tr(results, root.right);
+
+            return 0;
+        }
+
+        #endregion
+
+
+        private void swap(int i, int start, int[] nums)
+        {
+            if (i == nums.Length) return;
+            int temp = nums[i];
+            nums[i] = nums[start];
+            nums[start] = temp;
+        }
     }
 }

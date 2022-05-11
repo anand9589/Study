@@ -39,7 +39,20 @@ Solution solution = new Solution();
 
 //"yfttttfbbbbnnnnffbgffffgbbbbgssssgthyyyy"
 //4
-var res = solution.RemoveDuplicates("nnwssswwnvbnnnbbqhhbbbhmmmlllm", 3);
-Console.WriteLine(res);
+//var res = solution.RemoveDuplicates("nnwssswwnvbnnnbbqhhbbbhmmmlllm", 3);
+
+//[-2147483648,null,2147483647,-2147483647,-2147483648]
+//TreeNode root = new TreeNode(-2147483648);
+//root.right = new TreeNode(2147483647);
+//root.right.left = new TreeNode(-2147483647);
+//root.right.right = new TreeNode(-2147483648);
+//var res = solution.IsValidBST(root);
+//[1,3,2,4,5,6,7,8,9,10]
+solution.Permute(new int[] {1,2,3});
+//[3,5,0,3,4]
+//[-2,1,2,-2,1,2][1,4,0,-1,-2,-3,-1,-2]
+//var res = solution.Find132pattern(new int[] { -2, 1, 2, -2, 1, 2 });
+//solution.Rotate(new int[][] { new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, new int[] { 7, 8, 9 } });
+//Console.WriteLine(res);
 //var res = solution.MaximalRectangle([["1", "0", "1", "0", "0"],["1", "0", "1", "1", "1"],["1", "1", "1", "1", "1"],["1", "0", "0", "1", "0"]])
 //Console.WriteLine(res);
