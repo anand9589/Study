@@ -486,6 +486,7 @@ namespace LeetCode
             return true;
         }
         #endregion
+
         #region 48. Rotate Image
         public void Rotate(int[][] matrix)
         {
@@ -579,6 +580,172 @@ namespace LeetCode
         }
         #endregion
 
+        #region 51. N-Queens
+        public IList<IList<string>> SolveNQueens(int n)
+        {
+            if (n == 1) return new List<IList<string>>() { new List<string>() { "Q" } };
+            IList<IList<string>> result = new List<IList<string>>();
+            IList<string> list = new List<string>();
+            int[][] board = new int[n][];
+            for (int i = 0; i < n; i++)
+            {
+                board[i] = new int[n];
+            }
+
+            for (int i = 0; i < board.Length; i++)
+            {
+                for (int j = 0; j < board.Length; j++)
+                {
+                    for (int x = 0; x < n; x++)
+                    {
+                        board[x] = new int[n];
+                    }
+                    SolveNQueens_Helper(list, board, i, j);
+                }
+            }
+
+            list = list.OrderByDescending(x => x).ToList();
+
+            foreach (var item in list)
+            {
+                int index = 0;
+                IList<string> list2 = new List<string>();
+                while (index < n * n)
+                {
+                    list2.Add(item.Substring(index, n));
+                    index += n;
+                }
+                result.Add(list2);
+            }
+
+            return result;
+        }
+        private void SolveNQueens_Helper(IList<string> result, int[][] board, int i, int j)
+        {
+            if (i == board.Length || j == board.Length) return;
+            for (int k = 1; k <= board.Length; k++)
+            {
+                board[i][j] = k;
+                if (k == board.Length)
+                {
+                    fiilCorrespondingBoardValues(board, i, j);
+                }
+                else
+                {
+                    fiilCorrespondingBoardValues(board, i, j);
+                    bool foundCell = false;
+                    for (int x = 0; x < board.Length; x++)
+                    {
+                        foundCell = false;
+                        for (int y = 0; y < board.Length; y++)
+                        {
+                            if (board[x][y] == 0)
+                            {
+                                i = x;
+                                j = y;
+                                foundCell = true;
+                                break;
+                            }
+                        }
+                        if (foundCell) break;
+                    }
+                    if (!foundCell)
+                    {
+                        return;
+                    }
+                }
+            }
+
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int a = 0; a < board.Length; a++)
+            {
+                for (int b = 0; b < board.Length; b++)
+                {
+                    if (board[a][b] == -1)
+                    {
+                        stringBuilder.Append('.');
+                    }
+                    else
+                    {
+                        stringBuilder.Append('Q');
+                    }
+                }
+            }
+            if (!result.Contains(stringBuilder.ToString()))
+            {
+                result.Add(stringBuilder.ToString());
+            }
+        }
+
+        private void fiilCorrespondingBoardValues(int[][] board, int i, int j)
+        {
+            fillDiagonalValues1(board, i + 1, j + 1);
+            fillDiagonalValues2(board, i - 1, j - 1);
+            fillDiagonalValues3(board, i + 1, j - 1);
+            fillDiagonalValues4(board, i - 1, j + 1);
+            fillDiagonalValues5(board, i, j - 1);
+            fillDiagonalValues6(board, i, j + 1);
+            fillDiagonalValues7(board, i + 1, j);
+            fillDiagonalValues8(board, i - 1, j);
+        }
+
+        private void fillDiagonalValues1(int[][] board, int i, int j)
+        {
+            if (i < 0 || i >= board.Length || j < 0 || j >= board.Length || board[i][j] > 0) return;
+            board[i][j] = -1;
+            fillDiagonalValues1(board, i + 1, j + 1);
+        }
+        private void fillDiagonalValues2(int[][] board, int i, int j)
+        {
+            if (i < 0 || i >= board.Length || j < 0 || j >= board.Length || board[i][j] > 0) return;
+            board[i][j] = -1;
+            fillDiagonalValues2(board, i - 1, j - 1);
+
+        }
+        private void fillDiagonalValues3(int[][] board, int i, int j)
+        {
+            if (i < 0 || i >= board.Length || j < 0 || j >= board.Length || board[i][j] > 0) return;
+            board[i][j] = -1;
+            fillDiagonalValues3(board, i + 1, j - 1);
+
+        }
+        private void fillDiagonalValues4(int[][] board, int i, int j)
+        {
+            if (i < 0 || i >= board.Length || j < 0 || j >= board.Length || board[i][j] > 0) return;
+            board[i][j] = -1;
+            fillDiagonalValues4(board, i - 1, j + 1);
+
+        }
+
+        private void fillDiagonalValues5(int[][] board, int i, int j)
+        {
+            if (i < 0 || i >= board.Length || j < 0 || j >= board.Length || board[i][j] > 0) return;
+            board[i][j] = -1;
+            fillDiagonalValues5(board, i, j - 1);
+        }
+        private void fillDiagonalValues6(int[][] board, int i, int j)
+        {
+            if (i < 0 || i >= board.Length || j < 0 || j >= board.Length || board[i][j] > 0) return;
+            board[i][j] = -1;
+            fillDiagonalValues6(board, i, j + 1);
+
+        }
+        private void fillDiagonalValues7(int[][] board, int i, int j)
+        {
+            if (i < 0 || i >= board.Length || j < 0 || j >= board.Length || board[i][j] > 0) return;
+            board[i][j] = -1;
+            fillDiagonalValues7(board, i + 1, j);
+
+        }
+        private void fillDiagonalValues8(int[][] board, int i, int j)
+        {
+            if (i < 0 || i >= board.Length || j < 0 || j >= board.Length || board[i][j] > 0) return;
+            board[i][j] = -1;
+            fillDiagonalValues8(board, i - 1, j);
+
+        }
+        #endregion
+
         #region 53. Maximum Subarray
         public int MaxSubArray(int[] nums)
         {
@@ -607,67 +774,49 @@ namespace LeetCode
         {
             int m = matrix.Length;
             int n = matrix[0].Length;
-
-            bool[][] visited = new bool[m][];
-            for (int i = 0; i < m; i++)
-            {
-                visited[i] = new bool[n];
-            }
-
             IList<int> list = new List<int>();
             int x = 0;
-            int y = n - 1;
+            int y = 0;
 
-            for (int i = x; i < n; i++)
+            while (list.Count < matrix.Length * matrix[0].Length)
             {
-                list.Add(matrix[x][i]);
-                visited[x][i] = true;
+                int a = x;
+                int b = y;
+                while (b < n)
+                {
+                    list.Add(matrix[a][b]);
+                    b++;
+                }
+                b--;
+                a++;
+                while (a < m)
+                {
+                    list.Add(matrix[a][b]);
+                    a++;
+                }
+                if (list.Count == matrix.Length * matrix[0].Length) break;
+                a--;
+                b--;
+                while (b >= y)
+                {
+                    list.Add(matrix[a][b]);
+                    b--;
+                }
+                b++;
+                a--;
+                while (a > x)
+                {
+                    list.Add(matrix[a][b]);
+                    a--;
+                }
+                x++;
+                y++;
+                m--;
+                n--;
             }
 
-            for (int i = 1; i < m; i++)
-            {
-                list.Add(matrix[i][y]);
-                visited[i][y] = true;
-            }
 
             return list;
-
-            //while (true)
-            //{
-            //    while (y < n && !visited[x][y])
-            //    {
-            //        list.Add(matrix[x][y]);
-            //        visited[x][y] = true;
-            //        y++;
-            //    }
-            //    y = n - 1;
-            //    x++;
-            //    while (x < m)
-            //    {
-            //        list.Add(matrix[x][y]);
-            //        visited[x][y] = true;
-            //        x++;
-            //    }
-            //    x = m - 1;
-            //    y--;
-
-            //    while (y >= 0 && !visited[x][y])
-            //    {
-            //        list.Add(matrix[x][y]);
-            //        visited[x][y] = true;
-            //        y--;
-            //    }
-            //    y = 0;
-            //    x--;
-            //    while (x >= 0 && !visited[x][y])
-            //    {
-            //        list.Add(matrix[x][y]);
-            //        visited[x][y] = true;
-            //        x--;
-            //    }
-            //    m--;
-            //    n--;
-            //}
         }
 
         #endregion
@@ -1367,6 +1516,32 @@ namespace LeetCode
         }
         #endregion
 
+        #region 167. Two Sum II - Input Array Is Sorted
+        public int[] TwoSum(int[] numbers, int target)
+        {
+            int low = 0;
+            int end = numbers.Length - 1;
+
+            while (low < end)
+            {
+                int sum = numbers[low] + numbers[end];
+
+                if (sum == target) break;
+
+                if (sum > target)
+                {
+                    end--;
+                }
+                else
+                {
+                    low++;
+                }
+            }
+
+            return new int[] { low, end };
+        }
+        #endregion
+
         #region 216. Combination Sum III
         public IList<IList<int>> CombinationSum3(int k, int n)
         {
@@ -1442,6 +1617,47 @@ namespace LeetCode
         //    return factors;
         //}
 
+        #endregion
+
+        #region 283. Move Zeroes
+        public void MoveZeroes(int[] nums)
+        {
+            int zeros = 0;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] == 0)
+                {
+                    zeros++;
+                }
+                else
+                {
+                    nums[i - zeros] = nums[i];
+                }
+            }
+
+            for (int i = nums.Length - zeros; i < nums.Length; i++)
+            {
+                nums[i] = 0;
+            }
+        }
+        #endregion
+
+        #region 344. Reverse String
+        public void ReverseString(char[] s)
+        {
+            int low = 0;
+            int end = s.Length - 1;
+
+            while (low < end)
+            {
+                char temp = s[low];
+                s[low] = s[end];
+                s[end] = temp;
+                low++;
+                end--;
+            }
+        }
         #endregion
 
         #region 399  Evaluate Division
@@ -1689,6 +1905,20 @@ namespace LeetCode
         }
         #endregion
 
+        #region 557. Reverse Words in a String III
+        public string ReverseWords(string s)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (var item in s.Split(' '))
+            {
+                var p = item.Reverse();
+                var s1 = new string(p.ToArray());
+                stringBuilder.Append(s1);
+                stringBuilder.Append(' ');
+            }
+            return stringBuilder.ToString().Trim();
+        }
+        #endregion
         #region 581. Shortest Unsorted Continuous Subarray
         public int FindUnsortedSubarray(int[] nums)
         {
@@ -1722,6 +1952,13 @@ namespace LeetCode
             return end - start;
         }
 
+        #endregion
+
+        #region 743. Network Delay Time
+        public int NetworkDelayTime(int[][] times, int n, int k)
+        {
+            return 0;
+        }
         #endregion
 
         #region 844. Backspace String Compare
@@ -1790,6 +2027,43 @@ namespace LeetCode
             }
             return s;
         }
+        #endregion
+
+        #region 1302. Deepest Leaves Sum
+        public int DeepestLeavesSum(TreeNode root)
+        {
+            Dictionary<int, int> result = new Dictionary<int, int>();
+            Queue<(int, TreeNode)> q = new Queue<(int, TreeNode)>();
+            q.Enqueue((0, root));
+            while (q.Count > 0)
+            {
+                var p = q.Dequeue();
+
+                int level = p.Item1;
+                TreeNode tree = p.Item2;
+
+                if (result.ContainsKey(level))
+                {
+                    result[level] += tree.val;
+                }
+                else
+                {
+                    result.Add(level, tree.val);
+                }
+
+                if (tree.left != null)
+                {
+                    q.Enqueue((level + 1, tree.left));
+                }
+                if (tree.right != null)
+                {
+                    q.Enqueue((level + 1, tree.right));
+                }
+            }
+
+            return result.LastOrDefault().Value;
+        }
+
         #endregion
 
         #region 1423 MaxScore
@@ -1893,6 +2167,112 @@ namespace LeetCode
             return result;
         }
 
+        #endregion
+
+        #region 2269. Find the K-Beauty of a Number
+        public int DivisorSubstrings(int num, int k)
+        {
+            string s = num.ToString();
+            int result = 0;
+            for (int i = 0; i <= s.Length - k; i++)
+            {
+                int divisor = int.Parse(s.Substring(i, k));
+
+                if (num % divisor == 0) result++;
+            }
+            return result;
+        }
+        #endregion
+
+        #region 2270. Number of Ways to Split Array
+        public int WaysToSplitArray(int[] nums)
+        {
+            long[] leftSum = new long[nums.Length];
+            long sum = 0;
+
+            int result = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                sum += nums[i];
+                leftSum[i] += (i == 0 ? 0 : leftSum[i - 1]) + nums[i];
+            }
+            for (int i = 1; i < nums.Length; i++)
+            {
+                long rightSum = sum - leftSum[i - 1];
+                if (leftSum[i - 1] >= rightSum) result++;
+            }
+            return result;
+        }
+        #endregion
+
+        #region 2271. Maximum White Tiles Covered by a Carpet
+        public int MaximumWhiteTiles(int[][] tiles, int carpetLen)
+        {
+            int result = 0;
+
+            List<int[]> list = tiles.OrderBy(x => x[0]).ToList();
+            Dictionary<int, int> map = new Dictionary<int, int>();
+            for (int i = 0; i < list.Count; i++)
+            {
+                int count = list[i][1] - list[i][0] + 1;
+                if (count >= carpetLen) return carpetLen;
+                map.Add(i, count);
+            }
+            //for (int i = 0; i < list.Count; i++)
+            //{
+            //    int low = i + 1;
+            //    int end = list.Count - 1;
+
+            //    if (MaximumWhiteTiles_Valid(list, i, end, carpetLen))
+            //    {
+            //        for (int j = i+1; j < length; j++)
+            //        {
+
+            //        }
+
+
+
+            //        break;
+            //    }
+            //    else if()
+
+            //    for (int j = i+1; j < list.Count; j++)
+            //    {
+            //        int tcountwithendIndex = list[j][1] - list[i][0] + 1;
+            //        int tcountwitstartIndex =  list[j][0] - list[i][0] + 1;
+            //        if (tcountwithendIndex <= carpetLen)
+            //        {
+            //            map[i] = map[i]+ list[j][1] - list[j][0] + 1;
+            //        }
+            //        else if (tcountwitstartIndex <= carpetLen)
+            //        {
+            //            while (tcountwitstartIndex <= carpetLen)
+            //            {
+            //                map[i]++;
+            //                tcountwitstartIndex++;
+            //            }
+            //            break;
+            //        }
+            //        else
+            //        {
+            //            break;
+            //        }
+            //    }
+            //}
+
+            return map.Values.Max();
+
+        }
+
+        private bool MaximumWhiteTiles_Valid(List<int[]> list, int i, int targetIndex, int carpetLen)
+        {
+            int startIndex = list[i][0];
+            int endIndex = list[i][0];
+
+            int total = endIndex - startIndex + 1;
+
+            return carpetLen >= total;
+        }
         #endregion
 
         #region Bipartite Graph
@@ -2067,6 +2447,202 @@ namespace LeetCode
 
         #endregion
 
+        #region 293 Week
+        #region Problem 1
+        public IList<string> RemoveAnagrams(string[] words)
+        {
+            IList<string> list = new List<string>();
+            string lastAnagram = string.Empty;
+            foreach (string word in words)
+            {
+                char[] ch = word.ToCharArray();
+                Array.Sort(ch);
+
+                string s = new string(ch);
+
+                if (lastAnagram != s)
+                {
+                    lastAnagram = s;
+                    list.Add(s);
+                }
+            }
+            return list;
+        }
+        #endregion
+
+        #region Problem 2 Maximum Consecutive Floors Without Special Floors
+        public int MaxConsecutive(int bottom, int top, int[] special)
+        {
+            int result = 0;
+            Array.Sort(special);
+            int low = 0;
+            int end = special.Length - 1;
+            while (bottom < top)
+            {
+                if (low <= end)
+                {
+                    result = Math.Max(result, special[low] - bottom);
+                    result = Math.Max(result, top - special[end]);
+                    bottom = special[low] + 1;
+                    top = special[end] - 1;
+
+                    low++;
+                    end--;
+                }
+                else
+                {
+                    result = Math.Max(result, top - bottom + 1);
+                    break;
+                }
+            }
+
+
+            return result;
+        }
+        #endregion
+
+        #region Problem 3
+        #endregion
+
+        #region Problem 4 Count Integers in Intervals
+        #endregion
+        #endregion
+
+        #region 14Days
+        #region May 11,2022
+        public int Search(int[] nums, int target)
+        {
+            int mid = nums.Length / 2;
+            int low = 0;
+            int high = nums.Length - 1;
+            while (low <= high)
+            {
+                if (nums[low] == target)
+                {
+                    return low;
+                }
+                if (nums[mid] == target)
+                {
+                    return mid;
+                }
+                if (nums[high] == target)
+                {
+                    return high;
+                }
+
+                if (target < nums[mid])
+                {
+                    high = mid - 1;
+                }
+                else
+                {
+                    low = mid + 1;
+                }
+                mid = (low + high) / 2;
+
+            }
+            return -1;
+        }
+
+        public int SearchInsert(int[] nums, int target)
+        {
+            int mid = nums.Length / 2;
+            int low = 0;
+            int high = nums.Length - 1;
+            while (low <= high)
+            {
+                if (nums[high] < target)
+                {
+                    return high + 1;
+                }
+                if (nums[low] > target)
+                {
+                    return low;
+                }
+                if (nums[low] == target)
+                {
+                    while (low > 0 && nums[low - 1] == nums[low])
+                    {
+                        low--;
+                    }
+                    return low;
+                }
+                if (nums[mid] == target)
+                {
+                    while (mid > low && nums[mid - 1] == nums[mid])
+                    {
+                        mid--;
+                    }
+
+                    return mid;
+                }
+                if (nums[high] == target)
+                {
+                    while (high > mid && nums[high - 1] == nums[high])
+                    {
+                        high--;
+                    }
+                    return high;
+                }
+
+                if (target < nums[mid])
+                {
+                    high = mid - 1;
+                }
+                else
+                {
+                    low = mid + 1;
+                }
+                mid = (low + high) / 2;
+
+            }
+
+            int max = Math.Max(low, high);
+
+            while (max > 0 && nums[max] > target && nums[max - 1] > target)
+            {
+                max--;
+            }
+
+            return max;
+        }
+        #endregion
+        #endregion
+
+        public IList<IList<int>> PermuteUnique1(int[] nums)
+        {
+            IList<IList<int>> results = new List<IList<int>>();
+
+            PermuteUnique1_BackTrack(results, nums, 0);
+            return results;
+        }
+        private void PermuteUnique1_BackTrack(IList<IList<int>> results, int[] nums, int start)
+        {
+            if (start == nums.Length)
+            {
+                results.Add(new List<int>(nums));
+                return;
+            }
+            else
+            {
+                for (int i = start; i < nums.Length; i++)
+                {
+                    if (i != start && !canPermute1(i, start, nums)) continue;
+                    swap(i, start, nums);
+                    PermuteUnique1_BackTrack(results, nums, start + 1);
+                    swap(i, start, nums);
+                }
+            }
+        }
+
+        private bool canPermute1(int i, int start, int[] nums)
+        {
+            for (int j = start; j < nums.Length; j++)
+            {
+                if (nums[j] == nums[i]) return false;
+            }
+            return true;
+        }
 
         private void swap(int i, int start, int[] nums)
         {

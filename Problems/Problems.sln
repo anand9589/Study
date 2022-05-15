@@ -62,7 +62,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HashProblems", "HashProblem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphProject", "GraphProject\GraphProject.csproj", "{BD746D26-BFD3-45E2-8D06-BEEAFB75B492}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeetCode", "LeetCode\LeetCode.csproj", "{3BE58A8C-0C3E-4703-9C44-19BC0E8852A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeetCode", "LeetCode\LeetCode.csproj", "{3BE58A8C-0C3E-4703-9C44-19BC0E8852A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackerRank", "HackerRank\HackerRank.csproj", "{B48D3F95-078A-451C-AA4F-2158194B9236}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -130,6 +132,10 @@ Global
 		{3BE58A8C-0C3E-4703-9C44-19BC0E8852A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BE58A8C-0C3E-4703-9C44-19BC0E8852A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BE58A8C-0C3E-4703-9C44-19BC0E8852A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B48D3F95-078A-451C-AA4F-2158194B9236}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B48D3F95-078A-451C-AA4F-2158194B9236}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B48D3F95-078A-451C-AA4F-2158194B9236}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B48D3F95-078A-451C-AA4F-2158194B9236}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
