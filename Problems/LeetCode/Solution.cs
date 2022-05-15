@@ -884,6 +884,88 @@ namespace LeetCode
 
         #endregion
 
+        #region 57. Insert Interval
+        public int[][] Insert(int[][] intervals, int[] newInterval)
+        {
+            if (intervals.Length == 0) return new int[][] { newInterval };
+            List<(int, int)> lst = new List<(int, int)>();
+            int start = newInterval[0];
+            int end = newInterval[1];
+
+            var st = Insert_BinarySearch(intervals, 0, intervals.Length - 1, start);
+            var en = Insert_BinarySearch(intervals, 0, intervals.Length - 1, end);
+            int startIndex = st.Item2;
+            int endIndex = en.Item2;
+
+            for (int i = 0; i < startIndex; i++)
+            {
+                lst.Add((intervals[i][0], intervals[i][1]));
+            }
+
+            if (st.Item1)
+            {
+                if (en.Item1)
+                {
+                    lst.Add((intervals[startIndex][0], intervals[endIndex][1]));
+                }
+                else
+                {
+                    lst.Add((intervals[startIndex][0], end));
+                }
+            }
+            else
+            {
+                if (en.Item1)
+                {
+                    lst.Add((start, intervals[endIndex][1]));
+                }
+                else
+                {
+                    lst.Add((start, end));
+                }
+            }
+
+            if (en.Item1)
+            {
+                endIndex++;
+            }
+
+            for (int i = endIndex; i < intervals.Length; i++)
+            {
+                lst.Add((intervals[i][0], intervals[i][1]));
+            }
+            
+            int[][] result = new int[lst.Count][];
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i] = new int[] { lst[i].Item1, lst[i].Item2 };
+            }
+
+            return result;
+        }
+
+        private (bool,int) Insert_BinarySearch(int[][] intervals, int left, int right, int target)
+        {
+            while (left <= right)
+            {
+                int mid = left + ((right - left) / 2);
+
+                if ((intervals[mid][0] <= target && intervals[mid][1]>=target)) return (true,mid);
+
+                if (intervals[mid][0] > target)
+                {
+                    right = mid - 1;
+                }
+                else
+                {
+                    left = mid + 1;
+                }
+            }
+            return (false,left);
+        }
+        #endregion
+
         #region 62. Unique Paths
         public int UniquePaths(int m, int n)
         {
