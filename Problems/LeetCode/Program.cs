@@ -15,7 +15,7 @@ using static LeetCode.Solution;
 //}
 //int k = int.Parse(data[1]);
 Solution solution = new Solution();
-solution.ReverseWords("Let's take LeetCode contest");
+solution.Merge(new int[][] { new int[] { 1, 3 }, new int[] { 2, 6 }, new int[] { 15, 18 }, new int[] { 8, 10 } });
 //CountIntervals countIntervals = new CountIntervals();
 //countIntervals.Add(2, 3);
 //countIntervals.Add(7, 10);

@@ -851,6 +851,39 @@ namespace LeetCode
         }
         #endregion
 
+        #region 56. Merge Intervals
+        public int[][] Merge(int[][] intervals)
+        {
+            List<(int, int)> list = new List<(int, int)>();
+            Array.Sort(intervals, (a, b) => { return a[0] - b[0]; });
+            list.Add((intervals[0][0], intervals[0][1]));
+            for (int i = 1; i < intervals.Length; i++)
+            {
+                int lastIndex = list.Count - 1;
+                if (intervals[i][0] <= list[lastIndex].Item2)
+                {
+                    if (intervals[i][1] > list[lastIndex].Item2)
+                    {
+                        int firstIndex = list[lastIndex].Item1;
+                        list.RemoveAt(lastIndex);
+                        list.Add((firstIndex, intervals[i][1]));
+                    }
+                }
+                else
+                {
+                    list.Add((intervals[i][0], intervals[i][1]));
+                }
+            }
+            int[][] result = new int[list.Count][];
+            for (int i = 0; i < list.Count; i++)
+            {
+                result[i] = new int[] { list[i].Item1, list[i].Item2 };
+            }
+            return result;
+        }
+
+        #endregion
+
         #region 62. Unique Paths
         public int UniquePaths(int m, int n)
         {
@@ -1911,14 +1944,16 @@ namespace LeetCode
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var item in s.Split(' '))
             {
-                var p = item.Reverse();
-                var s1 = new string(p.ToArray());
+                char[] chs = item.ToCharArray();
+                ReverseString(chs);
+                var s1 = new string(chs);
                 stringBuilder.Append(s1);
                 stringBuilder.Append(' ');
             }
             return stringBuilder.ToString().Trim();
         }
         #endregion
+
         #region 581. Shortest Unsorted Continuous Subarray
         public int FindUnsortedSubarray(int[] nums)
         {
