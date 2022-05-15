@@ -934,7 +934,7 @@ namespace LeetCode
             {
                 lst.Add((intervals[i][0], intervals[i][1]));
             }
-            
+
             int[][] result = new int[lst.Count][];
 
             for (int i = 0; i < result.Length; i++)
@@ -945,13 +945,13 @@ namespace LeetCode
             return result;
         }
 
-        private (bool,int) Insert_BinarySearch(int[][] intervals, int left, int right, int target)
+        private (bool, int) Insert_BinarySearch(int[][] intervals, int left, int right, int target)
         {
             while (left <= right)
             {
                 int mid = left + ((right - left) / 2);
 
-                if ((intervals[mid][0] <= target && intervals[mid][1]>=target)) return (true,mid);
+                if ((intervals[mid][0] <= target && intervals[mid][1] >= target)) return (true, mid);
 
                 if (intervals[mid][0] > target)
                 {
@@ -962,7 +962,25 @@ namespace LeetCode
                     left = mid + 1;
                 }
             }
-            return (false,left);
+            return (false, left);
+        }
+        #endregion
+
+        #region 58. Length of Last Word
+        public int LengthOfLastWord(string s)
+        {
+            s = s.Trim();
+
+            if (s.Length == 0) return 0;
+
+            int i = s.Length - 1;
+            int result = 0;
+            while (i >= 0 && s[i] != ' ')
+            {
+                result++;
+                i--;
+            }
+            return result;
         }
         #endregion
 
