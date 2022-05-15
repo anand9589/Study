@@ -984,6 +984,81 @@ namespace LeetCode
         }
         #endregion
 
+        #region 59. Spiral Matrix II
+        public int[][] GenerateMatrix(int n)
+        {
+            int[][] result = new int[n][];
+            for(int i= 0; i < n; i++)
+            {
+                result[i] = new int[n];
+            }
+            int counter = 1;
+            int start = 0;
+            int total = n * n;
+            while (counter <= total)
+            {
+                int i = start;
+                int j = start;
+                while (j< n)
+                {
+                    result[i][j] = counter++;
+                    j++;
+                }
+                j--;
+                i++;
+                while (i < n)
+                {
+                    result[i][j] = counter++;
+                    i++;
+                }
+                i--;
+                j--;
+                while (j >= start)
+                {
+                    result[i][j] = counter++;
+                    j--;
+                }
+                j++;
+                i--;
+                while (i > start)
+                {
+                    result[i][j] = counter++;
+                    i--;
+                }
+                n--;
+                start++;
+            }
+
+            return result;
+        }
+        #endregion
+
+        #region 61. Rotate List
+        public ListNode RotateRight(ListNode head, int k)
+        {
+            if(head == null) return null;
+            Stack<ListNode> stack = new Stack<ListNode>();
+            stack.Push(head);
+
+            while (stack.Peek().Next!=null)
+            {
+                stack.Push(stack.Peek().Next);
+            }
+            k = k % stack.Count;
+            if (k == 0) return head;
+            stack.Peek().Next = head;
+            ListNode temp = stack.Peek();
+            for (int i = 0; i < k; i++)
+            {
+                temp = stack.Pop();
+            }
+            ListNode next = stack.Peek();
+            next.Next = null;
+
+            return temp;
+        }
+        #endregion
+
         #region 62. Unique Paths
         public int UniquePaths(int m, int n)
         {
