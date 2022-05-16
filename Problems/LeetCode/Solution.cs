@@ -2224,6 +2224,140 @@ namespace LeetCode
         }
         #endregion
 
+        #region 876. Middle of the Linked List
+        public ListNode MiddleNode(ListNode head)
+        {
+            Stack<ListNode> stack1 = new Stack<ListNode>();
+            Stack<ListNode> stack2 = new Stack<ListNode>();
+
+            stack1.Push(head);
+
+            while (stack1.Peek().Next != null)
+            {
+                stack1.Push(stack1.Peek().Next);
+            }
+
+            while (stack2.Count < stack1.Count)
+            {
+                stack2.Push(stack1.Pop());
+            }
+            return stack2.Pop();
+        }
+        #endregion
+
+        #region 1091. Shortest Path in Binary Matrix
+        public int ShortestPathBinaryMatrix(int[][] grid)
+        {
+            int n = grid.Length;
+
+            if (n == 0 || grid[0][0] == 1 || grid[n - 1][n - 1] == 1) return -1;
+
+            if (n == 1) return 1;
+
+            int[][] dp = new int[n][];
+            for (int i = 0; i < n; i++)
+            {
+                dp[i] = new int[n];
+                for (int j = 0; j < n; j++)
+                {
+                    if (grid[i][j] == 1)
+                    {
+                        dp[i][j] = int.MaxValue;
+                    }
+                }
+            }
+            dp[0][0] = 1;
+
+            Queue<(int, int)> queue = new Queue<(int, int)>();
+
+            queue.Enqueue((0, 0));
+
+            while (queue.Count > 0)
+            {
+                var q = queue.Dequeue();
+
+                int i = q.Item1;
+                int j = q.Item2;
+
+                int c = dp[i][j];
+                if (i == n - 1 && j == n - 1) break;
+                //i-1 j-1
+                chackAdj(dp, queue, i - 1, j - 1, c + 1);
+
+                //i-1 j
+                chackAdj(dp, queue, i - 1, j, c + 1);
+
+                //i-1 j+1
+                chackAdj(dp, queue, i - 1, j + 1, c + 1);
+
+                //i j+1
+                chackAdj(dp, queue, i, j + 1, c + 1);
+
+                //i+1 j+1
+                chackAdj(dp, queue, i + 1, j + 1, c + 1);
+
+                //i+1 j
+                chackAdj(dp, queue, i + 1, j, c + 1);
+
+                //i+1 j-1
+                chackAdj(dp, queue, i + 1, j - 1, c + 1);
+
+                //i j-1
+                chackAdj(dp, queue, i, j - 1, c + 1);
+            }
+
+            return dp[n - 1][n - 1] == int.MaxValue || dp[n - 1][n - 1] == 0 ? -1 : dp[n - 1][n - 1];
+        }
+
+
+        private void chackAdj(int[][] dp, Queue<(int, int)> queue, int i, int j, int val)
+        {
+            if (i < 0 || j < 0 || j >= dp.Length || i >= dp.Length || dp[i][j] == int.MaxValue || (dp[i][j] != 0 && dp[i][j] <= val)) return;
+
+            dp[i][j] = val;
+            queue.Enqueue((i, j));
+        }
+
+        private void fillDp(int[][] dp, int i, int j)
+        {
+            if (i == 0 && j == 0)
+            {
+                dp[i][j] = 1;
+                return;
+            }
+
+            if (i == 0)
+            {
+                fill(dp, i, j, dp[i][j - 1], int.MaxValue, int.MaxValue);
+                return;
+            }
+
+            if (j == 0)
+            {
+                fill(dp, i, j, dp[i - 1][j], int.MaxValue, int.MaxValue);
+                return;
+            }
+
+            int topLeft = dp[i - 1][j - 1];
+            int left = dp[i][j - 1];
+            int top = dp[i - 1][j];
+            fill(dp, i, j, topLeft, left, top);
+        }
+
+        private static void fill(int[][] dp, int i, int j, int val1, int val2, int val3)
+        {
+            int val = Math.Min(val1, Math.Min(val2, val3));
+            if (val == int.MaxValue)
+            {
+                dp[i][j] = int.MaxValue;
+            }
+            else
+            {
+                dp[i][j] = val + 1;
+            }
+        }
+        #endregion
+
         #region 1209. Remove All Adjacent Duplicates in String II
         public string RemoveDuplicates(string s, int k)
         {
