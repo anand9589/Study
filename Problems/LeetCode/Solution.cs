@@ -988,7 +988,7 @@ namespace LeetCode
         public int[][] GenerateMatrix(int n)
         {
             int[][] result = new int[n][];
-            for(int i= 0; i < n; i++)
+            for (int i = 0; i < n; i++)
             {
                 result[i] = new int[n];
             }
@@ -999,7 +999,7 @@ namespace LeetCode
             {
                 int i = start;
                 int j = start;
-                while (j< n)
+                while (j < n)
                 {
                     result[i][j] = counter++;
                     j++;
@@ -1036,11 +1036,11 @@ namespace LeetCode
         #region 61. Rotate List
         public ListNode RotateRight(ListNode head, int k)
         {
-            if(head == null) return null;
+            if (head == null) return null;
             Stack<ListNode> stack = new Stack<ListNode>();
             stack.Push(head);
 
-            while (stack.Peek().Next!=null)
+            while (stack.Peek().Next != null)
             {
                 stack.Push(stack.Peek().Next);
             }
@@ -1056,6 +1056,30 @@ namespace LeetCode
             next.Next = null;
 
             return temp;
+        }
+        #endregion
+
+        #region 66. Plus One
+        public int[] PlusOne(int[] digits)
+        {
+            int carryOn = 1;
+            int lastDigit = digits.LastOrDefault();
+            for (int i = digits.Length - 1; i >= 0; i--)
+            {
+                int res = digits[i] + carryOn;
+                if (res <= 9)
+                {
+                    carryOn = 0;
+                    digits[i] = res;
+                    break;
+                }
+                else
+                {
+                    digits[i] = 0;
+                }
+            }
+
+            return carryOn == 1 ? digits.Prepend(carryOn).ToArray() : digits;
         }
         #endregion
 
