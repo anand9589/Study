@@ -13,10 +13,10 @@ for (int i = 0; i < d.Length; i++)
 }
 //int k = int.Parse(data[1]);
 Solution solution = new Solution();
-//ListNode last = new ListNode(5);
-//last = new ListNode(4,last);
-//last = new ListNode(3, last);
-ListNode last = new ListNode(2);
+ListNode last = new ListNode(5);
+last = new ListNode(4, last);
+last = new ListNode(3, last);
+last = new ListNode(2, last);
 last = new ListNode(1, last);
 last = new ListNode(0, last);
-solution.ShortestPathBinaryMatrix(inputArray);
+solution.RemoveNthFromEnd(last,1);

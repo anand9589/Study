@@ -4,6 +4,55 @@ namespace LeetCode
 {
     public class Solution
     {
+        #region 19. Remove Nth Node From End of List
+        public ListNode RemoveNthFromEnd(ListNode head, int n)
+        {
+            ListNode fast = head;
+            Stack<ListNode> stack = new Stack<ListNode>();
+            stack.Push(fast);
+            while (fast.Next != null && fast.Next.Next!=null)
+            {
+                fast = fast.Next.Next;
+                stack.Push(stack.Peek().Next);
+            }
+            int total = 2 * stack.Count - 1;
+            if(fast.Next != null)
+            {
+                total++;
+            }
+            if(n<= total)
+            {
+                int deleteNode = total - n + 1;
+               
+                if(deleteNode >= stack.Count)
+                {
+                    while(stack.Count < deleteNode)
+                    {
+                        stack.Push(stack.Peek().Next);
+                    }
+                }
+                else
+                {
+                    while (stack.Count> deleteNode)
+                    {
+                        stack.Pop();
+                    }
+                }
+                if (stack.Count > 1)
+                {
+                    ListNode l = stack.Pop();
+                    ListNode temp = l.Next;
+                    stack.Pop().Next = temp;
+                }
+                else
+                {
+                    head = head.Next;
+                }
+            }
+            return head;
+        }
+        #endregion
+
         #region 38CountAndSay
         /// <summary>
         /// LeetCode #38
