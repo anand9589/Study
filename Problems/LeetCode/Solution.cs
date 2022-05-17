@@ -2388,6 +2388,60 @@ namespace LeetCode
         }
         #endregion
 
+        #region 567. Permutation in String
+        public bool CheckInclusion(string s1, string s2)
+        {
+            Dictionary<char, int> map = new Dictionary<char, int>();
+            int i = 0;
+            while (i<s1.Length)
+            {
+                if (map.ContainsKey(s1[i]))
+                {
+                    map[s1[i]]++;
+                }
+                else
+                {
+                    map.Add(s1[i], 1);
+                }
+                i++;
+            }
+
+            i = 0;
+            while (i<s2.Length)
+            {
+                if (map.ContainsKey(s2[i]))
+                {
+                    if(isValid(new Dictionary<char, int>(map), s2.Substring(i, s1.Length)))
+                    {
+                        return true;
+                    }
+                }
+                i++;
+            }
+            return false;
+        }
+
+        private bool isValid(Dictionary<char, int> map, string sub)
+        {
+            int i= 0;
+            while (i < sub.Length)
+            {
+                char c = sub[i];
+                if(!map.ContainsKey(c)) return false;
+                if(map[c] == 1)
+                {
+                    map.Remove(c);
+                }
+                else
+                {
+                    map[c]--;
+                }
+                i++;
+            }
+            return map.Count == 0;
+        }
+        #endregion
+
         #region 581. Shortest Unsorted Continuous Subarray
         public int FindUnsortedSubarray(int[] nums)
         {
