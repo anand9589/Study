@@ -10,30 +10,30 @@ namespace LeetCode
             ListNode fast = head;
             Stack<ListNode> stack = new Stack<ListNode>();
             stack.Push(fast);
-            while (fast.Next != null && fast.Next.Next!=null)
+            while (fast.Next != null && fast.Next.Next != null)
             {
                 fast = fast.Next.Next;
                 stack.Push(stack.Peek().Next);
             }
             int total = 2 * stack.Count - 1;
-            if(fast.Next != null)
+            if (fast.Next != null)
             {
                 total++;
             }
-            if(n<= total)
+            if (n <= total)
             {
                 int deleteNode = total - n + 1;
-               
-                if(deleteNode >= stack.Count)
+
+                if (deleteNode >= stack.Count)
                 {
-                    while(stack.Count < deleteNode)
+                    while (stack.Count < deleteNode)
                     {
                         stack.Push(stack.Peek().Next);
                     }
                 }
                 else
                 {
-                    while (stack.Count> deleteNode)
+                    while (stack.Count > deleteNode)
                     {
                         stack.Pop();
                     }
@@ -53,7 +53,7 @@ namespace LeetCode
         }
         #endregion
 
-        #region 38CountAndSay
+        #region 38. CountAndSay
         /// <summary>
         /// LeetCode #38
         /// </summary>
@@ -1245,6 +1245,76 @@ namespace LeetCode
         }
         #endregion
 
+        #region 67. Add Binary
+        public string AddBinary(string a, string b)
+        {
+
+            List<char> list = new List<char>();
+            int carryOn = 0;
+
+            int alen = a.Length - 1;
+            int blen = b.Length - 1;
+
+            while (alen >= 0 || blen >= 0)
+            {
+                int num1 = alen >= 0 ? a[alen] - '0' : 0;
+                int num2 = blen >= 0 ? b[blen] - '0' : 0;
+
+                int res = num1 + num2 + carryOn;
+
+                if (res < 2)
+                {
+                    list.Add((char)(res + (int)'0'));
+                    carryOn = 0;
+                }
+                else
+                {
+                    if (res == 2)
+                    {
+                        list.Add('0');
+                    }
+                    else
+                    {
+                        list.Add('1');
+                    }
+                    carryOn = 1;
+                }
+
+                alen--;
+                blen--;
+            }
+            if (carryOn == 1)
+            {
+                list.Add('1');
+            }
+            return new string(list.ToArray().Reverse().ToArray());
+        }
+        #endregion
+
+        #region 69. Sqrt(x)
+        public int MySqrt(int x)
+        {
+            if (x <= 1) return x;
+
+            int i = 1;
+            int sqr = 1;
+
+            while (sqr < x)
+            {
+                if (int.MaxValue - (i + i + 1) < sqr) return i;
+                sqr = sqr + i + i + 1;
+                if (sqr == x)
+                {
+                    return i + 1;
+                }
+                i++;
+            }
+
+
+            return i - 1;
+        }
+        #endregion
+
         #region 70. Climbing Stairs
         public int ClimbStairs(int n)
         {
@@ -1261,6 +1331,39 @@ namespace LeetCode
                 two = temp;
             }
             return two;
+        }
+        #endregion
+
+        #region 71. Simplify Path
+        public string SimplifyPath(string path)
+        {
+            if (!path.StartsWith("/")) return "";
+
+            string[] strs = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+            Stack<string> stack = new Stack<string>();
+            foreach (string str in strs)
+            {
+                if (str == ".") continue;
+                if (str == "..")
+                {
+                    if (stack.Count > 0)
+                    {
+                        stack.Pop();
+                        continue;
+                    }
+                }
+                stack.Push(str);
+
+            }
+            StringBuilder stringBuilder = new StringBuilder();
+
+            while (stack.Count > 0)
+            {
+                stringBuilder.Insert(0, stack.Pop());
+                stringBuilder.Insert(0, "/");
+            }
+
+            return stringBuilder.Length == 0 ? "/" : stringBuilder.ToString();
         }
         #endregion
 
@@ -1403,6 +1506,89 @@ namespace LeetCode
                 else
                 {
                     dynamicUpdate(dp, i, j + 1, ref result);
+                }
+            }
+        }
+        #endregion
+
+        #region 73. Set Matrix Zeroes
+
+        public void SetZeroes(int[][] matrix)
+        {
+            List<(int, int)> nonZero = new List<(int, int)>();
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                for (int j = 0; j < matrix[i].Length; j++)
+                {
+                    if (!nonZero.Contains((i, j)) && matrix[i][j] == 0)
+                    {
+                        for (int x = 0; x < matrix[i].Length; x++)
+                        {
+                            if (matrix[i][x] != 0)
+                            {
+                                nonZero.Add((i, x));
+                            }
+                            matrix[i][x] = 0;
+                        }
+                        for (int x = 0; x < matrix.Length; x++)
+                        {
+                            if (matrix[x][j] != 0)
+                            {
+                                nonZero.Add((x, j));
+                            }
+                            matrix[x][j] = 0;
+                        }
+                    }
+                }
+            }
+
+            //foreach (var item in zeroCoordCol)
+            //{
+            //    for (int i = 0; i < matrix.Length; i++)
+            //    {
+            //        matrix[i][item] = 0;
+            //    }
+            //}
+
+            //foreach (var item in zeroCoordRow)
+            //{
+            //    for (int i = 0; i < matrix[item].Length; i++)
+            //    {
+            //        matrix[item][i] = 0;
+            //    }
+            //}
+        }
+
+        public void SetZeroesV1(int[][] matrix)
+        {
+            List<int> zeroCoordRow = new List<int>();
+            List<int> zeroCoordCol = new List<int>();
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                for (int j = 0; j < matrix[i].Length; j++)
+                {
+
+                    if (matrix[i][j] == 0)
+                    {
+                        if (!zeroCoordCol.Contains(j)) zeroCoordCol.Add(j);
+                        if (!zeroCoordRow.Contains(i)) zeroCoordRow.Add(i);
+                    }
+                }
+            }
+
+            foreach (var item in zeroCoordCol)
+            {
+                for (int i = 0; i < matrix.Length; i++)
+                {
+                    matrix[i][item] = 0;
+                }
+            }
+
+            foreach (var item in zeroCoordRow)
+            {
+                for (int i = 0; i < matrix[item].Length; i++)
+                {
+                    matrix[item][i] = 0;
                 }
             }
         }
@@ -2479,6 +2665,48 @@ namespace LeetCode
             }
 
             return result.LastOrDefault().Value;
+        }
+
+        #endregion
+
+        #region 1379. Find a Corresponding Node of a Binary Tree in a Clone of That Tree
+        public TreeNode GetTargetCopy(TreeNode original, TreeNode cloned, TreeNode target)
+        {
+            if (cloned.val == target.val) return cloned;
+            Queue<TreeNode> treeNodes = new Queue<TreeNode>();
+
+            treeNodes.Enqueue(cloned);
+
+            while (treeNodes.Peek().val != target.val)
+            {
+                TreeNode q = treeNodes.Dequeue();
+
+                if (q.left != null)
+                {
+                    treeNodes.Enqueue(q.left);
+                }
+
+                if (q.right != null)
+                {
+                    treeNodes.Enqueue(q.right);
+                }
+            }
+            return treeNodes.Dequeue();
+        }
+
+        private TreeNode GetTargetCopy_Helper(TreeNode cloned, TreeNode target)
+        {
+            if (cloned == null) return cloned;
+            if (cloned.val == target.val) return cloned;
+
+            if (cloned.left != null)
+            {
+                return GetTargetCopy_Helper(cloned.left, target);
+            }
+            else
+            {
+                return GetTargetCopy_Helper(cloned.right, target);
+            }
         }
 
         #endregion
