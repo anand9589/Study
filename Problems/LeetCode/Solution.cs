@@ -86,6 +86,43 @@ namespace LeetCode
         }
         #endregion
 
+        #region 35. Search Insert Position
+        public int SearchInsert(int[] nums, int target)
+        {
+            return SearchInsert_Helper(nums, target, 0, nums.Length-1);
+        }
+
+        private int SearchInsert_Helper(int[] nums, int target, int low, int high)
+        {
+            if (low >= high)
+            {
+                if (nums[low] >= target)
+                {
+                    return low;
+                }
+                else
+                {
+                    return low+1;
+                }
+            }
+            if (nums[low] > target) return low;
+
+            if (nums[high] < target) return high + 1;
+
+            int mid = low + (high - low) / 2;
+
+            if (nums[mid] >= target)
+            {
+                high = mid - 1;
+            }
+            else
+            {
+                low = mid + 1;
+            }
+            return SearchInsert_Helper(nums, target, low, high);
+        }
+        #endregion
+
         #region 38. CountAndSay
         /// <summary>
         /// LeetCode #38
@@ -2918,13 +2955,13 @@ namespace LeetCode
         private bool isClosed(int[][] grid, Queue<(int, int)> queue, int i, int j)
         {
 
-            if (i < 0 || j < 0 || i == grid.Length || j == grid[i].Length ) return false;
+            if (i < 0 || j < 0 || i == grid.Length || j == grid[i].Length) return false;
 
             if (grid[i][j] == 1) return true;
             if (grid[i][j] == 0)
             {
                 queue.Enqueue((i, j));
-                grid[i][j]=int.MaxValue;
+                grid[i][j] = int.MaxValue;
             }
             bool top = true, right = true, bottom = true, left = true;
             while (queue.Count > 0)
@@ -3497,7 +3534,7 @@ namespace LeetCode
             return -1;
         }
 
-        public int SearchInsert(int[] nums, int target)
+        public int SearchInsertV1(int[] nums, int target)
         {
             int mid = nums.Length / 2;
             int low = 0;
