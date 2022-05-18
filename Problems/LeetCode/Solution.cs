@@ -1664,6 +1664,60 @@ namespace LeetCode
         }
         #endregion
 
+        #region 74. Search a 2D Matrix
+        public bool SearchMatrix(int[][] matrix, int target)
+        {
+            int low = 0;
+            int high = matrix.Length - 1;
+            int rowIndex = -1;
+            while (low <= high)
+            {
+                int mid = low + (high - low) / 2;
+
+                if (matrix[mid][0] <= target && matrix[mid][matrix[mid].Length - 1] >= target)
+                {
+                    rowIndex = mid;
+                    break;
+                }
+                else
+                {
+                    if (matrix[mid][0] < target)
+                    {
+                        low = mid+1;
+                    }
+                    else
+                    {
+                        high = mid - 1;
+                    }
+                }
+
+
+            }
+            if(rowIndex != -1)
+            {
+                low = 0;
+                high=matrix[rowIndex].Length - 1;
+
+                while(low <= high)
+                {
+                    int mid = low + (high - low) / 2;
+
+                    if (matrix[rowIndex][mid] == target) return true;
+
+                    if(matrix[rowIndex][mid] > target)
+                    {
+                        high = mid - 1;
+                    }
+                    else
+                    {
+                        low = mid + 1;
+                    }
+                }
+            }
+            return false;
+        }
+        #endregion
+
         #region 85. Maximal Rectangle
         public int MaximalRectangle(char[][] matrix)
         {
@@ -2775,11 +2829,11 @@ namespace LeetCode
                     peekIndex = mid;
                 }
 
-                if(mid>0 && arr[mid] < arr[mid - 1])
+                if (mid > 0 && arr[mid] < arr[mid - 1])
                 {
                     high = mid - 1;
                 }
-                else if(mid < arr.Length-1 && arr[mid] < arr[mid + 1])
+                else if (mid < arr.Length - 1 && arr[mid] < arr[mid + 1])
                 {
                     low = mid + 1;
                 }
