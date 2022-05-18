@@ -4,6 +4,39 @@ namespace LeetCode
 {
     public class Solution
     {
+        #region 3. Longest Substring Without Repeating Characters
+        public int LengthOfLongestSubstring(string s)
+        {
+            Dictionary<char, int> map = new Dictionary<char, int>();
+            int result = 0;
+            int count = 0;
+            int i = 0;
+
+            while (i < s.Length)
+            {
+                char c = s[i];
+
+                if (map.ContainsKey(c))
+                {
+                    result = Math.Max(result, count);
+                    count = 0;
+                    int temp = map[c];
+                    map.Clear();
+                    i = temp + 1;
+                }
+                else
+                {
+                    map.Add(c, i);
+                    count++;
+                    i++;
+                }
+            }
+
+            result = Math.Max(result, count);
+            return result;
+        }
+        #endregion
+
         #region 19. Remove Nth Node From End of List
         public ListNode RemoveNthFromEnd(ListNode head, int n)
         {
@@ -2009,6 +2042,58 @@ namespace LeetCode
         }
         #endregion
 
+        #region 200. Number of Islands
+        public int NumIslands(char[][] grid)
+        {
+            int result = 0;
+
+            for (int i = 0; i < grid.Length; i++)
+            {
+                for (int j = 0; j < grid[i].Length; j++)
+                {
+                    if (grid[i][j] == '1')
+                    {
+                        result++;
+                        fillConnected(grid, i, j);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private void fillConnected(char[][] grid, int x, int y)
+        {
+            Queue<(int, int)> q = new Queue<(int, int)>();
+            q.Enqueue((x, y));
+            grid[x][y] = 'v';
+            while (q.Count > 0)
+            {
+                var p = q.Dequeue();
+                int i = p.Item1;
+                int j = p.Item2;
+
+                //i, j+1
+                isConnectedCell(grid, q, i, j + 1);
+                //i, j-1
+                isConnectedCell(grid, q, i, j - 1);
+                //i+1, j
+                isConnectedCell(grid, q, i + 1, j);
+                //i-1, j
+                isConnectedCell(grid, q, i - 1, j);
+            }
+        }
+
+        private void isConnectedCell(char[][] grid, Queue<(int, int)> q, int i, int j)
+        {
+            if (i >= 0 && j >= 0 && i < grid.Length && j < grid[i].Length && grid[i][j] == '1')
+            {
+                grid[i][j] = 'v';
+                q.Enqueue((i, j));
+            }
+        }
+        #endregion
+
         #region 216. Combination Sum III
         public IList<IList<int>> CombinationSum3(int k, int n)
         {
@@ -2393,7 +2478,7 @@ namespace LeetCode
         {
             Dictionary<char, int> map = new Dictionary<char, int>();
             int i = 0;
-            while (i<s1.Length)
+            while (i < s1.Length)
             {
                 if (map.ContainsKey(s1[i]))
                 {
@@ -2407,11 +2492,11 @@ namespace LeetCode
             }
 
             i = 0;
-            while (i<s2.Length)
+            while (i < s2.Length)
             {
                 if (map.ContainsKey(s2[i]))
                 {
-                    if(isValid(new Dictionary<char, int>(map), s2.Substring(i, s1.Length)))
+                    if (isValid(new Dictionary<char, int>(map), s2.Substring(i, s1.Length)))
                     {
                         return true;
                     }
@@ -2423,12 +2508,12 @@ namespace LeetCode
 
         private bool isValid(Dictionary<char, int> map, string sub)
         {
-            int i= 0;
+            int i = 0;
             while (i < sub.Length)
             {
                 char c = sub[i];
-                if(!map.ContainsKey(c)) return false;
-                if(map[c] == 1)
+                if (!map.ContainsKey(c)) return false;
+                if (map[c] == 1)
                 {
                     map.Remove(c);
                 }
@@ -2475,6 +2560,128 @@ namespace LeetCode
             return end - start;
         }
 
+        #endregion
+
+        #region 695. Max Area of Island
+        public int MaxAreaOfIsland(int[][] grid)
+        {
+            int result = 0;
+
+            for (int i = 0; i < grid.Length; i++)
+            {
+                for (int j = 0; j < grid[i].Length; j++)
+                {
+                    if (grid[i][j] == 1)
+                    {
+                        result = Math.Max(result, getConnectedLand(grid, i, j));
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private int getConnectedLand(int[][] grid, int i, int j)
+        {
+            int count = 1;
+
+            Queue<(int, int)> queue = new Queue<(int, int)>();
+            queue.Enqueue((i, j));
+            grid[i][j] = int.MaxValue;
+
+            while (queue.Count > 0)
+            {
+                (int x, int y) = queue.Dequeue();
+
+                //x+1 y
+                count += MaxAreaOfIsland_Connected(grid, queue, x + 1, y);
+
+                //x-1 y
+                count += MaxAreaOfIsland_Connected(grid, queue, x - 1, y);
+
+                //x y+1
+                count += MaxAreaOfIsland_Connected(grid, queue, x, y + 1);
+
+                //x y-1
+                count += MaxAreaOfIsland_Connected(grid, queue, x, y - 1);
+
+            }
+
+            return count;
+        }
+
+        private int MaxAreaOfIsland_Connected(int[][] grid, Queue<(int, int)> queue, int x, int y)
+        {
+            if (x < 0 || y < 0 || x >= grid.Length || y >= grid[x].Length || grid[x][y] != 1) return 0;
+
+            grid[x][y] = int.MaxValue;
+            queue.Enqueue((x, y));
+            return 1;
+        }
+        #endregion
+
+        #region  704. Binary Search
+        public int Search(int[] nums, int target)
+        {
+            int low = 0;
+            int high = nums.Length - 1;
+            int mid = (low + high) / 2;
+
+            while (low <= high)
+            {
+                mid = (low + high) / 2;
+                if (nums[mid] == target) return mid;
+
+                if (nums[mid] < target)
+                {
+                    low = mid + 1;
+                }
+                else
+                {
+                    high = mid - 1;
+                }
+            }
+            return -1;
+        }
+        #endregion
+
+        #region 733. Flood Fill
+        public int[][] FloodFill(int[][] image, int sr, int sc, int newColor)
+        {
+            Queue<(int, int)> q = new Queue<(int, int)>();
+            int oldColor = image[sr][sc];
+            image[sr][sc] = newColor;
+            if (oldColor != newColor)
+            {
+                q.Enqueue((sr, sc));
+                while (q.Count > 0)
+                {
+                    (int i, int j) = q.Dequeue();
+
+                    // i-1 j
+                    FloodFill_Helper(image, q, i - 1, j, oldColor, newColor);
+
+                    // i j-1
+                    FloodFill_Helper(image, q, i, j - 1, oldColor, newColor);
+
+                    // i j+1
+                    FloodFill_Helper(image, q, i, j + 1, oldColor, newColor);
+
+                    // i+1 j
+                    FloodFill_Helper(image, q, i + 1, j, oldColor, newColor);
+                }
+            }
+            //FloodFill_Helper(image, q, oldColor, newColor);
+            return image;
+        }
+        private void FloodFill_Helper(int[][] image, Queue<(int, int)> q, int i, int j, int oldColor, int newColor)
+        {
+            if (i >= 0 && j >= 0 && i < image.Length && j < image[i].Length && image[i][j] == oldColor)
+            {
+                image[i][j] = newColor;
+                q.Enqueue((i, j));
+            }
+        }
         #endregion
 
         #region 743. Network Delay Time
@@ -2683,6 +2890,53 @@ namespace LeetCode
 
             }
             return s;
+        }
+        #endregion
+
+        #region 1254. Number of Closed Islands
+        public int ClosedIsland(int[][] grid)
+        {
+            int result = 0;
+
+            for (int i = 0; i < grid.Length; i++)
+            {
+                for (int j = 0; j < grid[i].Length; j++)
+                {
+                    if (grid[i][j] == 0)
+                    {
+                        if (isClosed(grid, new Queue<(int, int)>(), i, j))
+                        {
+                            result++;
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private bool isClosed(int[][] grid, Queue<(int, int)> queue, int i, int j)
+        {
+
+            if (i < 0 || j < 0 || i == grid.Length || j == grid[i].Length ) return false;
+
+            if (grid[i][j] == 1) return true;
+            if (grid[i][j] == 0)
+            {
+                queue.Enqueue((i, j));
+                grid[i][j]=int.MaxValue;
+            }
+            bool top = true, right = true, bottom = true, left = true;
+            while (queue.Count > 0)
+            {
+                (int x, int y) = queue.Dequeue();
+                top = isClosed(grid, queue, x - 1, y);
+                bottom = isClosed(grid, queue, x + 1, y);
+                left = isClosed(grid, queue, x, y - 1);
+                right = isClosed(grid, queue, x, y + 1);
+            }
+
+            return top && bottom && right && left;
         }
         #endregion
 
@@ -3209,7 +3463,7 @@ namespace LeetCode
 
         #region 14Days
         #region May 11,2022
-        public int Search(int[] nums, int target)
+        public int SearchV1(int[] nums, int target)
         {
             int mid = nums.Length / 2;
             int low = 0;
