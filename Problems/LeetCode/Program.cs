@@ -28,7 +28,7 @@ for (int i = 0; i < d.Length; i++)
 //int newColor = int.Parse(data[3]);
 //int k = int.Parse(data[1]);
 Solution solution = new Solution();
-solution.SearchInsert(new int[] { 1,3}, 3);
+solution.PeakIndexInMountainArray(new int[] { 3, 5, 3, 2, 0 });
 //solution.FloodFill(inputArray,sr,sc,newColor);
 //ListNode last = new ListNode(5);
 //last = new ListNode(4, last);

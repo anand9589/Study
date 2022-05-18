@@ -89,7 +89,7 @@ namespace LeetCode
         #region 35. Search Insert Position
         public int SearchInsert(int[] nums, int target)
         {
-            return SearchInsert_Helper(nums, target, 0, nums.Length-1);
+            return SearchInsert_Helper(nums, target, 0, nums.Length - 1);
         }
 
         private int SearchInsert_Helper(int[] nums, int target, int low, int high)
@@ -102,7 +102,7 @@ namespace LeetCode
                 }
                 else
                 {
-                    return low+1;
+                    return low + 1;
                 }
             }
             if (nums[low] > target) return low;
@@ -2754,6 +2754,43 @@ namespace LeetCode
                 }
             }
             return sb.ToString();
+        }
+        #endregion
+
+        #region 852. Peak Index in a Mountain Array
+        public int PeakIndexInMountainArray(int[] arr)
+        {
+            int low = 0;
+            int high = arr.Length - 1;
+
+            int peekValue = int.MinValue;
+            int peekIndex = -1;
+
+            while (low <= high)
+            {
+                int mid = low + (high - low) / 2;
+                if (peekValue < arr[mid])
+                {
+                    peekValue = arr[mid];
+                    peekIndex = mid;
+                }
+
+                if(mid>0 && arr[mid] < arr[mid - 1])
+                {
+                    high = mid - 1;
+                }
+                else if(mid < arr.Length-1 && arr[mid] < arr[mid + 1])
+                {
+                    low = mid + 1;
+                }
+                else
+                {
+                    break;
+                }
+
+            }
+
+            return peekIndex;
         }
         #endregion
 
