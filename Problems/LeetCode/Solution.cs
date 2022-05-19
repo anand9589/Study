@@ -3033,18 +3033,91 @@ namespace LeetCode
         {
             int result = 0;
 
+            for (int i = 0; i < grid[0].Length; i++)
+            {
+                if (grid[0][i] == 1)
+                {
+                    updateAdjacentLands(grid, 0, i);
+                    for (int x = 0; x < grid.Length; x++)
+                    {
+                        Console.WriteLine(String.Join(",", grid[x]));
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine();
+                }
+                if (grid[grid.Length - 1][i] == 1)
+                {
+                    updateAdjacentLands(grid, grid.Length-1, i);
+                    for (int x = 0; x < grid.Length; x++)
+                    {
+                        Console.WriteLine(String.Join(",", grid[x]));
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine();
+                }
+            }
+
+            for (int i = 0; i < grid.Length; i++)
+            {
+                if (grid[i][0] == 1)
+                {
+                    updateAdjacentLands(grid, i, 0);
+                    for (int x = 0; x < grid.Length; x++)
+                    {
+                        Console.WriteLine(String.Join(",", grid[x]));
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine();
+                }
+
+                if(grid[grid.Length - 1][i] == 1)
+                {
+                    updateAdjacentLands(grid, grid[0].Length - 1, i);
+                    for (int x = 0; x < grid.Length; x++)
+                    {
+                        Console.WriteLine(String.Join(",", grid[x]));
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine();
+                }
+            }
+
             for (int i = 1; i < grid.Length - 1; i++)
             {
                 for (int j = 1; j < grid[i].Length - 1; j++)
                 {
                     if (grid[i][j] == 1)
                     {
-                        result += getEnclaves(grid, i, j);
+                        result++;
                     }
                 }
             }
 
             return result;
+        }
+
+        private void updateAdjacentLands(int[][] grid, int v, int i)
+        {
+            Queue<(int, int)> q = new Queue<(int, int)>();
+            q.Enqueue((v, i));
+
+            while (q.Count > 0)
+            {
+                (int x, int y) = q.Dequeue();
+                grid[x][y] = 0;
+                checkAdjCell(grid, q, x - 1, y);
+                checkAdjCell(grid, q, x + 1, y);
+                checkAdjCell(grid, q, x, y - 1);
+                checkAdjCell(grid, q, x, y + 1);
+            }
+        }
+
+        private void checkAdjCell(int[][] grid, Queue<(int, int)> q, int x, int y)
+        {
+            if (x >= 0 && y >= 0 && x < grid.Length && y < grid[x].Length && grid[x][y] == 1)
+            {
+                q.Enqueue((x, y));
+            }
         }
 
         private int getEnclaves(int[][] grid, int i, int j)
