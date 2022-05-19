@@ -1,21 +1,20 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using LeetCode;
-using static LeetCode.Solution;
 var data = File.ReadAllLines(@"C:\Workspace\Study\Problems\Practice.txt");
 
 ////int[][] input
 var d = data[0].Split("],[");
-int[][] grid = new int[d.Length][];
+int[][] matrix = new int[d.Length][];
 
 for (int i = 0; i < d.Length; i++)
 {
     d[i] = d[i].Replace("\"", "");
     string[] p = d[i].Split(",").ToArray();
-    grid[i] = new int[p.Length];
+    matrix[i] = new int[p.Length];
     for (int j = 0; j < p.Length; j++)
     {
-        grid[i][j] = int.Parse(p[j]);
+        matrix[i][j] = int.Parse(p[j]);
     }
 }
 //int[][] inputArray = new int[d.Length][];
@@ -28,7 +27,7 @@ for (int i = 0; i < d.Length; i++)
 //int newColor = int.Parse(data[3]);
 //int k = int.Parse(data[1]);
 Solution solution = new Solution();
-solution.SearchMatrix(grid, 3);
+solution.IsPerfectSquare(808201);
 //solution.FloodFill(inputArray,sr,sc,newColor);
 //ListNode last = new ListNode(5);
 //last = new ListNode(4, last);

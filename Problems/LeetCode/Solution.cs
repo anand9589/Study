@@ -1683,7 +1683,7 @@ namespace LeetCode
                 {
                     if (matrix[mid][0] < target)
                     {
-                        low = mid+1;
+                        low = mid + 1;
                     }
                     else
                     {
@@ -1693,18 +1693,18 @@ namespace LeetCode
 
 
             }
-            if(rowIndex != -1)
+            if (rowIndex != -1)
             {
                 low = 0;
-                high=matrix[rowIndex].Length - 1;
+                high = matrix[rowIndex].Length - 1;
 
-                while(low <= high)
+                while (low <= high)
                 {
                     int mid = low + (high - low) / 2;
 
                     if (matrix[rowIndex][mid] == target) return true;
 
-                    if(matrix[rowIndex][mid] > target)
+                    if (matrix[rowIndex][mid] > target)
                     {
                         high = mid - 1;
                     }
@@ -1716,6 +1716,77 @@ namespace LeetCode
             }
             return false;
         }
+        #endregion
+
+        #region 75. Sort Colors
+
+        int rIndex = -1;
+        int wIndex = -1;
+        bool bIndex = false;
+
+        public void SortColors(int[] nums)
+        {
+            int i = 0;
+            while (i < nums.Length)
+            {
+                SortColors_helper(nums, i);
+                i++;
+            }
+        }
+
+        private void SortColors_helper(int[] nums, int i)
+        {
+            if (nums[i] == 0)
+            {
+                rIndex++;
+                if (wIndex != -1)
+                {
+                    wIndex++;
+                }
+            }
+
+            if (nums[i] == 1)
+            {
+                if (wIndex != -1)
+                {
+                    wIndex++;
+                }
+                else
+                {
+                    wIndex = rIndex + 1;
+                }
+            }
+
+            if (nums[i] == 2)
+            {
+                bIndex = true;
+            }
+
+            if (i - 1 < 0 || nums[i] >= nums[i - 1]) return;
+
+            switch (nums[i])
+            {
+                case 0:
+
+                    if (wIndex == -1)
+                    {
+                        nums[rIndex] = 0;
+                        nums[i] = 2;
+                    }
+                    else
+                    {
+                        nums[rIndex] = 0;
+                        nums[wIndex] = 1;
+                        nums[i] = bIndex ? 2 : 1;
+                    }
+                    break;
+                case 1:
+                    nums[wIndex] = 1;
+                    nums[i] = 2;
+                    break;
+            }
+        }
+
         #endregion
 
         #region 85. Maximal Rectangle
@@ -2286,6 +2357,65 @@ namespace LeetCode
         }
         #endregion
 
+        #region 329. Longest Increasing Path in a Matrix
+        public int LongestIncreasingPath(int[][] matrix)
+        {
+            int result = 0;
+            List<(int, int, int)> path = new List<(int, int, int)>();
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                for (int j = 0; j < matrix[i].Length; j++)
+                {
+                    path.Add((matrix[i][j], i, j));
+                }
+            }
+            path = path.OrderBy(x => x.Item1).ToList();
+            int[][] dp = new int[matrix.Length][];
+
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                dp[i] = Enumerable.Repeat(1, matrix[i].Length).ToArray();
+            }
+
+            foreach (var item in path)
+            {
+                updateDp(dp, matrix, item.Item2, item.Item3);
+            }
+
+            foreach (var item in dp)
+            {
+                result = Math.Max(result, item.Max());
+            }
+            return result;
+
+        }
+
+        private void updateDp(int[][] dp, int[][] matrix, int x, int y)
+        {
+            int val = dp[x][y];
+            int matrixOld = matrix[x][y];
+            //check top and update x-1, y
+            checkCell(dp, matrix, x - 1, y, val + 1, matrixOld);
+
+            //check bottom and update x+1, y
+            checkCell(dp, matrix, x + 1, y, val + 1, matrixOld);
+
+            //check left and update x, y
+            checkCell(dp, matrix, x, y - 1, val + 1, matrixOld);
+
+            //check right and update x, y
+            checkCell(dp, matrix, x, y + 1, val + 1, matrixOld);
+        }
+
+        private void checkCell(int[][] dp, int[][] matrix, int x, int y, int v, int matrixOld)
+        {
+            if (x >= 0 && x < dp.Length && y >= 0 && y < dp[x].Length && v > dp[x][y] && matrixOld < matrix[x][y])
+            {
+                dp[x][y] = v;
+            }
+        }
+        #endregion
+
         #region 344. Reverse String
         public void ReverseString(char[] s)
         {
@@ -2300,6 +2430,35 @@ namespace LeetCode
                 low++;
                 end--;
             }
+        }
+        #endregion
+
+        #region 367. Valid Perfect Square
+        public bool IsPerfectSquare(int num)
+        {
+            if (num == 1) return true;
+
+            int low = 2;
+            int high = num / 2;
+            while (low <= high)
+            {
+                int mid = low + (high - low) / 2;
+
+                long sqr = (long)mid * (long)mid;
+
+                if (sqr == num) return true;
+
+                if (sqr < num)
+                {
+                    low = mid + 1;
+                }
+                else
+                {
+                    high = mid - 1;
+                }
+            }
+
+            return false;
         }
         #endregion
 
@@ -2866,6 +3025,54 @@ namespace LeetCode
                 stack2.Push(stack1.Pop());
             }
             return stack2.Pop();
+        }
+        #endregion
+
+        #region 1020. Number of Enclaves
+        public int NumEnclaves(int[][] grid)
+        {
+            int result = 0;
+
+            for (int i = 1; i < grid.Length - 1; i++)
+            {
+                for (int j = 1; j < grid[i].Length - 1; j++)
+                {
+                    if (grid[i][j] == 1)
+                    {
+                        result += getEnclaves(grid, i, j);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private int getEnclaves(int[][] grid, int i, int j)
+        {
+            int result = 0;
+            Queue<(int, int)> q = new Queue<(int, int)>();
+            q.Enqueue((i, j));
+            grid[i][j] = int.MaxValue;
+            int count = 1;
+            while (q.Count > 0)
+            {
+                (int x, int y) = q.Dequeue();
+
+                //top x-1 y
+                if (boundary(grid, x - 1, j) && grid[x - 1][y] == 1)
+                {
+                    q.Enqueue((i, j));
+                    break;
+                }
+
+            }
+
+            return result;
+        }
+
+        private bool boundary(int[][] grid, int x, int y)
+        {
+            return (x == 0 || y == 0 || x == grid.Length - 1 || y == grid[x].Length - 1);
         }
         #endregion
 
