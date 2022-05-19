@@ -3038,22 +3038,11 @@ namespace LeetCode
                 if (grid[0][i] == 1)
                 {
                     updateAdjacentLands(grid, 0, i);
-                    for (int x = 0; x < grid.Length; x++)
-                    {
-                        Console.WriteLine(String.Join(",", grid[x]));
-                    }
-                    Console.WriteLine();
-                    Console.WriteLine();
                 }
+
                 if (grid[grid.Length - 1][i] == 1)
                 {
-                    updateAdjacentLands(grid, grid.Length-1, i);
-                    for (int x = 0; x < grid.Length; x++)
-                    {
-                        Console.WriteLine(String.Join(",", grid[x]));
-                    }
-                    Console.WriteLine();
-                    Console.WriteLine();
+                    updateAdjacentLands(grid, grid.Length - 1, i);
                 }
             }
 
@@ -3062,23 +3051,11 @@ namespace LeetCode
                 if (grid[i][0] == 1)
                 {
                     updateAdjacentLands(grid, i, 0);
-                    for (int x = 0; x < grid.Length; x++)
-                    {
-                        Console.WriteLine(String.Join(",", grid[x]));
-                    }
-                    Console.WriteLine();
-                    Console.WriteLine();
                 }
 
-                if(grid[grid.Length - 1][i] == 1)
+                if (grid[i][grid[i].Length - 1] == 1)
                 {
-                    updateAdjacentLands(grid, grid[0].Length - 1, i);
-                    for (int x = 0; x < grid.Length; x++)
-                    {
-                        Console.WriteLine(String.Join(",", grid[x]));
-                    }
-                    Console.WriteLine();
-                    Console.WriteLine();
+                    updateAdjacentLands(grid, i, grid[i].Length - 1);
                 }
             }
 
@@ -3118,34 +3095,6 @@ namespace LeetCode
             {
                 q.Enqueue((x, y));
             }
-        }
-
-        private int getEnclaves(int[][] grid, int i, int j)
-        {
-            int result = 0;
-            Queue<(int, int)> q = new Queue<(int, int)>();
-            q.Enqueue((i, j));
-            grid[i][j] = int.MaxValue;
-            int count = 1;
-            while (q.Count > 0)
-            {
-                (int x, int y) = q.Dequeue();
-
-                //top x-1 y
-                if (boundary(grid, x - 1, j) && grid[x - 1][y] == 1)
-                {
-                    q.Enqueue((i, j));
-                    break;
-                }
-
-            }
-
-            return result;
-        }
-
-        private bool boundary(int[][] grid, int x, int y)
-        {
-            return (x == 0 || y == 0 || x == grid.Length - 1 || y == grid[x].Length - 1);
         }
         #endregion
 
