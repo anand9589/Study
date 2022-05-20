@@ -2749,6 +2749,50 @@ namespace LeetCode
         }
         #endregion
 
+        #region 542. 01 Matrix
+        public int[][] UpdateMatrix(int[][] mat)
+        {
+            int[][] dp = new int[mat.Length][];
+            bool[][] visited = new bool[mat.Length][];
+            for (int i = 0; i < mat.Length; i++)
+            {
+                dp[i] = new int[mat[i].Length];
+                visited[i] = new bool[mat[i].Length];
+            }
+            Queue<(int, int, int)> q = new Queue<(int, int, int)>();
+            for (int i = 0; i < dp.Length; i++)
+            {
+                for (int j = 0; j < dp[i].Length; j++)
+                {
+                    if (mat[i][j] == 0)
+                    {
+                        q.Enqueue((0, i, j));
+                        visited[i][j] = true;
+                    }
+                }
+            }
+
+            while (q.Count > 0)
+            {
+                (int val, int x, int y) = q.Dequeue();
+
+                updatecells(mat, dp, visited, q, x + 1, y, val + 1);
+                updatecells(mat, dp, visited, q, x - 1, y, val + 1);
+                updatecells(mat, dp, visited, q, x, y + 1, val + 1);
+                updatecells(mat, dp, visited, q, x, y - 1, val + 1);
+            }
+            return dp;
+        }
+
+        private void updatecells(int[][] mat, int[][] dp, bool[][] visited, Queue<(int, int, int)> q, int x, int y, int v)
+        {
+            if (x < 0 || y < 0 || x == mat.Length || y == mat[x].Length || visited[x][y] || mat[x][y] == 0 || v < mat[x][y]) return;
+            dp[x][y] = v;
+            q.Enqueue((v, x, y));
+            visited[x][y] = true;
+        }
+        #endregion
+
         #region 556. Next Greater Element III
         public int NextGreaterElement(int n)
         {
