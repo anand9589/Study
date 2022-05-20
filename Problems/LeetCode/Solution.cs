@@ -3254,6 +3254,51 @@ namespace LeetCode
         }
         #endregion
 
+        #region 1162. As Far from Land as Possible
+        public int MaxDistance(int[][] grid)
+        {
+            int result = 0;
+            int n = grid.Length;
+
+            int[][] dp = new int[n][];
+            Queue<(int, int, int)> q = new Queue<(int, int, int)>();
+            for (int i = 0; i < n; i++)
+            {
+                dp[i] = new int[n];
+                for (int j = 0; j < n; j++)
+                {
+                    if (dp[i][j] == 1)
+                    {
+                        q.Enqueue((0, i, j));
+                    }
+                    else
+                    {
+                        dp[i][j] = int.MaxValue;
+                    }
+                }
+            }
+            if (q.Count == 0 || q.Count == n * n) return -1;
+            while (q.Count > 0)
+            {
+                (int level, int x, int y) = q.Dequeue();
+                result = Math.Max(result, level);
+                checkCell_MaxDistance(dp, q, level + 1, x + 1, y);
+                checkCell_MaxDistance(dp, q, level + 1, x - 1, y);
+                checkCell_MaxDistance(dp, q, level + 1, x, y + 1);
+                checkCell_MaxDistance(dp, q, level + 1, x, y - 1);
+            }
+
+            return result;
+        }
+
+        private void checkCell_MaxDistance(int[][] dp, Queue<(int, int, int)> q, int v, int x, int y)
+        {
+            if (x < 0 || y < 0 || x >= dp.Length || y >= dp.Length || v >= dp[x][y]) return;
+            dp[x][y] = v;
+            q.Enqueue((v, x, y));
+        }
+        #endregion
+
         #region 1209. Remove All Adjacent Duplicates in String II
         public string RemoveDuplicates(string s, int k)
         {
