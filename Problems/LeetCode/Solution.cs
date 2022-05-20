@@ -3037,6 +3037,41 @@ namespace LeetCode
         }
         #endregion
 
+        #region 744. Find Smallest Letter Greater Than Target
+        public char NextGreatestLetter(char[] letters, char target)
+        {
+            int low = 0;
+            int high = letters.Length - 1;
+            int resIndex = -1;
+            while (low <= high)
+            {
+                if (letters[low] > target)
+                {
+                    resIndex = low;
+                    break;
+                }
+
+                if (letters[high] <= target)
+                {
+                    resIndex = high + 1;
+                    break;
+                }
+
+                int mid = low + (high - low) / 2;
+
+                if (letters[mid] > target)
+                {
+                    high = mid - 1;
+                }
+                else
+                {
+                    low = mid + 1;
+                }
+            }
+            return resIndex >= letters.Length || resIndex == -1 ? letters[0] : letters[resIndex];
+        }
+        #endregion
+
         #region 844. Backspace String Compare
         public bool BackspaceCompare(string s, string t)
         {
