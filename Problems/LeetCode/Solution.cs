@@ -2613,6 +2613,59 @@ namespace LeetCode
         }
         #endregion
 
+        #region 417. Pacific Atlantic Water Flow
+        public IList<IList<int>> PacificAtlantic(int[][] heights)
+        {
+            int m = heights.Length;
+            int n = heights[0].Length;
+            IList<IList<int>> list = new List<IList<int>>();
+
+            bool[][] pacificOcean = new bool[m][];
+            bool[][] atlanticOcean = new bool[m][];
+
+            for (int i = 0; i < m; i++)
+            {
+                pacificOcean[i] = new bool[n];
+                atlanticOcean[i] = new bool[n];
+            }
+            for (int i = 0; i < n; i++)
+            {
+                PacificAtlantic_Helper(heights, 0, i, int.MinValue, pacificOcean);
+                PacificAtlantic_Helper(heights, m - 1, i, int.MinValue, atlanticOcean);
+            }
+
+            for (int i = 0; i < m; i++)
+            {
+                PacificAtlantic_Helper(heights, i, 0, int.MinValue, pacificOcean);
+                PacificAtlantic_Helper(heights, n - 1, i, int.MinValue, atlanticOcean);
+            }
+
+
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (pacificOcean[i][j] && atlanticOcean[i][j]) list.Add(new List<int>() { i, j });
+                }
+            }
+
+
+            return list;
+        }
+
+        private void PacificAtlantic_Helper(int[][] heights, int x, int y, int prev, bool[][] ocean)
+        {
+            if (x < 0 || y < 0 || x == heights.Length || y == heights[x].Length || ocean[x][y] || heights[x][y] < prev) return;
+
+            ocean[x][y] = true;
+
+            PacificAtlantic_Helper(heights, x + 1, y, heights[x][y], ocean);
+            PacificAtlantic_Helper(heights, x - 1, y, heights[x][y], ocean);
+            PacificAtlantic_Helper(heights, x, y + 1, heights[x][y], ocean);
+            PacificAtlantic_Helper(heights, x, y - 1, heights[x][y], ocean);
+        }
+        #endregion
+
         #region 496. Next Greater Element I
         public int[] NextGreaterElement(int[] nums1, int[] nums2)
         {
