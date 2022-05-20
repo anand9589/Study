@@ -1226,8 +1226,51 @@ namespace LeetCode
         }
         #endregion
 
-        #region 63. Unique Paths II
+        #region 63. Unique Paths II 
         public int UniquePathsWithObstacles(int[][] obstacleGrid)
+        {
+            int m = obstacleGrid.Length;
+            int n = obstacleGrid[0].Length;
+            if (obstacleGrid[0][0] == 1 || obstacleGrid[m - 1][n - 1] == 1) return 0;
+
+            int[][] dp = new int[m][];
+
+            for (int i = 0; i < m; i++)
+            {
+                dp[i] = new int[n];
+                for (int j = 0; j < n; j++)
+                {
+                    dp[i][j] = obstacleGrid[i][j] == 1 ? 0 : 1;
+                }
+            }
+
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (dp[i][j] == int.MaxValue) continue;
+                    if (i == 0 && j == 0)
+                    {
+                        dp[i][j] = 1;
+                    }
+                    else if (i == 0)
+                    {
+                        dp[i][j] = dp[i][j - 1];
+                    }
+                    else if (j == 0)
+                    {
+                        dp[i][j] = dp[i - 1][j];
+                    }
+                    else
+                    {
+                        dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+                    }
+                }
+            }
+
+            return dp[m - 1][n - 1] == int.MaxValue ? 0 : dp[m - 1][n - 1];
+        }
+        public int UniquePathsWithObstacles_V1(int[][] obstacleGrid)
         {
             List<(int, int)> obstacles = new List<(int, int)>();
             for (int i = 0; i < obstacleGrid.Length; i++)
