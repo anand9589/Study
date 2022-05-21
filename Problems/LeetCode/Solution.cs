@@ -3203,6 +3203,63 @@ namespace LeetCode
         }
         #endregion
 
+        #region 994. Rotting Oranges
+        public int OrangesRotting(int[][] grid)
+        {
+            int result = 0;
+            int m = grid.Length;
+            int n = grid[0].Length;
+            bool[][] visited = new bool[m][];
+            Queue<(int, int, int)> q = new Queue<(int, int, int)>();
+
+            for (int i = 0; i < m; i++)
+            {
+                visited[i] = new bool[n];
+                for (int j = 0; j < n; j++)
+                {
+                    if (grid[i][j] == 2)
+                    {
+                        q.Enqueue((0, i, j));
+                        visited[i][j] = true;
+                    }
+                    else if (grid[i][j] == 0)
+                    {
+                        visited[i][j] = true;
+                    }
+                }
+            }
+
+            while (q.Count > 0)
+            {
+                (int t, int x, int y) = q.Dequeue();
+
+                result = Math.Max(result, t);
+                OrangesRotting_Helper(grid, q, visited, x + 1, y, t + 1);
+                OrangesRotting_Helper(grid, q, visited, x - 1, y, t + 1);
+                OrangesRotting_Helper(grid, q, visited, x, y + 1, t + 1);
+                OrangesRotting_Helper(grid, q, visited, x, y - 1, t + 1);
+
+            }
+
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (!visited[i][j]) return -1;
+                }
+            }
+
+            return result;
+        }
+        private void OrangesRotting_Helper(int[][] grid, Queue<(int, int, int)> q, bool[][] visited, int x, int y, int time)
+        {
+            if (x < 0 || y < 0 || x >= grid.Length || y >= grid[x].Length || visited[x][y]) return;
+
+            visited[x][y] = true;
+            q.Enqueue((time, x, y));
+        }
+        #endregion
+
         #region 1020. Number of Enclaves
         public int NumEnclaves(int[][] grid)
         {
