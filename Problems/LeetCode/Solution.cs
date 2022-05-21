@@ -127,6 +127,73 @@ namespace LeetCode
         }
         #endregion
 
+        #region 34. Find First and Last Position of Element in Sorted Array
+        public int[] SearchRange(int[] nums, int target)
+        {
+            int firstIndex = -1;
+            int lastIndex = -1;
+
+            int low = 0;
+            int high = nums.Length - 1;
+
+            while (low < high)
+            {
+                int mid = low + (high - low) / 2;
+
+                if (nums[mid] == target)
+                {
+                    firstIndex = mid;
+                    break;
+                }
+
+                if (nums[mid] > target)
+                {
+                    high = mid - 1;
+                }
+                else
+                {
+                    low = mid + 1;
+                }
+            }
+            if (firstIndex != -1)
+            {
+                lastIndex = firstIndex;
+                if(nums[low] == target)
+                {
+                    firstIndex = low;
+                }
+                else 
+                {
+                    while (firstIndex>low && nums[firstIndex-1] == target)
+                    {
+                        firstIndex--;
+                    }
+                }
+
+                if(nums[high] == target)
+                {
+                    lastIndex = high;
+                }
+                else
+                {
+                    while (lastIndex<high && nums[lastIndex+1] == target)
+                    {
+                        lastIndex++;
+                    }
+                }
+            }
+            else if (low == high)
+            {
+                if(nums[low] == target)
+                {
+                    firstIndex = low;
+                    lastIndex = high;
+                }
+            }
+            return new int[] { firstIndex, lastIndex };
+        }
+        #endregion
+
         #region 35. Search Insert Position
         public int SearchInsert(int[] nums, int target)
         {
