@@ -158,25 +158,25 @@ namespace LeetCode
             if (firstIndex != -1)
             {
                 lastIndex = firstIndex;
-                if(nums[low] == target)
+                if (nums[low] == target)
                 {
                     firstIndex = low;
                 }
-                else 
+                else
                 {
-                    while (firstIndex>low && nums[firstIndex-1] == target)
+                    while (firstIndex > low && nums[firstIndex - 1] == target)
                     {
                         firstIndex--;
                     }
                 }
 
-                if(nums[high] == target)
+                if (nums[high] == target)
                 {
                     lastIndex = high;
                 }
                 else
                 {
-                    while (lastIndex<high && nums[lastIndex+1] == target)
+                    while (lastIndex < high && nums[lastIndex + 1] == target)
                     {
                         lastIndex++;
                     }
@@ -184,7 +184,7 @@ namespace LeetCode
             }
             else if (low == high)
             {
-                if(nums[low] == target)
+                if (nums[low] == target)
                 {
                     firstIndex = low;
                     lastIndex = high;
@@ -3485,6 +3485,66 @@ namespace LeetCode
         public int ShortestPathBinaryMatrix(int[][] grid)
         {
             int n = grid.Length;
+            if (grid[0][0] == 1 || grid[n - 1][n - 1] == 1) return -1;
+            if (n == 2) return n;
+
+            Queue<(int, int, int)> q = new Queue<(int, int, int)>();
+            bool[][] visited = new bool[n][];
+            for (int i = 0; i < n; i++)
+            {
+                visited[i] = new bool[n];
+                for (int j = 0; j < n; j++)
+                {
+                    if (grid[i][j] == 1)
+                    {
+                        visited[i][j] = true;
+                    }
+                }
+            }
+            q.Enqueue((1, 0, 0));
+            visited[0][0] = true;
+            while (q.Count > 0)
+            {
+                (int val, int x, int y) = q.Dequeue();
+
+                //bottom right x+1 y+1
+                checkAdj(grid, q, visited, x+1, y+1, val + 1);
+
+                //bottom x+1 y
+                checkAdj(grid, q, visited, x+1, y, val + 1);
+
+                //right x y+1
+                checkAdj(grid, q, visited, x, y+1, val + 1);
+
+                //bottom left x+1 y-1
+                checkAdj(grid, q, visited, x+1, y-1, val + 1);
+
+                //top right x-1 y+1
+                checkAdj(grid, q, visited, x-1, y+1, val + 1);
+
+                //top x-1 y
+                checkAdj(grid, q, visited, x-1, y, val + 1);
+
+                //left x y-1
+                checkAdj(grid, q, visited, x, y-1, val + 1);
+
+                //top left x-1 y-1
+                checkAdj(grid, q, visited, x-1, y-1, val + 1);
+            }
+            return grid[n - 1][n - 1] == 0 ? -1 : grid[n - 1][n - 1];
+        }
+
+        private void checkAdj(int[][] grid, Queue<(int, int, int)> q, bool[][] visited, int x, int y, int v)
+        {
+            if (x < 0 || y < 0 || x == grid.Length || y == grid[x].Length || visited[x][y]) return;
+            grid[x][y] = v;
+            q.Enqueue((v, x, y));
+            visited[x][y] = true;
+        }
+
+        public int ShortestPathBinaryMatrix_V1(int[][] grid)
+        {
+            int n = grid.Length;
 
             if (n == 0 || grid[0][0] == 1 || grid[n - 1][n - 1] == 1) return -1;
 
@@ -3518,35 +3578,34 @@ namespace LeetCode
                 int c = dp[i][j];
                 if (i == n - 1 && j == n - 1) break;
                 //i-1 j-1
-                chackAdj(dp, queue, i - 1, j - 1, c + 1);
+                chackAdj_v1(dp, queue, i - 1, j - 1, c + 1);
 
                 //i-1 j
-                chackAdj(dp, queue, i - 1, j, c + 1);
+                chackAdj_v1(dp, queue, i - 1, j, c + 1);
 
                 //i-1 j+1
-                chackAdj(dp, queue, i - 1, j + 1, c + 1);
+                chackAdj_v1(dp, queue, i - 1, j + 1, c + 1);
 
                 //i j+1
-                chackAdj(dp, queue, i, j + 1, c + 1);
+                chackAdj_v1(dp, queue, i, j + 1, c + 1);
 
                 //i+1 j+1
-                chackAdj(dp, queue, i + 1, j + 1, c + 1);
+                chackAdj_v1(dp, queue, i + 1, j + 1, c + 1);
 
                 //i+1 j
-                chackAdj(dp, queue, i + 1, j, c + 1);
+                chackAdj_v1(dp, queue, i + 1, j, c + 1);
 
                 //i+1 j-1
-                chackAdj(dp, queue, i + 1, j - 1, c + 1);
+                chackAdj_v1(dp, queue, i + 1, j - 1, c + 1);
 
                 //i j-1
-                chackAdj(dp, queue, i, j - 1, c + 1);
+                chackAdj_v1(dp, queue, i, j - 1, c + 1);
             }
 
             return dp[n - 1][n - 1] == int.MaxValue || dp[n - 1][n - 1] == 0 ? -1 : dp[n - 1][n - 1];
         }
 
-
-        private void chackAdj(int[][] dp, Queue<(int, int)> queue, int i, int j, int val)
+        private void chackAdj_v1(int[][] dp, Queue<(int, int)> queue, int i, int j, int val)
         {
             if (i < 0 || j < 0 || j >= dp.Length || i >= dp.Length || dp[i][j] == int.MaxValue || (dp[i][j] != 0 && dp[i][j] <= val)) return;
 
@@ -3554,7 +3613,7 @@ namespace LeetCode
             queue.Enqueue((i, j));
         }
 
-        private void fillDp(int[][] dp, int i, int j)
+        private void fillDp_v1(int[][] dp, int i, int j)
         {
             if (i == 0 && j == 0)
             {
@@ -3564,23 +3623,23 @@ namespace LeetCode
 
             if (i == 0)
             {
-                fill(dp, i, j, dp[i][j - 1], int.MaxValue, int.MaxValue);
+                fill_v1(dp, i, j, dp[i][j - 1], int.MaxValue, int.MaxValue);
                 return;
             }
 
             if (j == 0)
             {
-                fill(dp, i, j, dp[i - 1][j], int.MaxValue, int.MaxValue);
+                fill_v1(dp, i, j, dp[i - 1][j], int.MaxValue, int.MaxValue);
                 return;
             }
 
             int topLeft = dp[i - 1][j - 1];
             int left = dp[i][j - 1];
             int top = dp[i - 1][j];
-            fill(dp, i, j, topLeft, left, top);
+            fill_v1(dp, i, j, topLeft, left, top);
         }
 
-        private static void fill(int[][] dp, int i, int j, int val1, int val2, int val3)
+        private static void fill_v1(int[][] dp, int i, int j, int val1, int val2, int val3)
         {
             int val = Math.Min(val1, Math.Min(val2, val3));
             if (val == int.MaxValue)
