@@ -27,15 +27,17 @@ for (int i = 0; i < d.Length; i++)
 //int newColor = int.Parse(data[3]);
 //int k = int.Parse(data[1]);
 Solution solution = new Solution();
-var res = solution.UpdateMatrix(matrix);
-Console.WriteLine(res);
+//var res = solution.UpdateMatrix(matrix);
+//Console.WriteLine(res);
 //solution.FloodFill(inputArray,sr,sc,newColor);
-//ListNode last = new ListNode(5);
-//last = new ListNode(4, last);
-//last = new ListNode(3, last);
-//last = new ListNode(2, last);
-//last = new ListNode(1, last);
-//last = new ListNode(0, last);
+ListNode last = new ListNode(5);
+last = new ListNode(4, last);
+last = new ListNode(3, last);
+last = new ListNode(2, last);
+last = new ListNode(1, last);
+last = new ListNode(0, last);
+
+solution.ReverseList(last);
 //solution.AddBinary("1010", "1011");
 //[-1,0,3,5,9,12]
 //0

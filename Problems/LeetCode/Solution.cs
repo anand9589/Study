@@ -94,9 +94,9 @@ namespace LeetCode
 
             ListNode head = new ListNode(int.MaxValue);
             ListNode temp = head.Next;
-            while (list1 != null && list2 !=null)
+            while (list1 != null && list2 != null)
             {
-                if(list1.val < list2.val)
+                if (list1.val < list2.val)
                 {
                     temp = list1;
                     list1 = list1.Next;
@@ -109,7 +109,7 @@ namespace LeetCode
                 temp = temp.Next;
             }
 
-            while(list1 != null)
+            while (list1 != null)
             {
                 temp = list1;
                 list1 = list1.Next;
@@ -2337,6 +2337,49 @@ namespace LeetCode
                 grid[i][j] = 'v';
                 q.Enqueue((i, j));
             }
+        }
+        #endregion
+
+        #region 206. Reverse Linked List
+        public ListNode ReverseList_v1(ListNode head)
+        {
+            if (head == null) return head;
+
+            Stack<ListNode> stack = new Stack<ListNode>();
+
+            while (head != null)
+            {
+                stack.Push(head);
+                head = head.Next;
+            }
+            ListNode newNode = stack.Pop();
+
+            ListNode temp = newNode;
+
+            while (stack.Count > 0)
+            {
+                temp.Next = stack.Pop();
+                temp = temp.Next;
+            }
+            return newNode;
+        }
+        public ListNode ReverseList(ListNode head)
+        {
+            if (head == null)
+            {
+                return head;
+            }
+            return final_reverse(head, null);
+        }
+        private ListNode final_reverse(ListNode head, ListNode prev)
+        {
+            ListNode temp = head.Next;
+            head.Next = prev;
+            if (temp == null)
+            {
+                return head;
+            }
+            return final_reverse(temp, head);
         }
         #endregion
 
