@@ -86,6 +86,47 @@ namespace LeetCode
         }
         #endregion
 
+        #region 21. Merge Two Sorted Lists
+        public ListNode MergeTwoLists(ListNode list1, ListNode list2)
+        {
+            if (list1 == null) return list2;
+            if (list2 == null) return list1;
+
+            ListNode head = new ListNode(int.MaxValue);
+            ListNode temp = head.Next;
+            while (list1 != null && list2 !=null)
+            {
+                if(list1.val < list2.val)
+                {
+                    temp = list1;
+                    list1 = list1.Next;
+                }
+                else
+                {
+                    temp = list2;
+                    list2 = list2.Next;
+                }
+                temp = temp.Next;
+            }
+
+            while(list1 != null)
+            {
+                temp = list1;
+                list1 = list1.Next;
+                temp = temp.Next;
+            }
+            while (list2 != null)
+            {
+                temp = list2;
+                list2 = list2.Next;
+                temp = temp.Next;
+            }
+
+            return head.Next;
+
+        }
+        #endregion
+
         #region 35. Search Insert Position
         public int SearchInsert(int[] nums, int target)
         {
