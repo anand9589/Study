@@ -37,7 +37,7 @@ Solution solution = new Solution();
 //last = new ListNode(1, last);
 //last = new ListNode(0, last);
 
-solution.SearchRange(new int[] { 1, 2, 3, 3, 3, 3, 4, 5, 9 }, 3);
+solution.CoinChange(new int[] { 1, 2, 5 }, 9);
 //solution.AddBinary("1010", "1011");
 //[-1,0,3,5,9,12]
 //0

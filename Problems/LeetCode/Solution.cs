@@ -2551,6 +2551,34 @@ namespace LeetCode
         }
         #endregion
 
+        #region 322. Coin Change
+        public int CoinChange(int[] coins, int amount)
+        {
+            long target = (long)amount;
+            List<int>[] table = new List<int>[target + 1];
+            table[0] = new List<int>();
+
+            for (int i = 0; i < amount; i++)
+            {
+                foreach (int coin in coins)
+                {
+                    if (coin > amount) continue;
+                    List<int> comb = new List<int>();
+                    if (table[i] != null && i + coin <= amount)
+                    {
+                        comb.AddRange(table[i]);
+                        comb.Add(coin);
+                        if (table[i + coin] is null || table[i + coin].Count > comb.Count)
+                        {
+                            table[i + coin] = comb;
+                        }
+                    }
+                }
+            }
+            return table[amount] is null ? -1 : table[amount].Count;
+        }
+        #endregion
+
         #region 329. Longest Increasing Path in a Matrix
         public int LongestIncreasingPath(int[][] matrix)
         {
@@ -3508,28 +3536,28 @@ namespace LeetCode
                 (int val, int x, int y) = q.Dequeue();
 
                 //bottom right x+1 y+1
-                checkAdj(grid, q, visited, x+1, y+1, val + 1);
+                checkAdj(grid, q, visited, x + 1, y + 1, val + 1);
 
                 //bottom x+1 y
-                checkAdj(grid, q, visited, x+1, y, val + 1);
+                checkAdj(grid, q, visited, x + 1, y, val + 1);
 
                 //right x y+1
-                checkAdj(grid, q, visited, x, y+1, val + 1);
+                checkAdj(grid, q, visited, x, y + 1, val + 1);
 
                 //bottom left x+1 y-1
-                checkAdj(grid, q, visited, x+1, y-1, val + 1);
+                checkAdj(grid, q, visited, x + 1, y - 1, val + 1);
 
                 //top right x-1 y+1
-                checkAdj(grid, q, visited, x-1, y+1, val + 1);
+                checkAdj(grid, q, visited, x - 1, y + 1, val + 1);
 
                 //top x-1 y
-                checkAdj(grid, q, visited, x-1, y, val + 1);
+                checkAdj(grid, q, visited, x - 1, y, val + 1);
 
                 //left x y-1
-                checkAdj(grid, q, visited, x, y-1, val + 1);
+                checkAdj(grid, q, visited, x, y - 1, val + 1);
 
                 //top left x-1 y-1
-                checkAdj(grid, q, visited, x-1, y-1, val + 1);
+                checkAdj(grid, q, visited, x - 1, y - 1, val + 1);
             }
             return grid[n - 1][n - 1] == 0 ? -1 : grid[n - 1][n - 1];
         }
