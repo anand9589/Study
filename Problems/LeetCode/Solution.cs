@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 
 namespace LeetCode
 {
@@ -3096,6 +3097,34 @@ namespace LeetCode
         }
         #endregion
 
+        #region 647. Palindromic Substrings
+        public int CountSubstrings(string s)
+        {
+            int result = 0;
+
+            if (s.Length > 0)
+            {
+                for (int i = 0; i < s.Length; i++)
+                {
+                    result += CountSubstrings_helper(i, i, s);
+                    result += CountSubstrings_helper(i, i+1, s);
+                }
+            }
+
+            return result;
+        }
+
+        private int CountSubstrings_helper(int start, int end, string s)
+        {
+            int count = 0;
+            while (start>=0 && end<s.Length && s[start--] == s[end++])
+            {
+                count++;
+            }
+            return count;
+        }
+        #endregion
+
         #region 581. Shortest Unsorted Continuous Subarray
         public int FindUnsortedSubarray(int[] nums)
         {
@@ -4331,6 +4360,161 @@ namespace LeetCode
 
         #region Problem 4 Count Integers in Intervals
         #endregion
+        #endregion
+
+        #region 294 Week
+
+        #region Problem 1
+        public int PercentageLetter(string s, char letter)
+        {
+            if (s.Length == 0) return 0;
+            int result;
+            int letterCount = s.Count(x => x == letter);
+
+            result = (letterCount * 100) / s.Length;
+
+            return result;
+        }
+        #endregion
+
+        #region Problem 2
+        public int MaximumBags(int[] capacity, int[] rocks, int additionalRocks)
+        {
+            int result = 0;
+            List<(int, int)> list = new List<(int, int)>();
+            for (int i = 0; i < capacity.Length; i++)
+            {
+                list.Add((capacity[i], rocks[i]));
+            }
+
+            list = list.OrderBy(x => x.Item1 - x.Item2).ToList();
+
+            foreach (var item in list)
+            {
+                (int cap, int rock) = item;
+                if (additionalRocks > 0)
+                {
+                    int diff = cap - rock;
+
+                    if (additionalRocks >= diff)
+                    {
+                        additionalRocks -= diff;
+                        rock = cap;
+                    }
+                    else
+                    {
+                        diff -= additionalRocks;
+                        additionalRocks = 0;
+                        rock += diff;
+                    }
+                }
+
+                if (cap == rock) result++;
+            }
+
+            return result;
+        }
+        #endregion
+
+        #region Problem 3
+
+        enum pattern
+        {
+            increase = 0,
+            decrease = 1,
+            stable = 2
+        }
+
+        public int MinimumLines(int[][] stockPrices)
+        {
+            int result = 0;
+            if (stockPrices.Length > 1)
+            {
+                pattern oldPatter = pattern.stable;
+                List<(int, int)> list = new List<(int, int)>();
+
+                foreach (var item in stockPrices)
+                {
+                    list.Add((item[0], item[1]));
+                }
+
+                list = list.OrderBy(x => x.Item1).ToList();
+                if (list[0].Item2 == list[1].Item2)
+                {
+                    oldPatter = pattern.stable;
+                }
+                else if (list[0].Item2 > list[1].Item2)
+                {
+                    oldPatter = pattern.decrease;
+                }
+                else
+                {
+                    oldPatter = pattern.increase;
+                }
+                result = 1;
+                int oldday = list[1].Item1;
+                int oldprice = list[1].Item2;
+                for (int i = 2; i < list.Count; i++)
+                {
+                    pattern p = pattern.stable;
+                    (int day, int price) = list[i];
+
+                    if (oldprice > price)
+                    {
+                        p = pattern.decrease;
+                    }
+                    else if (oldprice < price)
+                    {
+                        p = pattern.increase;
+                    }
+                    else
+                    {
+                        p = pattern.stable;
+                    }
+                    oldprice = price;
+                    if (p != oldPatter)
+                    {
+                        result++;
+                    }
+                    oldPatter = p;
+                }
+            }
+            return result;
+        }
+        #endregion
+
+        #region Problem 4
+        public int TotalStrength(int[] strength)
+        {
+            int n = strength.Length;
+            long result = 0;
+            for (int i = 1; i <= n; i++)
+            {
+                for (int j = 0; j <= n - i; j++)
+                {
+                    var p = strength.Skip(j).Take(i);
+
+                    if (p.Count() < i) break;
+
+                    long min = p.Min();
+                    long sum = p.Sum();
+
+                    long mul = min * sum;
+                    Console.WriteLine("mul " + mul);
+                    result += mul;
+                    Console.WriteLine("res " + result);
+                    //if (result > int.MaxValue)
+                    //{
+                    //    result = int.MaxValue;
+                    //    break;
+                    //}
+                }
+            }
+
+            return result > int.MaxValue ? (int)(result % 1000000007) : (int)result;
+        }
+        #endregion
+
         #endregion
 
         #region 14Days

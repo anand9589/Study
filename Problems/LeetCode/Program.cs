@@ -37,10 +37,19 @@ Solution solution = new Solution();
 //last = new ListNode(1, last);
 //last = new ListNode(0, last);
 
-solution.CoinChange(new int[] { 1, 2, 5 }, 9);
+//solution.CoinChange(new int[] { 1, 2, 5 }, 9);
 //solution.AddBinary("1010", "1011");
 //[-1,0,3,5,9,12]
 //0
 //var p = solution.Search(new int[] { -1, 0, 3, 5, 9, 12 }, 0);
 //Console.WriteLine(p);
 //solution.SetZeroes(inputArray);]
+//[91,54,63,99,24,45,78]
+//[35,32,45,98,6,1,25]
+///*17*/
+
+//solution.MaximumBags(new int[] { 91, 54, 63, 99, 24, 45, 78 }, new int[] { 35, 32, 45, 98, 6, 1, 25 }, 17);
+
+//var res = solution.TotalStrength(new int[] { 1, 3, 1, 2 });
+var res = solution.CountSubstrings("abc");
+Console.WriteLine(res);
