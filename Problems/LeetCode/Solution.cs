@@ -4120,6 +4120,42 @@ namespace LeetCode
 
         #endregion
 
+        #region 1926. Nearest Exit from Entrance in Maze
+        public int NearestExit(char[][] maze, int[] entrance)
+        {
+            int result = 0;
+
+            Queue<(int, int, int)> q = new Queue<(int, int, int)>();
+
+            q.Enqueue((0, entrance[0], entrance[1]));
+            maze[entrance[0]][entrance[1]] = 'v';
+            while (q.Count > 0)
+            {
+                (int level, int x, int y) = q.Dequeue();
+                level++;
+                bool top = adjBoundary(q, maze, x - 1, y, level);
+                bool bottom = adjBoundary(q, maze, x + 1, y, level);
+                bool left = adjBoundary(q, maze, x, y-1, level);
+                bool right = adjBoundary(q, maze, x, y+1, level);
+
+                if (top || bottom || left || right) return level;
+            }
+
+            return result;
+        }
+
+        private bool adjBoundary(Queue<(int, int, int)> q, char[][] maze, int x, int y, int level)
+        {
+            if (x >= 0 && y >= 0 && x < maze.Length && y < maze[x].Length && maze[x][y] == '.')
+            {
+                if (x == 0 || y == 0 || x == maze.Length - 1 || y == maze[x].Length - 1) return true;
+                maze[x][y] = 'v';
+                q.Enqueue((level, x, y));
+            }
+            return false;
+        }
+        #endregion
+
         #region 2269. Find the K-Beauty of a Number
         public int DivisorSubstrings(int num, int k)
         {
