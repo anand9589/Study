@@ -51,5 +51,5 @@ Solution solution = new Solution();
 //solution.MaximumBags(new int[] { 91, 54, 63, 99, 24, 45, 78 }, new int[] { 35, 32, 45, 98, 6, 1, 25 }, 17);
 
 //var res = solution.TotalStrength(new int[] { 1, 3, 1, 2 });
-var res = solution.CountSubstrings("abc");
+var res = solution.ShortestBridge(matrix);
 Console.WriteLine(res);

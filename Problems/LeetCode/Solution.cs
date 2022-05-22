@@ -3107,7 +3107,7 @@ namespace LeetCode
                 for (int i = 0; i < s.Length; i++)
                 {
                     result += CountSubstrings_helper(i, i, s);
-                    result += CountSubstrings_helper(i, i+1, s);
+                    result += CountSubstrings_helper(i, i + 1, s);
                 }
             }
 
@@ -3117,7 +3117,7 @@ namespace LeetCode
         private int CountSubstrings_helper(int start, int end, string s)
         {
             int count = 0;
-            while (start>=0 && end<s.Length && s[start--] == s[end++])
+            while (start >= 0 && end < s.Length && s[start--] == s[end++])
             {
                 count++;
             }
@@ -3408,6 +3408,103 @@ namespace LeetCode
                 stack2.Push(stack1.Pop());
             }
             return stack2.Pop();
+        }
+        #endregion
+
+        #region 934. Shortest Bridge
+        public int ShortestBridge(int[][] grid)
+        {
+            int result = int.MaxValue;
+            int n = grid.Length;
+            Queue<(int, int)> queue = new Queue<(int, int)>();
+            for (int i = 0; i < n; i++)
+            {
+                bool isFound = false;
+                for (int j = 0; j < n; j++)
+                {
+                    if (grid[i][j] == 1)
+                    {
+                        queue.Enqueue((i, j));
+                        grid[i][j] = 1000;
+                        isFound = true;
+                        break;
+                    }
+                }
+                if (isFound) break;
+            }
+
+            while (queue.Count > 0)
+            {
+                (int x, int y) = queue.Dequeue();
+
+                if (x + 1 < n && grid[x + 1][y] == 1)
+                {
+                    queue.Enqueue((x + 1, y));
+                    grid[x + 1][y] = 1000;
+                }
+                if (y + 1 < n && grid[x][y + 1] == 1)
+                {
+                    queue.Enqueue((x, y + 1));
+                    grid[x][y + 1] = 1000;
+                }
+                if (x - 1 >= 0 && grid[x - 1][y] == 1)
+                {
+                    queue.Enqueue((x - 1, y));
+                    grid[x - 1][y] = 1000;
+                }
+                if (y - 1 >= 0 && grid[x][y - 1] == 1)
+                {
+                    queue.Enqueue((x, y - 1));
+                    grid[x][y - 1] = 1000;
+                }
+            }
+
+            Queue<(int, int, int)> queue1 = new Queue<(int, int, int)>();
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (grid[i][j] == 1)
+                    {
+                        queue1.Enqueue((0, i, j));
+                        grid[i][j] = 2000;
+                    }
+                }
+            }
+
+            while (queue1.Count > 0)
+            {
+                (int level, int x, int y) = queue1.Dequeue();
+                //result = Math.Max(result, level);
+                bool isBottom = fillStack(grid, n, queue1, level + 1, x + 1, y);
+
+                bool isRight = fillStack(grid, n, queue1, level + 1, x, y + 1);
+
+                bool isLeft = fillStack(grid, n, queue1, level + 1, x, y - 1);
+
+                bool isTop = fillStack(grid, n, queue1, level + 1, x - 1, y);
+
+                if (isBottom || isTop || isLeft || isRight)
+                {
+                    result = Math.Min(result, level);
+                }
+            }
+            return result;
+        }
+
+        private static bool fillStack(int[][] grid, int n, Queue<(int, int, int)> queue, int level, int x, int y)
+        {
+            if (x >= 0 && x < n && y >= 0 && y < n && grid[x][y] != 2000)
+            {
+                if (grid[x][y] == 1000) return true;
+                int oldGridVal = grid[x][y];
+                if (oldGridVal == 0 || level < oldGridVal)
+                {
+                    grid[x][y] = level;
+                    queue.Enqueue((level, x, y));
+                }
+            }
+            return false;
         }
         #endregion
 
