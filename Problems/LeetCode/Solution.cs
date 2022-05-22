@@ -2846,6 +2846,40 @@ namespace LeetCode
         }
         #endregion
 
+        #region 441. Arranging Coins
+
+        public int ArrangeCoins(int n)
+        {
+            int result = -1;
+
+            int start = 1;
+            int end = n;
+
+            while (start <= end)
+            {
+                int mid = start + (end - start) / 2;
+
+                long coins = ((long)mid * ((long)mid + 1)) / 2;
+
+                if(coins==n) return mid;
+
+
+                if (coins > n)
+                {
+                    result = mid - 1;
+                    end = mid - 1;
+                }
+                else
+                {
+                    start = mid + 1;
+                }
+            }
+
+            return result;
+        }
+
+        #endregion
+
         #region 496. Next Greater Element I
         public int[] NextGreaterElement(int[] nums1, int[] nums2)
         {
@@ -4135,8 +4169,8 @@ namespace LeetCode
                 level++;
                 bool top = adjBoundary(q, maze, x - 1, y, level);
                 bool bottom = adjBoundary(q, maze, x + 1, y, level);
-                bool left = adjBoundary(q, maze, x, y-1, level);
-                bool right = adjBoundary(q, maze, x, y+1, level);
+                bool left = adjBoundary(q, maze, x, y - 1, level);
+                bool right = adjBoundary(q, maze, x, y + 1, level);
 
                 if (top || bottom || left || right) return level;
             }
