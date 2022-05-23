@@ -1941,6 +1941,39 @@ namespace LeetCode
 
         #endregion
 
+        #region 77. Combinations
+
+        public IList<IList<int>> Combine(int n, int k)
+        {
+            IList<IList<int>> result = new List<IList<int>>();
+            IList<int> nums = new List<int>();
+            for (int i = 1; i <= n; i++)
+            {
+                nums.Add(i);
+                Combine_help(result, nums, i+1, k, n);
+                nums.Remove(i);
+            }
+
+            return result;
+        }
+
+        private void Combine_help(IList<IList<int>> result, IList<int> nums, int i, int limit, int n)
+        {
+            if (nums.Count == limit)
+            {
+                result.Add(new List<int>(nums));
+                return;
+            }
+            for (int k = i; k <= n; k++)
+            {
+                nums.Add(k);
+                Combine_help(result, nums, k + 1, limit, n);
+                nums.Remove(k);
+            }
+        }
+
+        #endregion
+
         #region 85. Maximal Rectangle
         public int MaximalRectangle(char[][] matrix)
         {
@@ -2861,7 +2894,7 @@ namespace LeetCode
 
                 long coins = ((long)mid * ((long)mid + 1)) / 2;
 
-                if(coins==n) return mid;
+                if (coins == n) return mid;
 
 
                 if (coins > n)
