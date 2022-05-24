@@ -2028,7 +2028,7 @@ namespace LeetCode
             psi[0] = -1;
             stack.Push(0);
 
-            for (int i = 1; i <= heights.Length; i++)
+            for (int i = 1; i < heights.Length; i++)
             {
                 while (stack.Count > 0 && heights[i] < heights[stack.Peek()])
                 {
@@ -2056,28 +2056,37 @@ namespace LeetCode
         #region 85. Maximal Rectangle
         public int MaximalRectangle(char[][] matrix)
         {
-            int[][] intArray = new int[matrix.Length][];
-            for (int i = 0; i < matrix.Length; i++)
+            int row = matrix.Length;
+            int col = matrix[0].Length;
+            int result = 0;
+            int[][] intArray = new int[row][];
+            intArray[0] = new int[col];
+            for (int i = 0; i < col; i++)
             {
-                intArray[i] = new int[matrix[i].Length];
-                for (int j = 0; j < matrix[i].Length; j++)
+                intArray[0][i] = matrix[0][i] - '0';
+            }
+            for (int i = 1; i < row; i++)
+            {
+                intArray[i] = new int[col];
+                for (int j = 0; j < col; j++)
                 {
-                    if (i == 0)
+                    if (matrix[i][j] == '0')
                     {
-                        intArray[i][j] = matrix[i][j] - '0';
+                        intArray[i][j] = 0;
                     }
                     else
                     {
-                        if (matrix[i][j] != '0')
-                        {
-                            intArray[i][j] = intArray[i - 1][j] + matrix[i][j] - '0';
-                        }
+                        intArray[i][j] = intArray[i-1][j]+1;
                     }
                 }
             }
 
+            foreach (int[] arr in intArray)
+            {
+                result = Math.Max(result, LargestRectangleArea(arr));
+            }
 
-            return 0;
+            return result;
         }
 
         #endregion
