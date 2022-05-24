@@ -1950,7 +1950,7 @@ namespace LeetCode
             for (int i = 1; i <= n; i++)
             {
                 nums.Add(i);
-                Combine_help(result, nums, i+1, k, n);
+                Combine_help(result, nums, i + 1, k, n);
                 nums.Remove(i);
             }
 
@@ -1970,6 +1970,85 @@ namespace LeetCode
                 Combine_help(result, nums, k + 1, limit, n);
                 nums.Remove(k);
             }
+        }
+
+        #endregion
+
+        #region 84. Largest Rectangle in Histogram
+        public int LargestRectangleArea(int[] heights)
+        {
+            int result = 0;
+            int[] nsi = LargestRectangleArea_NextSmallestIndex(heights);
+            int[] psi = LargestRectangleArea_PreviousSmallestIndex(heights);
+
+            for (int i = 0; i < heights.Length; i++)
+            {
+                int k = nsi[i] - psi[i] - 1;
+
+                result = Math.Max(result, heights[i] * k);
+            }
+            return result;
+        }
+
+        private int[] LargestRectangleArea_NextSmallestIndex(int[] heights)
+        {
+            int[] nsi = new int[heights.Length];
+
+            Stack<int> stack = new Stack<int>();
+            nsi[heights.Length - 1] = heights.Length;
+            stack.Push(heights.Length - 1);
+
+            for (int i = heights.Length - 2; i >= 0; i--)
+            {
+                while (stack.Count > 0 && heights[i] <= heights[stack.Peek()])
+                {
+                    stack.Pop();
+                }
+
+                if (stack.Count == 0)
+                {
+                    nsi[i] = heights.Length;
+                    stack.Push(i);
+                }
+                else
+                {
+                    nsi[i] = stack.Peek();
+                    stack.Push(i);
+                }
+            }
+
+
+            return nsi;
+        }
+        private int[] LargestRectangleArea_PreviousSmallestIndex(int[] heights)
+        {
+            int[] psi = new int[heights.Length];
+
+            Stack<int> stack = new Stack<int>();
+            psi[0] = -1;
+            stack.Push(0);
+
+            for (int i = 1; i <= heights.Length; i++)
+            {
+                while (stack.Count > 0 && heights[i] < heights[stack.Peek()])
+                {
+                    stack.Pop();
+                }
+
+                if (stack.Count == 0)
+                {
+                    psi[i] = -1;
+                    stack.Push(i);
+                }
+                else
+                {
+                    psi[i] = stack.Peek();
+                    stack.Push(i);
+                }
+            }
+
+
+            return psi;
         }
 
         #endregion
@@ -2913,6 +2992,53 @@ namespace LeetCode
 
         #endregion
 
+        #region 474. Ones and Zeroes
+        public int FindMaxForm(string[] strs, int m, int n)
+        {
+            int[][] dp = new int[m + 1][];
+            for (int i = 0; i <= m; i++)
+            {
+                dp[i] = new int[n + 1];
+            }
+
+            foreach (var str in strs)
+            {
+                (int mc, int nc) = getCount(str);
+
+                for (int i = m; i >= mc; i--)
+                {
+                    for (int j = n; j >= nc; j--)
+                    {
+                        dp[i][j] = Math.Max(dp[i - mc][j - nc] + 1, dp[i][j]);
+                    }
+                }
+
+                Console.WriteLine($"String : {str}");
+                Console.WriteLine();
+                for (int i = 0; i <= m; i++)
+                {
+                    Console.WriteLine(string.Join(" ", dp[i]));
+                }
+                Console.WriteLine();
+            }
+            return dp[m][n];
+        }
+
+        private (int, int) getCount(string s)
+        {
+            int zero = s.Count(x => x == '0');
+
+            return (zero, (s.Length - zero));
+        }
+
+        //private int FindMaxForm_helper(string[] strs, int zeroes, int ones, int index)
+        //{
+        //    int[] count = new int[2];
+
+        //    return count;
+        //}
+        #endregion
+
         #region 496. Next Greater Element I
         public int[] NextGreaterElement(int[] nums1, int[] nums2)
         {
@@ -3388,6 +3514,46 @@ namespace LeetCode
                 }
             }
             return resIndex >= letters.Length || resIndex == -1 ? letters[0] : letters[resIndex];
+        }
+        #endregion
+
+        #region 784. Letter Case Permutation
+        public IList<string> LetterCasePermutation(string s)
+        {
+            IList<string> result = new List<string>();
+            HashSet<string> set = new HashSet<string>();
+            LetterCasePermutation_BackTrack(set, s.ToCharArray(), 0);
+
+            return result;
+        }
+
+        private void LetterCasePermutation_BackTrack(HashSet<string> result, char[] s, int index)
+        {
+            if (index == s.Length)
+            {
+                string str = new string(s);
+
+                result.Add(str);
+                return;
+            }
+
+            for (int i = index; i < s.Length; i++)
+            {
+                LetterCasePermutation_BackTrack(result, s, i + 1);
+                if (Char.IsLetter(s[i]))
+                {
+                    if (char.IsUpper(s[i]))
+                    {
+                        s[i] = char.ToLower(s[i]);
+                    }
+                    else
+                    {
+                        s[i] = char.ToUpper(s[i]);
+                    }
+                    LetterCasePermutation_BackTrack(result, s, i + 1);
+                    //char.IsUpper
+                }
+            }
         }
         #endregion
 
