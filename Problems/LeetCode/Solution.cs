@@ -2076,7 +2076,7 @@ namespace LeetCode
                     }
                     else
                     {
-                        intArray[i][j] = intArray[i-1][j]+1;
+                        intArray[i][j] = intArray[i - 1][j] + 1;
                     }
                 }
             }
@@ -3563,6 +3563,44 @@ namespace LeetCode
                     //char.IsUpper
                 }
             }
+        }
+        #endregion
+
+        #region 797. All Paths From Source to Target
+        public IList<IList<int>> AllPathsSourceTarget(int[][] graph)
+        {
+            int lastNode = graph.Length - 1;
+            IList<IList<int>> list = new List<IList<int>>();
+
+            Queue<IList<int>> q = new Queue<IList<int>>();
+
+            for (int i = 0; i < graph[0].Length; i++)
+            {
+                q.Enqueue(new List<int> { 0, graph[0][i] });
+            }
+
+            while (q.Count>0)
+            {
+                var d = q.Dequeue();
+
+                int lastNodeVal = d.Last();
+
+                if(lastNodeVal != lastNode)
+                {
+                    for (int i = 0; i < graph[lastNodeVal].Length; i++)
+                    {
+                        IList<int> lst = new List<int>(d);
+                        lst.Add(graph[lastNodeVal][i]);
+                        q.Enqueue(lst);
+                    }
+                }
+                else
+                {
+                    list.Add(d);
+                }
+            }
+
+            return list;
         }
         #endregion
 
