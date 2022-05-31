@@ -2006,27 +2006,24 @@ namespace LeetCode
         #region 78. Subsets
         public IList<IList<int>> Subsets(int[] nums)
         {
-            IList<IList<int>> result = new List<IList<int>>() { new List<int>() };
-
-            for (int i = 0; i < nums.Length; i++)
-            {
-                Subsets_Helper(result, new List<int>(), nums, i);
-            }
+            IList<IList<int>> result = new List<IList<int>>();
+            Subsets_Helper(result, new List<int>(), nums, 0);
 
             return result;
         }
 
         private void Subsets_Helper(IList<IList<int>> result, IList<int> subset, int[] nums, int index)
         {
-            if (index == nums.Length) return;
-            subset.Add(nums[index]);
-            result.Add(new List<int>(subset));
-            Subsets_Helper(result, subset, nums, index + 1);
 
-            int k = subset[0];
-            subset.Clear();
-            subset.Add(nums[index]);
-            Subsets_Helper(result, subset, nums, index + 1);
+            result.Add(new List<int>(subset));
+
+            for (int i = index; i < nums.Length; i++)
+            {
+                subset.Add(nums[i]);
+                Subsets_Helper(result,subset,nums,i+1);
+                subset.RemoveAt(subset.Count-1);
+
+            }
         }
         #endregion
 

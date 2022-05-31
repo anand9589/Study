@@ -77,5 +77,5 @@ Solution solution = new Solution();
 //var res = solution.DiscountPrices("$7383692 5q $5870426", 64);
 //var res = solution.TotalSteps(new int[] { 10, 1, 2, 3, 4, 5, 6, 1, 2, 3 });
 
-var res = solution.HasAllCodes("0110", 2);
+var res = solution.Subsets(new int[] {1,2,3});
 Console.WriteLine(res);
