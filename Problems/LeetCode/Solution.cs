@@ -128,6 +128,35 @@ namespace LeetCode
         }
         #endregion
 
+        #region 29. Divide Two Integers
+        public int Divide(int dividend, int divisor)
+        {
+            if (dividend == 1 << 31 && divisor == -1) return int.MaxValue;
+            if (dividend == 1 << 31 && divisor == 1) return int.MinValue;
+
+            bool signFlag = (dividend >= 0) == (divisor >= 0);
+
+            long divid = dividend == 1 << 31 ? (long)int.MaxValue + 1 : Math.Abs(dividend);
+            long divis = divisor == 1 << 31 ? (long)int.MaxValue + 1 : Math.Abs(divisor);
+            int result = 0;
+            while (divid - divis >= 0)
+            {
+                int count = 0;
+
+                while (divid - (divis << 1 << count) >= 0)
+                {
+                    count++;
+                }
+
+                result += 1 << count;
+
+                divid -= divis << count;
+            }
+
+            return signFlag ? result : -result;
+        }
+        #endregion
+
         #region 34. Find First and Last Position of Element in Sorted Array
         public int[] SearchRange(int[] nums, int target)
         {
@@ -1974,6 +2003,33 @@ namespace LeetCode
 
         #endregion
 
+        #region 78. Subsets
+        public IList<IList<int>> Subsets(int[] nums)
+        {
+            IList<IList<int>> result = new List<IList<int>>() { new List<int>() };
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                Subsets_Helper(result, new List<int>(), nums, i);
+            }
+
+            return result;
+        }
+
+        private void Subsets_Helper(IList<IList<int>> result, IList<int> subset, int[] nums, int index)
+        {
+            if (index == nums.Length) return;
+            subset.Add(nums[index]);
+            result.Add(new List<int>(subset));
+            Subsets_Helper(result, subset, nums, index + 1);
+
+            int k = subset[0];
+            subset.Clear();
+            subset.Add(nums[index]);
+            Subsets_Helper(result, subset, nums, index + 1);
+        }
+        #endregion
+
         #region 84. Largest Rectangle in Histogram
         public int LargestRectangleArea(int[] heights)
         {
@@ -2454,6 +2510,34 @@ namespace LeetCode
         #region 167. Two Sum II - Input Array Is Sorted
         public int[] TwoSum(int[] numbers, int target)
         {
+
+            for (int i = 0; i < numbers.Length - 1; i++)
+            {
+                int low = i + 1;
+                int high = numbers.Length - 1;
+                while (low <= high)
+                {
+                    int mid = low + (high - low) / 2;
+                    int sum = numbers[i] + numbers[mid];
+
+                    if (sum == target) return new int[] { i + 1, mid + 1 };
+
+                    if (sum < target)
+                    {
+                        low = mid + 1;
+                    }
+                    else
+                    {
+                        high = mid - 1;
+                    }
+                }
+            }
+
+            return new int[] { 0, 0 };
+        }
+
+        public int[] TwoSumV1(int[] numbers, int target)
+        {
             int low = 0;
             int end = numbers.Length - 1;
 
@@ -2474,6 +2558,13 @@ namespace LeetCode
             }
 
             return new int[] { low, end };
+        }
+        #endregion
+
+        #region 191. Number of 1 Bits
+        public int HammingWeight(uint n)
+        {
+            return n.ToString().Count(x => x == '1');
         }
         #endregion
 
@@ -2649,6 +2740,48 @@ namespace LeetCode
 
         #endregion
 
+        #region 268. Missing Number
+        public int MissingNumber(int[] nums)
+        {
+            if (!nums.Contains(0)) return 0;
+            int res = nums.Length * (nums.Length + 1) / 2;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                res = res - nums[i];
+            }
+
+            return res == 0 ? nums.Length + 1 : res;
+        }
+
+        public int MissingNumber1(int[] nums)
+        {
+            Array.Sort(nums);
+
+            int low = 0;
+            int high = nums.Length - 1;
+
+            while (low <= high)
+            {
+                if (low < nums[low]) return low;
+                if (high == nums[high]) return high + 1;
+
+                int mid = low + (high - low) / 2;
+
+                if (mid == nums[mid])
+                {
+                    low = mid + 1;
+                }
+                else
+                {
+                    high = mid - 1;
+                }
+            }
+            return high + 1;
+
+        }
+        #endregion
+
         #region 283. Move Zeroes
         public void MoveZeroes(int[] nums)
         {
@@ -2670,6 +2803,49 @@ namespace LeetCode
             {
                 nums[i] = 0;
             }
+        }
+        #endregion
+
+        #region 318. Maximum Product of Word Lengths
+
+        public int MaxProduct(string[] words)
+        {
+            int result = 0;
+
+
+
+            return result;
+        }
+
+        private int MaxProductHelper(string s)
+        {
+            int state = 0;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                int index = s[i] - 'a';
+                state |= 1 << index;
+            }
+            return state;
+        }
+
+        public int MaxProduct_V1(string[] words)
+        {
+            int result = 0;
+
+            words = words.OrderByDescending(x => x.Length).ToArray();
+
+            for (int i = 0; i < words.Length - 1; i++)
+            {
+                for (int j = i + 1; j < words.Length; j++)
+                {
+                    if (words[i].Intersect(words[j]).Count() == 0)
+                    {
+                        result = Math.Max(result, (words[i].Length * words[j].Length));
+                    }
+                }
+            }
+            return result;
         }
         #endregion
 
@@ -2775,6 +2951,125 @@ namespace LeetCode
                 end--;
             }
         }
+        #endregion
+
+        #region 350. Intersection of Two Arrays II
+        public int[] Intersect(int[] nums1, int[] nums2)
+        {
+            if (nums1.Length < nums1.Length)
+            {
+                return Intersect(nums2, nums1);
+            }
+            List<int> result = new List<int>();
+            Dictionary<int, int> map = new Dictionary<int, int>();
+
+            foreach (int num in nums1)
+            {
+                if (map.ContainsKey(num))
+                {
+                    map[num]++;
+                }
+                else
+                {
+                    map.Add(num, 1);
+                }
+            }
+
+            foreach (int num in nums2)
+            {
+                if (map.ContainsKey(num))
+                {
+                    result.Add(num);
+
+                    if (map[num] == 0) map.Remove(num);
+                }
+            }
+            return result.ToArray();
+        }
+        #endregion
+
+        #region 354. Russian Doll Envelopes
+        //int result = 0;
+        public int MaxEnvelopes(int[][] envelopes)
+        {
+            Array.Sort(envelopes, (a, b) => { return a[0] != b[0] ? a[0] - b[0] : a[1] - b[1]; });
+            int[] dp = Enumerable.Repeat(0, envelopes.Length).ToArray();
+            int result = 0;
+
+            foreach (int[] arr in envelopes)
+            {
+                int height = arr[1];
+                int start = Array.BinarySearch(dp, 0, result, height);
+                if (start < 0) start = -start - 1;
+                if (start == result) result++;
+                dp[start] = height;
+            }
+
+            return result;
+        }
+
+        public int binarySearch(int[] dp, int low, int high, int target)
+        {
+            if (low <= high)
+            {
+                int mid = (low + high) / 2;
+                if (dp[mid] == target)
+                {
+                    return mid;
+                }
+                if (dp[mid] > target)
+                {
+                    return binarySearch(dp, low, mid - 1, target);
+                }
+                else
+                {
+                    return binarySearch(dp, mid + 1, high, target);
+                }
+            }
+            return low;
+        }
+
+        //private void MaxEnvelopes_Helper(Stack<(int w, int h)> stack, int[][] envelopes, int i)
+        //{
+        //    if (i == envelopes.Length)
+        //    {
+        //        return;
+        //    }
+
+        //    if (stack.Count == 0)
+        //    {
+        //        stack.Push((envelopes[i][0], envelopes[i][1]));
+        //        result = Math.Max(stack.Count, result);
+        //        MaxEnvelopes_Helper(stack, envelopes, i + 1);
+        //    }
+        //    else
+        //    {
+        //        (int w, int h) = stack.Peek();
+        //        int newWidth = envelopes[i][0];
+        //        int newHeight = envelopes[i][1];
+        //        if (w < newWidth && h < newHeight)
+        //        {
+        //            stack.Push((newWidth, newHeight));
+        //            result = Math.Max(stack.Count, result);
+        //            MaxEnvelopes_Helper(stack, envelopes, i + 1);
+        //        }
+        //        else
+        //        {
+        //            Stack<(int w, int h)> stack1 = CloneStack(stack);
+        //            MaxEnvelopes_Helper(stack, envelopes, i + 1);
+        //            stack1.Pop();
+        //            MaxEnvelopes_Helper(stack1, envelopes, i);
+        //        }
+        //    }
+        //}
+
+        //private Stack<(int w, int h)> CloneStack(Stack<(int w, int h)> s)
+        //{
+        //    var arr = new (int, int)[s.Count];
+        //    s.CopyTo(arr, 0);
+        //    arr = arr.OrderBy(a => a.Item1).ToArray();
+        //    return new Stack<(int w, int h)>(arr);
+        //}
         #endregion
 
         #region 367. Valid Perfect Square
@@ -3175,6 +3470,47 @@ namespace LeetCode
         }
         #endregion
 
+        #region 547. Number of Provinces
+        public int FindCircleNum(int[][] isConnected)
+        {
+            int result = 0;
+            bool[] visited = new bool[isConnected.Length];
+            Queue<(int p, int n)> q = new Queue<(int, int)>();
+            q.Enqueue((1, 0));
+            visited[0] = true;
+            while (q.Count > 0)
+            {
+                var d = q.Dequeue();
+                result = Math.Max(result, d.p);
+
+                for (int i = 0; i < isConnected[d.n].Length; i++)
+                {
+                    if (!visited[i] && isConnected[d.n][i] == 1)
+                    {
+                        q.Enqueue((d.p, i));
+                        visited[i] = true;
+                    }
+                }
+
+
+
+                if (q.Count == 0)
+                {
+                    int index = Array.IndexOf(visited, false);
+
+                    if (index >= 0)
+                    {
+                        q.Enqueue((d.p + 1, index));
+                        visited[index] = true;
+                    }
+                }
+            }
+
+
+            return result;
+        }
+        #endregion
+
         #region 556. Next Greater Element III
         public int NextGreaterElement(int n)
         {
@@ -3358,6 +3694,32 @@ namespace LeetCode
                 }
             }
             return end - start;
+        }
+
+        #endregion
+
+        #region 633. Sum of Square Numbers
+        public bool JudgeSquareSum(int c)
+        {
+            int low = 0;
+            int high = (int)Math.Sqrt(c);
+
+            while (low < high)
+            {
+                long sum = (long)(low * low) + (long)(high * high);
+
+                if (sum == c) return true;
+
+                if (sum < c)
+                {
+                    low++;
+                }
+                else
+                {
+                    high--;
+                }
+            }
+            return false;
         }
 
         #endregion
@@ -3579,13 +3941,13 @@ namespace LeetCode
                 q.Enqueue(new List<int> { 0, graph[0][i] });
             }
 
-            while (q.Count>0)
+            while (q.Count > 0)
             {
                 var d = q.Dequeue();
 
                 int lastNodeVal = d.Last();
 
-                if(lastNodeVal != lastNode)
+                if (lastNodeVal != lastNode)
                 {
                     for (int i = 0; i < graph[lastNodeVal].Length; i++)
                     {
@@ -3601,6 +3963,34 @@ namespace LeetCode
             }
 
             return list;
+        }
+        #endregion
+
+        #region 841. Keys and Rooms
+        public bool CanVisitAllRooms(IList<IList<int>> rooms)
+        {
+            List<int> totalRooms = Enumerable.Range(0, rooms.Count - 1).ToList();
+
+            Stack<int> stack = new Stack<int>();
+            stack.Push(0);
+            totalRooms.Remove(0);
+            while (stack.Count > 0)
+            {
+                var p = stack.Pop();
+                foreach (int key in rooms[p])
+                {
+                    if (key == p) continue;
+                    if (totalRooms.Contains(key))
+                    {
+                        stack.Push(key);
+                        totalRooms.Remove(key);
+                    }
+
+                    if (totalRooms.Count == 0) return true;
+                }
+            }
+
+            return totalRooms.Count == 0;
         }
         #endregion
 
@@ -4255,6 +4645,284 @@ namespace LeetCode
 
         #endregion
 
+        #region 1319. Number of Operations to Make Network Connected
+        public int MakeConnected(int n, int[][] connections)
+        {
+            int edges = connections.Length;
+            if (edges < n - 1) return -1;
+            int result = 0;
+
+            int[] parent = Enumerable.Range(0, n).ToArray();
+
+            for (int i = 0; i < edges; i++)
+            {
+                int v1 = connections[i][0];
+                int v2 = connections[i][1];
+
+                int p1 = ParentIndex(parent, v1);
+                int p2 = ParentIndex(parent, v2);
+
+                if (p1 != p2)
+                {
+                    parent[p2] = p1;
+                }
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                if (parent[i] == i) result++;
+            }
+
+            return result - 1;
+            //Dictionary<int, List<int>> nodes = new Dictionary<int, List<int>>();
+            //foreach (var edge in connections)
+            //{
+            //    adj(nodes, edge[0], edge[1]);
+            //    //adj(nodes, edge[1], edge[0]);
+            //}
+
+            //bool[] visited = new bool[n];
+            //int spare = 0;
+
+            //foreach (var node in nodes.Keys)
+            //{
+            //    if (!visited[node])
+            //    {
+            //        Stack<int> stack = new Stack<int>();
+            //        stack.Push(node);
+
+            //        while (stack.Count > 0)
+            //        {
+
+            //        }
+            //    }
+            //}
+
+        }
+
+        private int ParentIndex(int[] parent, int v)
+        {
+            if (parent[v] != v)
+            {
+                return ParentIndex(parent, parent[v]);
+            }
+
+            return v;
+        }
+
+        private void adj(Dictionary<int, List<int>> nodes, int src, int des)
+        {
+            if (nodes.ContainsKey(src))
+            {
+                nodes[src].Add(des);
+            }
+            else
+            {
+                nodes.Add(src, new List<int> { des });
+            }
+        }
+        #endregion
+
+        #region 1337. The K Weakest Rows in a Matrix
+        public int[] KWeakestRows(int[][] mat, int k)
+        {
+            List<(int index, int value)> lst = new List<(int index, int value)>();
+
+            for (int i = 0; i < mat.Length; i++)
+            {
+                int val = mat[i].Count(x => x == 1);
+
+                lst.Add((i, val));
+            }
+
+            return lst.OrderBy(x => x.value).Take(k).Select(y => y.index).ToArray();
+
+        }
+        #endregion
+
+        #region 1342. Number of Steps to Reduce a Number to Zero
+        public int NumberOfSteps(int num)
+        {
+            int step = 0;
+            while (num > 0)
+            {
+                if (num % 2 == 0)
+                {
+                    num--;
+                }
+                else
+                {
+                    num = num / 2;
+                }
+                step++;
+            }
+
+            return step;
+        }
+        #endregion
+
+        #region 1346. Check If N and Its Double Exist
+        public bool CheckIfExist(int[] arr)
+        {
+            if (arr.Length <= 1) return false;
+
+
+            Array.Sort(arr);
+
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                int n = arr[i];
+                if (arr[i] > 0)
+                {
+                    if (binarySearch_v2(arr, i + 1, arr.Length - 1, n * 2)) return true;
+                }
+                else
+                {
+                    if (n % 2 == 0)
+                    {
+                        if (binarySearch_v2(arr, i + 1, arr.Length - 1, n / 2)) return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private bool binarySearch_v2(int[] arr, int low, int high, int target)
+        {
+            while (low <= high)
+            {
+                int mid = low + (high - low) / 2;
+
+                if (arr[mid] == target) return true;
+
+                if (arr[mid] > target)
+                {
+                    high = mid - 1;
+                }
+                else
+                {
+                    low = mid + 1;
+                }
+            }
+            return false;
+        }
+        #endregion
+
+        #region 1351. Count Negative Numbers in a Sorted Matrix
+        public int CountNegatives(int[][] grid)
+        {
+            //1st find negative row starts
+
+            int m = grid.Length;
+            int n = grid[0].Length;
+
+            int result = m * n;
+            for (int i = 0; i < m; i++)
+            {
+                if (grid[i][0] < 0) break;
+                for (int j = 0; j < n; j++)
+                {
+                    if (grid[i][j] < 0)
+                    {
+                        n = j;
+                        break;
+                    }
+                    else
+                    {
+                        result--;
+                    }
+                }
+            }
+
+            return result;
+
+            //(int x, int y) low = (0, 0);
+
+            //(int x, int y) high = (m, n);
+
+            //(int x, int y) diagIndex = (-1, -1);
+
+            //while (low.x <= high.x && low.y <= high.y)
+            //{
+            //    (int x, int y) mid = (getMid(low.x, high.x), getMid(low.y, high.y));
+
+            //    if (grid[mid.x][mid.y] < 0)
+            //    {
+            //        diagIndex = mid;
+            //        high = (mid.x - 1, mid.y - 1);
+            //    }
+            //    else
+            //    {
+            //        low = (mid.x + 1, mid.y + 1);
+            //    }
+            //}
+
+            //if (diagIndex != (-1, -1))
+            //{
+            //    result = 
+            //}
+
+            return result;
+        }
+        private int getMid(int x, int y)
+        {
+            return x + (y - x) / 2;
+        }
+        #endregion
+
+        #region 1376. Time Needed to Inform All Employees
+        public int NumOfMinutes(int n, int headID, int[] manager, int[] informTime)
+        {
+            int result = 0;
+            Dictionary<int, List<int>> map = new Dictionary<int, List<int>>();
+
+            map.Add(headID, new List<int>());
+
+            for (int i = 0; i < n; i++)
+            {
+                if (i == headID) continue;
+
+                if (map.ContainsKey(manager[i]))
+                {
+                    map[manager[i]].Add(i);
+                }
+                else
+                {
+                    map.Add(manager[i], new List<int>() { i });
+                }
+            }
+
+            List<(int m, int t)> q = new List<(int m, int t)>();
+
+            q.Add((headID, 0));
+
+            while (q.Count > 0)
+            {
+                List<(int m, int t)> tmp = new List<(int m, int t)>();
+
+                foreach (var item in q)
+                {
+                    if (map.ContainsKey(item.m))
+                    {
+                        foreach (var e in map[item.m])
+                        {
+                            tmp.Add((e, item.t + informTime[item.m]));
+                        }
+                    }
+                    else
+                    {
+                        result = Math.Max(result, item.t);
+                    }
+                }
+
+                q = new List<(int m, int t)>(tmp);
+            }
+
+            return result;
+        }
+        #endregion
+
         #region 1379. Find a Corresponding Node of a Binary Tree in a Clone of That Tree
         public TreeNode GetTargetCopy(TreeNode original, TreeNode cloned, TreeNode target)
         {
@@ -4329,6 +4997,53 @@ namespace LeetCode
             }
 
             return res;
+        }
+        #endregion
+
+        #region 1461. Check If a String Contains All Binary Codes of Size K
+        public bool HasAllCodes(string s, int k)
+        {
+            HashSet<int> codes = new HashSet<int>();
+            for (int i = 0; i <= s.Length-k; i++)
+            {
+                codes.Add(Convert.ToInt32( s.Substring(i,k),2));
+            }
+
+            for (int i = 0; i < Math.Pow(2,k); i++)
+            {
+                if (!codes.Contains(i)) return false;
+            }
+            return true;
+        }
+        #endregion
+
+        #region 1608. Special Array With X Elements Greater Than or Equal X
+        public int SpecialArray(int[] nums)
+        {
+
+            int low = 0;
+            int high = nums.Max();
+
+            while (low <= high)
+            {
+                int mid = low + (high - low) / 2;
+
+                int count = nums.Count(x => x >= mid);
+
+                if (count == mid) return mid;
+
+                if (count > mid)
+                {
+
+                    low = mid + 1;
+                }
+                else
+                {
+                    high = mid - 1;
+                }
+            }
+
+            return -1;
         }
         #endregion
 
@@ -5072,6 +5787,151 @@ namespace LeetCode
             int temp = nums[i];
             nums[i] = nums[start];
             nums[start] = temp;
+        }
+
+        public bool DigitCount(string num)
+        {
+            int index = 0;
+            while (index < num.Length)
+            {
+                char c = (char)(index + 48);
+                char p = num[index];
+                int cnt = num.Count(x => x == c);
+
+                if (cnt != p - 48) return false;
+
+                index++;
+            }
+
+            return true;
+        }
+
+        public string LargestWordCount(string[] messages, string[] senders)
+        {
+            Dictionary<string, int> counts = new Dictionary<string, int>();
+
+            int length = messages.Length;
+
+            for (int i = 0; i < length; i++)
+            {
+                if (counts.ContainsKey(senders[i]))
+                {
+                    counts[senders[i]] += messages[i].Trim().Split(' ').Count();
+                }
+                else
+                {
+                    counts.Add(senders[i], messages[i].Trim().Split(' ').Count());
+                }
+            }
+
+
+            counts = counts.OrderByDescending(x => x.Value).OrderByDescending(x => x.Key).ToDictionary((x) => x.Key, x => x.Value);
+
+            return counts.Keys.FirstOrDefault();
+        }
+
+        public long MaximumImportance(int n, int[][] roads)
+        {
+            long res = 0;
+
+            Dictionary<int, List<int>> cities = new Dictionary<int, List<int>>();
+
+            for (int i = 0; i < n; i++)
+            {
+                cities.Add(i, new List<int>());
+            }
+
+            foreach (int[] arr in roads)
+            {
+                addToMap(cities, arr[0], arr[1]);
+                addToMap(cities, arr[1], arr[0]);
+            }
+
+            int[] c = new int[n];
+            int p = 1;
+            cities = cities.OrderBy(x => x.Value.Count).ToDictionary(x => x.Key, x => x.Value);
+            foreach (var item in cities.Keys)
+            {
+                c[item] = p++;
+            }
+
+            foreach (int[] arr in roads)
+            {
+                res += c[arr[0]] + c[arr[1]];
+            }
+
+            return res;
+        }
+
+        private void addToMap(Dictionary<int, List<int>> cities, int v1, int v2)
+        {
+            cities[v1].Add(v2);
+        }
+
+        public int RearrangeCharacters(string s, string target)
+        {
+            var p = s.ToCharArray().GroupBy(x => x).Select(x => new { charV = x.Key, Count = x.Count() }).ToDictionary(x => x.charV, x => x.Count);
+
+            int result = 0;
+
+            bool isExist = true;
+
+            while (isExist)
+            {
+                int i = 0;
+                while (i < target.Length)
+                {
+                    if (!p.ContainsKey(target[i]) || p[target[i]] == 0)
+                    {
+                        return result;
+                    }
+                    else
+                    {
+                        p[target[i]]--;
+                    }
+                    i++;
+                }
+                result++;
+            }
+
+            return result;
+        }
+
+        public string DiscountPrices(string sentence, int discount)
+        {
+            string[] strs = sentence.Split(' ');
+
+            for (int i = 0; i < strs.Length; i++)
+            {
+                if (strs[i].StartsWith('$'))
+                {
+                    if (double.TryParse(strs[i].Remove(0, 1), out double n))
+                    {
+                        double discountedPrice = Math.Round(n * discount / 100f, 2);
+                        double result = n - (double)discountedPrice;
+
+                        strs[i] = $"${result.ToString("N2").Replace(",", "")}";
+                    }
+                }
+            }
+            return string.Join(' ', strs);
+        }
+
+        public int TotalSteps(int[] nums)
+        {
+
+            int result = 0;
+            for (int i = nums.Length - 1; i > 0; i--)
+            {
+                int j = 1;
+                while (i - j > 0 && nums[i] > nums[i - j])
+                {
+                    j++;
+                }
+                result = Math.Max(result, j);
+            }
+
+            return result;
         }
     }
 }
