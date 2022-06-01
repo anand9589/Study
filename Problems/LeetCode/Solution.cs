@@ -2020,10 +2020,91 @@ namespace LeetCode
             for (int i = index; i < nums.Length; i++)
             {
                 subset.Add(nums[i]);
-                Subsets_Helper(result,subset,nums,i+1);
-                subset.RemoveAt(subset.Count-1);
+                Subsets_Helper(result, subset, nums, i + 1);
+                subset.RemoveAt(subset.Count - 1);
 
             }
+        }
+        #endregion
+
+        #region 79. Word Search
+        public bool Exist(char[][] board, string word)
+        {
+            int m = board.Length;
+            int n = board[0].Length;
+            Stack<(int c, int x, int y)> stack = new Stack<(int c, int x, int y)>();
+            bool[][] visited = new bool[m][];
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (board[i][j] == word[0])
+                    {
+                        for (int x = 0; x < m; x++)
+                        {
+                            visited[x] = new bool[n];
+                        }
+                        if (Exist_DFS(board, visited, word, 0, i, j))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private bool Exist_DFS(char[][] board, bool[][] visited, string word, int index, int x, int y)
+        {
+            if (index == word.Length) return true;
+
+            if (x < 0 || y < 0 || x == board.Length || y == board[x].Length || visited[x][y] || board[x][y] != word[index]) return false;
+            Console.WriteLine($"{x} {y} {board[x][y]} {index} {word}");
+            visited[x][y] = true;
+
+            if (Exist_DFS(board, visited, word, index + 1, x+1, y))
+            {
+                return true;
+            }
+
+            if (Exist_DFS(board, visited, word, index + 1, x-1, y))
+            {
+                return true;
+            }
+
+            if (Exist_DFS(board, visited, word, index + 1, x, y+1))
+            {
+                return true;
+            }
+
+            if (Exist_DFS(board, visited, word, index + 1, x, y-1))
+            {
+                return true;
+            }
+
+
+            return false;
+        }
+
+        private bool checkExist(Stack<(int c, int x, int y)> stack, char[][] board, bool[][] visited, string word)
+        {
+
+            (int c, int x, int y) = stack.Peek();
+            checkCells(stack, board, visited, word, c + 1, x - 1, y);
+            checkCells(stack, board, visited, word, c + 1, x + 1, y);
+            checkCells(stack, board, visited, word, c + 1, x, y - 1);
+            checkCells(stack, board, visited, word, c + 1, x, y + 1);
+
+            return false;
+        }
+
+        private void checkCells(Stack<(int c, int x, int y)> stack, char[][] board, bool[][] visited, string word, int c, int x, int y)
+        {
+            if (x < 0 || y < 0 || x == board.Length || y == board[x].Length || visited[x][y] || board[x][y] != word[c]) return;
+
+            visited[x][y] = true;
+            stack.Push((c, x, y));
         }
         #endregion
 
@@ -5001,16 +5082,31 @@ namespace LeetCode
         public bool HasAllCodes(string s, int k)
         {
             HashSet<int> codes = new HashSet<int>();
-            for (int i = 0; i <= s.Length-k; i++)
+            for (int i = 0; i <= s.Length - k; i++)
             {
-                codes.Add(Convert.ToInt32( s.Substring(i,k),2));
+                codes.Add(Convert.ToInt32(s.Substring(i, k), 2));
             }
 
-            for (int i = 0; i < Math.Pow(2,k); i++)
+            for (int i = 0; i < Math.Pow(2, k); i++)
             {
                 if (!codes.Contains(i)) return false;
             }
             return true;
+        }
+        #endregion
+
+        #region 1480. Running Sum of 1d Array
+        public int[] RunningSum(int[] nums)
+        {
+            int[] result = new int[nums.Length];
+            result[0] = nums[0];
+
+            for (int i = 1; i < nums.Length; i++)
+            {
+                result[i] = result[i - 1] + nums[i];
+            }
+
+            return result;
         }
         #endregion
 

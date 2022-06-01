@@ -5,30 +5,30 @@ var data = File.ReadAllLines(@"C:\Workspace\Study\Problems\Practice.txt");
 
 ////int[][] input
 var d = data[0].Split("],[");
-//char[][] matrix = new char[d.Length][];
-
-//for (int i = 0; i < d.Length; i++)
-//{
-//    d[i] = d[i].Replace("\"", "");
-//    string[] p = d[i].Split(",").ToArray();
-//    matrix[i] = new char[p.Length];
-//    for (int j = 0; j < p.Length; j++)
-//    {
-//        matrix[i][j] = p[j][0];
-//    }
-//}
-int[][] matrix = new int[d.Length][];
+char[][] matrix = new char[d.Length][];
 
 for (int i = 0; i < d.Length; i++)
 {
     d[i] = d[i].Replace("\"", "");
     string[] p = d[i].Split(",").ToArray();
-    matrix[i] = new int[p.Length];
+    matrix[i] = new char[p.Length];
     for (int j = 0; j < p.Length; j++)
     {
-        matrix[i][j] = int.Parse(p[j]);
+        matrix[i][j] = p[j][0];
     }
 }
+//int[][] matrix = new int[d.Length][];
+
+//for (int i = 0; i < d.Length; i++)
+//{
+//    d[i] = d[i].Replace("\"", "");
+//    string[] p = d[i].Split(",").ToArray();
+//    matrix[i] = new int[p.Length];
+//    for (int j = 0; j < p.Length; j++)
+//    {
+//        matrix[i][j] = int.Parse(p[j]);
+//    }
+//}
 //int[][] inputArray = new int[d.Length][];
 //for (int i = 0; i < d.Length; i++)
 //{
@@ -77,5 +77,5 @@ Solution solution = new Solution();
 //var res = solution.DiscountPrices("$7383692 5q $5870426", 64);
 //var res = solution.TotalSteps(new int[] { 10, 1, 2, 3, 4, 5, 6, 1, 2, 3 });
 
-var res = solution.Subsets(new int[] {1,2,3});
+var res = solution.Exist(matrix, "ABCESEEEFS");
 Console.WriteLine(res);
