@@ -1,4 +1,5 @@
 ﻿using GraphQL_Core.Contracts;
+using GraphQL_Core.Entities;
 using GraphQL_Core.Entities.Context;
 
 namespace GraphQL_Core.Repository
@@ -11,5 +12,7 @@ namespace GraphQL_Core.Repository
         {
             this.context = context;
         }
+
+        public IEnumerable<Owner> GetAll()=>context.Owners.ToList();
     }
 }
